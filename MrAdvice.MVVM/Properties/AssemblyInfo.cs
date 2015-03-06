@@ -5,6 +5,7 @@
 // // Released under MIT license http://opensource.org/licenses/mit-license.php
 #endregion
 
+using System;
 using System.Reflection;
 using System.Resources;
 using System.Windows.Markup;
@@ -20,6 +21,11 @@ using System.Windows.Markup;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: NeutralResourcesLanguage("en")]
+
+[assembly: AssemblyTitle("MrAdvice.MVVM")]
+
+[assembly: CLSCompliant(true)]
+
 
 [assembly: AssemblyVersion(Product.Version)]
 

@@ -16,9 +16,9 @@ namespace ArxOne.MrAdvice.MVVM.View
         private readonly object _viewModel;
         private MethodBase _commandMethod;
 
-#pragma warning disable CS0067
+#pragma warning disable 0067
         public event EventHandler CanExecuteChanged;
-#pragma warning restore CS0067
+#pragma warning restore 0067
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Command" /> class.
