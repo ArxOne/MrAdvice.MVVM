@@ -8,7 +8,7 @@
     <owners>$author$</owners>
     <licenseUrl>http://opensource.org/licenses/mit-license.php</licenseUrl>
     <projectUrl>https://github.com/ArxOne/MrAdvice.MVVM</projectUrl>
-    <iconUrl>https://raw.githubusercontent.com/ArxOne/MrAdvice/master/Icon/MrAdvice.png</iconUrl>
+    <iconUrl>https://raw.githubusercontent.com/ArxOne/MrAdvice.MVVM/master/Icon/MrAdvice.MVVM.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <summary>MVVM library</summary>
     <description>$description$</description>
@@ -16,7 +16,7 @@
     <copyright>Copyright 2015</copyright>
     <tags>mvvm wpf</tags>
     <dependencies>
-      <dependency id="MrAdvice.Fody" />
+      <dependency id="MrAdvice.Fody" version="0.3.15" />
       <dependency id="CommonServiceLocator" />
     </dependencies>
     <developmentDependency>true</developmentDependency>
