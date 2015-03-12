@@ -32,6 +32,6 @@ using System.Windows.Markup;
 // ReSharper disable once CheckNamespace
 internal static class Product
 {
-    public const string Version = "0.1.1";
+    public const string Version = "0.1.2";
 }
 

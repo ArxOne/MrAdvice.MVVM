@@ -8,6 +8,7 @@
 namespace ArxOne.MrAdvice.MVVM.View
 {
     using System;
+    using System.ComponentModel;
     using System.Linq;
     using System.Windows;
     using System.Windows.Data;
@@ -34,6 +35,10 @@ namespace ArxOne.MrAdvice.MVVM.View
             var provideValueTarget = (IProvideValueTarget)serviceProvider.GetService(typeof(IProvideValueTarget));
             var element = provideValueTarget.TargetObject as FrameworkElement;
             if (element == null)
+                return null;
+
+            // no need to go further in design mode
+            if (DesignerProperties.GetIsInDesignMode(element))
                 return null;
 
             var targetProperty = provideValueTarget.TargetProperty;
