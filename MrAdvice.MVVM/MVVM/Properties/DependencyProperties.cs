@@ -51,12 +51,12 @@ namespace ArxOne.MrAdvice.MVVM.Properties
                 // property type is very specific here, because it comes from the second argument of the generic
                 var propertyType = propertyInfo.PropertyType.GetGenericArguments()[1];
                 dependencyProperties[propertyName] = System.Windows.DependencyProperty.RegisterAttached(propertyName, propertyType, ownerType,
-                    new PropertyMetadata(defaultPropertyValue ?? ObjectTypeConverter.CreateDefault(propertyType), onPropertyChanged));
+                    new PropertyMetadata(defaultPropertyValue ?? propertyType.Default(), onPropertyChanged));
             }
             else
             {
                 dependencyProperties[propertyName] = System.Windows.DependencyProperty.Register(propertyName, propertyInfo.PropertyType, ownerType,
-                    new PropertyMetadata(defaultPropertyValue ?? ObjectTypeConverter.CreateDefault(propertyInfo.PropertyType), onPropertyChanged));
+                    new PropertyMetadata(defaultPropertyValue ?? propertyInfo.PropertyType.Default(), onPropertyChanged));
             }
         }
 

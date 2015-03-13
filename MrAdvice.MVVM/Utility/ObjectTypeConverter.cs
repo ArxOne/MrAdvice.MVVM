@@ -12,7 +12,7 @@ namespace ArxOne.MrAdvice.Utility
     /// <summary>
     /// Type converter, with more conversion than System.Convert
     /// </summary>
-    public static class ObjectTypeConverter
+    internal static class ObjectTypeConverter
     {
         /// <summary>
         /// Converts the specified object to target type.
@@ -24,19 +24,10 @@ namespace ArxOne.MrAdvice.Utility
         public static object Convert(object o, Type targetType)
         {
             if (o == null)
-                return CreateDefault(targetType);
+                return targetType.Default();
 
             if (targetType == typeof(Uri))
-            {
-                try
-                {
-                    return new Uri(Convert<string>(o));
-                }
-                catch (UriFormatException e)
-                {
-                    throw new InvalidCastException("Can not create URI", e);
-                }
-            }
+                return ConvertToUri(o);
 
             var sourceType = o.GetType();
             if (sourceType == typeof(Uri))
@@ -44,6 +35,23 @@ namespace ArxOne.MrAdvice.Utility
 
             var c = System.Convert.ChangeType(o, targetType);
             return c;
+        }
+
+        private static Uri ConvertToUri(object o)
+        {
+            try
+            {
+                return new Uri(Convert<string>(o));
+            }
+            catch (UriFormatException)
+            { }
+            try
+            {
+                return new Uri(Convert<string>(o), UriKind.Relative);
+            }
+            catch (UriFormatException)
+            { }
+            throw new InvalidCastException("Can not create URI");
         }
 
         /// <summary>
@@ -55,18 +63,6 @@ namespace ArxOne.MrAdvice.Utility
         public static T Convert<T>(object o)
         {
             return (T)Convert(o, typeof(T));
-        }
-
-        /// <summary>
-        /// Creates the default instance for the given type.
-        /// </summary>
-        /// <param name="targetType">Type of the target.</param>
-        /// <returns></returns>
-        public static object CreateDefault(Type targetType)
-        {
-            if (targetType.IsClass)
-                return null;
-            return Activator.CreateInstance(targetType);
         }
     }
 }
