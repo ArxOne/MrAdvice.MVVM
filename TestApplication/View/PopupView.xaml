@@ -6,12 +6,14 @@
         xmlns:testApplication="clr-namespace:TestApplication"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModel="clr-namespace:TestApplication.ViewModel"
+        xmlns:mrAdvice="urn:MrAdvice/View"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance viewModel:PopupViewModel}">
     <Grid Margin="8">
        <StackPanel Orientation="Vertical">
-           <TextBlock Text="This is a totally pointless window."/>
-           <TextBlock Text="You can close it right now."/>
+           <TextBlock Text="Click a button or close the window."/>
+           <Button Content="Say &quot;yes&quot;" Command="{mrAdvice:Command {Binding SayYes}}" HorizontalAlignment="Left"/>
+            <Button Content="Say &quot;maybe&quot;" Command="{mrAdvice:Command {Binding SayMaybe}}" HorizontalAlignment="Left"/>
        </StackPanel> 
     </Grid>
 </Window>

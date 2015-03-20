@@ -22,6 +22,10 @@
                 <Run Text="{Binding AutomaticCounter, Mode=OneWay}"/>
             </TextBlock>
             <Button Content="Open a popup" Command="{mrAdvice:Command {Binding OpenPopup}}" HorizontalAlignment="Left" />
+            <TextBlock>
+                <Run Text="The popup said "/>
+                <Run Text="{Binding PopupSaid, Mode=OneWay}"/>
+            </TextBlock>
         </StackPanel>
     </Grid>
 </Window>

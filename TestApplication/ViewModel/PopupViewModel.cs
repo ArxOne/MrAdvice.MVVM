@@ -7,7 +7,26 @@
 
 namespace TestApplication.ViewModel
 {
+    using System.Windows;
+    using ArxOne.MrAdvice.MVVM.Navigation;
+    using ArxOne.MrAdvice.Utility;
+
     public class PopupViewModel
     {
+         public INavigator Navigator { get { return Application.Current.GetNavigator(); } }
+
+       public string Said { get; set; }
+
+        public void SayYes()
+        {
+            Said = "Yes";
+            Navigator.Exit(true);
+        }
+
+        public void SayMaybe()
+        {
+            Said = "Maybe";
+            Navigator.Exit(true);
+        }
     }
 }
