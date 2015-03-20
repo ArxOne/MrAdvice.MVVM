@@ -4,23 +4,51 @@
 // https://github.com/ArxOne/MrAdvice.MVVM
 // Released under MIT license http://opensource.org/licenses/mit-license.php
 #endregion
-
-namespace TestApplication
+namespace TestApplication.ViewModel
 {
     using System.ComponentModel;
     using System.Reflection;
+    using System.Threading;
+    using System.Windows;
+    using ArxOne.MrAdvice.MVVM.Navigation;
     using ArxOne.MrAdvice.MVVM.Properties;
+    using ArxOne.MrAdvice.MVVM.Threading;
     using ArxOne.MrAdvice.MVVM.ViewModel;
+    using ArxOne.MrAdvice.Utility;
 
     /// <summary>
     /// View-model for MainView
     /// </summary>
-    public class MainViewModel : INotifyPropertyChangedViewModel
+    public class MainViewModel : INotifyPropertyChangedViewModel, ILoadViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        // DEMO: the NotifyPropertyChanged aspect
         [NotifyPropertyChanged]
         public int ButtonActionCount { get; set; }
+
+        [NotifyPropertyChanged]
+        public int AutomaticCounter { get; set; }
+
+
+        /// <summary>
+        /// This method is called by the navigator once the view-model is initialized.
+        /// </summary>
+        public void Load()
+        {
+            // This method is called when the navigator creates the view-model
+            UpdateAutomaticCounter();
+        }
+
+        [Async]
+        private void UpdateAutomaticCounter()
+        {
+            for (;;)
+            {
+                ++AutomaticCounter;
+                Thread.Sleep(1000);
+            }
+        }
 
         /// <summary>
         /// Called to raise the PropertyChanged event.
@@ -37,6 +65,12 @@ namespace TestApplication
         public void ButtonAction()
         {
             ++ButtonActionCount;
+        }
+
+        public void OpenPopup()
+        {
+            // DEMO: navigation opens a window
+            Application.Current.GetNavigator().Show<PopupViewModel>();
         }
     }
 }

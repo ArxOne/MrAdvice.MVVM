@@ -4,12 +4,12 @@
 // https://github.com/ArxOne/MrAdvice.MVVM
 // Released under MIT license http://opensource.org/licenses/mit-license.php
 #endregion
-
 namespace TestApplication
 {
     using System.Windows;
     using ArxOne.MrAdvice.MVVM.Navigation;
     using ArxOne.MrAdvice.Utility;
+    using ViewModel;
 
     /// <summary>
     /// Logique d'interaction pour App.xaml
@@ -23,6 +23,8 @@ namespace TestApplication
 
         private void OnStartup(object sender, StartupEventArgs e)
         {
+            // DEMO: the INavigator.
+            // You can also configure you IoC container with INavigator --> Navigator
             var navigator = this.GetNavigator();
             navigator.Show<MainViewModel>();
         }

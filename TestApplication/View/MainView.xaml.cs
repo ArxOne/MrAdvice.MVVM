@@ -4,7 +4,7 @@
 // https://github.com/ArxOne/MrAdvice.MVVM
 // Released under MIT license http://opensource.org/licenses/mit-license.php
 #endregion
-namespace TestApplication
+namespace TestApplication.View
 {
     public partial class MainView 
     {
