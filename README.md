@@ -1,4 +1,6 @@
-# MrAdvice.MVVM
+# MrAdvice MVVM
+
+Available as a [NuGet package](https://www.nuget.org/packages/MrAdvice.MVVM)
 
 This is a lightweight MVVM library, using Mr. Advice as aspect weaver.
 It brings the following features:
@@ -8,4 +10,3 @@ It brings the following features:
  * Automatic background or main thread methods
  * Direct `ICommands` binding to view-model methods
  * Extensions to enumerate logical/visual tree
- 
