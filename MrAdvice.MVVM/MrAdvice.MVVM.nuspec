@@ -14,9 +14,9 @@
     <description>$description$</description>
     <releaseNotes></releaseNotes>
     <copyright>Copyright 2015</copyright>
-    <tags>mvvm wpf</tags>
+    <tags>mvvm wpf dependencyproperty notifypropertychanged navigator threading</tags>
     <dependencies>
-      <dependency id="MrAdvice.Fody" version="0.3.15" />
+      <dependency id="MrAdvice.Fody" />
       <dependency id="CommonServiceLocator" />
     </dependencies>
     <developmentDependency>true</developmentDependency>
