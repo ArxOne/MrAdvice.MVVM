@@ -27,9 +27,6 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
     internal class Navigator : INavigator
     {
         [Attached]
-        public static Property<Window, bool> KeepHidden { get; set; }
-
-        [Attached]
         public static Property<Window, bool> WasShown { get; set; }
 
         private readonly IDictionary<Type, Type> _viewByViewModel = new Dictionary<Type, Type>();
@@ -192,7 +189,7 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
         {
             _windows.Push(window);
             // This is a very dirty hack. I'm not proud of it.
-            if (!KeepHidden[window])
+            if (!View.Navigator.KeepHidden[window])
             {
                 window.Show();
                 if (window.ShowActivated)
