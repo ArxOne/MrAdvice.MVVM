@@ -189,7 +189,7 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
         {
             _windows.Push(window);
             // This is a very dirty hack. I'm not proud of it.
-            if (!View.Navigator.KeepHidden[window])
+            if (!View.Navigator.GetKeepHidden(window))
             {
                 window.Show();
                 if (window.ShowActivated)
