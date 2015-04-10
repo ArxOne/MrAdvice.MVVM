@@ -19,7 +19,7 @@ platform: Any CPU
 
 build:
   parallel: true   
-  project: MrAdvice.sln
+#  project: MrAdvice.sln
   publish_nuget: true
   publish_nuget_symbols: true
   verbosity: minimal
