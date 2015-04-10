@@ -106,14 +106,7 @@
   </Target>
   <PropertyGroup>
     <PostBuildEvent>
-rem --- NuGet pack ------------------------------------------------------------------------------
-
-if not "$(ConfigurationName)"=="Release" goto :noRelease
-
-rem "$(SolutionDir)\.nuget\NuGet.exe" pack "$(ProjectPath)" -Verbosity detailed -NonInteractive -IncludeReferencedProjects -NonInteractive -Properties Configuration=$(ConfigurationName) 
-
-:noRelease
-</PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\Fody.1.28.1\build\Fody.targets" Condition="Exists('..\packages\Fody.1.28.1\build\Fody.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -19,7 +19,6 @@ platform: Any CPU
 
 build:
   parallel: true   
-#  project: MrAdvice.sln
   publish_nuget: true
   publish_nuget_symbols: true
   verbosity: minimal
@@ -29,7 +28,3 @@ deploy:
   api_key:
     secure: eADwcOPnB3RnMh0cgrB/qH0QvROz6EfcOEIMO5FaLGPSP9pc9P/ztEr6KraJi7RA
   skip_symbols: true
-
-#after_test:
-#  ps: Get-ChildItem .\*.nupkg | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
-
