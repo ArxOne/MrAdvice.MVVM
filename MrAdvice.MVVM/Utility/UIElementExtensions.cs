@@ -14,8 +14,16 @@ namespace ArxOne.MrAdvice.Utility
     using System.Windows.Input;
     using System.Windows.Media;
 
+    /// <summary>
+    /// Extensions to UI elements
+    /// </summary>
     public static class UIElementExtensions
     {
+        /// <summary>
+        /// Gets the object and parents from visual tree.
+        /// </summary>
+        /// <param name="dependencyObject">The dependency object.</param>
+        /// <returns></returns>
         public static IEnumerable<DependencyObject> GetVisualSelfAndParents(this DependencyObject dependencyObject)
         {
             while (dependencyObject != null)
@@ -25,6 +33,11 @@ namespace ArxOne.MrAdvice.Utility
             }
         }
 
+        /// <summary>
+        /// Gets the object and parents from logical tree.
+        /// </summary>
+        /// <param name="dependencyObject">The dependency object.</param>
+        /// <returns></returns>
         public static IEnumerable<DependencyObject> GetLogicalSelfAndParents(this DependencyObject dependencyObject)
         {
             while (dependencyObject != null)
@@ -34,6 +47,14 @@ namespace ArxOne.MrAdvice.Utility
             }
         }
 
+        /// <summary>
+        /// Sets the command to given <see cref="UIElement"/>.
+        /// </summary>
+        /// <param name="uiElement">The UI element to be inject.</param>
+        /// <param name="targetProperty">The target property (where the command is bound).</param>
+        /// <param name="command">The command.</param>
+        /// <param name="commandParameter">The command parameter.</param>
+        /// <returns></returns>
         public static bool SetCommand(this UIElement uiElement, object targetProperty, ICommand command, object commandParameter)
         {
             return SetCommandAndParameter(uiElement, targetProperty, () => command, () => commandParameter);

@@ -31,6 +31,14 @@ namespace ArxOne.MrAdvice.MVVM.Properties
     public class Property<TDependencyObject, TValue>
         where TDependencyObject : DependencyObject
     {
+        /// <summary>
+        /// Gets or sets the value with the specified dependency object.
+        /// </summary>
+        /// <value>
+        /// The value to get or set.
+        /// </value>
+        /// <param name="target">The target.</param>
+        /// <returns></returns>
         public TValue this[TDependencyObject target]
         {
             get { return ObjectTypeConverter.Convert<TValue>(target.GetValue(Attached.CurrentProperty)); }

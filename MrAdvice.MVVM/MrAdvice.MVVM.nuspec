@@ -20,5 +20,8 @@
       <dependency id="CommonServiceLocator" />
     </dependencies>
     <developmentDependency>true</developmentDependency>
+    <files>
+      <file src="$ProjectDir$bin\$ConfigurationName$\MrAdvice.MVVM.xml" target="lib\net40-Client"/>
+    </files>
   </metadata>
 </package>

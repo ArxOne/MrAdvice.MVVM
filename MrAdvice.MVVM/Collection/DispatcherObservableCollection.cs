@@ -12,8 +12,16 @@ namespace ArxOne.MrAdvice.Collection
     using System.ComponentModel;
     using MVVM.Threading;
 
+    /// <summary>
+    /// Variant of Observable collection, which invokes notifications in application main thread
+    /// </summary>
+    /// <typeparam name="TItem">The type of the item.</typeparam>
     public class DispatcherObservableCollection<TItem> : ObservableCollection<TItem>
     {
+        /// <summary>
+        /// Raises the <see cref="E:CollectionChanged" /> event.
+        /// </summary>
+        /// <param name="e">The <see cref="NotifyCollectionChangedEventArgs"/> instance containing the event data.</param>
         protected override void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
         {
             BaseOnCollectionChanged(e);
@@ -25,6 +33,10 @@ namespace ArxOne.MrAdvice.Collection
             base.OnCollectionChanged(e);
         }
 
+        /// <summary>
+        /// Raises the <see cref="E:PropertyChanged" /> event.
+        /// </summary>
+        /// <param name="e">The <see cref="PropertyChangedEventArgs"/> instance containing the event data.</param>
         protected override void OnPropertyChanged(PropertyChangedEventArgs e)
         {
             BaseOnPropertyChanged(e);

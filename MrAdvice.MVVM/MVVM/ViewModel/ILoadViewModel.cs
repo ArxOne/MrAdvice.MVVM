@@ -7,6 +7,9 @@
 
 namespace ArxOne.MrAdvice.MVVM.ViewModel
 {
+    /// <summary>
+    /// Loadable view-model
+    /// </summary>
     public interface ILoadViewModel
     {
         /// <summary>

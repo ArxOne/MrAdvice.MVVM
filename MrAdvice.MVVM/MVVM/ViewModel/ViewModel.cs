@@ -17,8 +17,16 @@ namespace ArxOne.MrAdvice.MVVM.ViewModel
     /// </summary>
     public class ViewModel : ILoadViewModel, INotifyPropertyChangedViewModel
     {
+        /// <summary>
+        /// Invoked when a property is changed.
+        /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /// <summary>
+        /// Called to raise the PropertyChanged event.
+        /// </summary>
+        /// <param name="propertyInfo">The property information whose value changed.</param>
+        /// <param name="sender">The sender advice (right, you probably won't need it).</param>
         [UISync]
         public virtual void OnPropertyChanged(PropertyInfo propertyInfo, NotifyPropertyChanged sender)
         {

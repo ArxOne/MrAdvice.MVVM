@@ -18,11 +18,23 @@ namespace ArxOne.MrAdvice.MVVM.Threading
     [AttributeUsage(AttributeTargets.Method)]
     public class Async : Attribute, IMethodAdvice, IMethodInfoAdvice
     {
+        /// <summary>
+        /// Gets or sets a value indicating whether kill existing async method.
+        /// This allows to run a method asynchronously only once at a time (and avoid overloads)
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [kill existing]; otherwise, <c>false</c>.
+        /// </value>
         public bool KillExisting { get; set; }
 
         [NonSerialized]
         private Thread _thread;
 
+        /// <summary>
+        /// Invoked once per method, when assembly is loaded
+        /// </summary>
+        /// <param name="context">The method info advice context</param>
+        /// <exception cref="InvalidOperationException">Impossible to run asynchronously a non-void method (you MoFo!)</exception>
         public void Advise(MethodInfoAdviceContext context)
         {
             var methodInfo = context.TargetMethod as MethodInfo;

@@ -56,6 +56,11 @@ namespace ArxOne.MrAdvice.MVVM.Properties
                 propertyInfo.SetValue(null, Activator.CreateInstance(propertyInfo.PropertyType), NoParameter);
         }
 
+        /// <summary>
+        /// Implements advice logic.
+        /// Usually, advice must invoke context.Proceed()
+        /// </summary>
+        /// <param name="context">The method advice context.</param>
         public void Advise(PropertyAdviceContext context)
         {
             CurrentProperty = context.TargetProperty.GetDependencyProperty();

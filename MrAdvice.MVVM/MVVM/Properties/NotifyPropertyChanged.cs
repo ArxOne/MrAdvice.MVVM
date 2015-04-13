@@ -21,6 +21,12 @@ namespace ArxOne.MrAdvice.MVVM.Properties
     [Priority(AspectPriority.Notification)]
     public class NotifyPropertyChanged : Attribute, IPropertyAdvice
     {
+        /// <summary>
+        /// Implements advice logic.
+        /// Usually, advice must invoke context.Proceed()
+        /// </summary>
+        /// <param name="context">The method advice context.</param>
+        /// <exception cref="InvalidOperationException">ViewModel must implement INotifyPropertyChangedViewModel</exception>
         public void Advise(PropertyAdviceContext context)
         {
             if (context.IsGetter)

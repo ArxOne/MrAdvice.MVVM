@@ -23,13 +23,30 @@ namespace ArxOne.MrAdvice.MVVM.View
     {
         private readonly object _name;
 
+        /// <summary>
+        /// Gets or sets the parameter.
+        /// </summary>
+        /// <value>
+        /// The parameter.
+        /// </value>
         public object Parameter { get; set; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CommandExtension"/> class.
+        /// </summary>
+        /// <param name="name">The name.</param>
         public CommandExtension(object name)
         {
             _name = name;
         }
 
+        /// <summary>
+        /// Provides the value.
+        /// </summary>
+        /// <param name="serviceProvider"></param>
+        /// <returns>
+        /// Requested service or null.
+        /// </returns>
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
             var provideValueTarget = (IProvideValueTarget)serviceProvider.GetService(typeof(IProvideValueTarget));

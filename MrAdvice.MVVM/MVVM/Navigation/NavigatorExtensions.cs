@@ -10,14 +10,30 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
     using System;
     using System.Windows;
 
+    /// <summary>
+    /// Extensions to INavigator
+    /// </summary>
     public static class NavigatorExtensions
     {
+        /// <summary>
+        /// Associates given view and view-model.
+        /// </summary>
+        /// <typeparam name="TViewModel">The type of the view model.</typeparam>
+        /// <typeparam name="TView">The type of the view.</typeparam>
+        /// <param name="navigator">The navigator.</param>
         public static void Configure<TViewModel, TView>(this INavigator navigator)
             where TView : FrameworkElement
         {
             navigator.Associate(typeof(TViewModel), typeof(TView));
         }
 
+        /// <summary>
+        /// Shows the specified view-model.
+        /// </summary>
+        /// <typeparam name="TViewModel">The type of the view model.</typeparam>
+        /// <param name="navigator">The navigator.</param>
+        /// <param name="initializer">The initializer.</param>
+        /// <returns></returns>
         public static TViewModel Show<TViewModel>(this INavigator navigator, Action<TViewModel> initializer = null)
         {
             var objectInitializer = initializer != null ? delegate(object o) { initializer((TViewModel)o); } : (Action<object>)null;

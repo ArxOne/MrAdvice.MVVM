@@ -10,16 +10,29 @@ namespace ArxOne.MrAdvice.MVVM.View
     using System.Windows;
     using DependencyProperty = System.Windows.DependencyProperty;
 
+    /// <summary>
+    /// Static navigator extensions
+    /// </summary>
     public static class Navigator
     {
-        public static readonly DependencyProperty KeepHiddenProperty = DependencyProperty.RegisterAttached(
+        private static readonly DependencyProperty KeepHiddenProperty = DependencyProperty.RegisterAttached(
             "KeepHidden", typeof (bool), typeof (Navigator), new PropertyMetadata(default(bool)));
 
+        /// <summary>
+        /// Sets the keep hidden property.
+        /// </summary>
+        /// <param name="element">The element.</param>
+        /// <param name="value">if set to <c>true</c> [value].</param>
         public static void SetKeepHidden(DependencyObject element, bool value)
         {
             element.SetValue(KeepHiddenProperty, value);
         }
 
+        /// <summary>
+        /// Gets the keep hidden property.
+        /// </summary>
+        /// <param name="element">The element.</param>
+        /// <returns></returns>
         public static bool GetKeepHidden(DependencyObject element)
         {
             return (bool) element.GetValue(KeepHiddenProperty);

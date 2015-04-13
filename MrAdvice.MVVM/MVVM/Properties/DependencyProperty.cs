@@ -37,12 +37,21 @@ namespace ArxOne.MrAdvice.MVVM.Properties
         /// </value>
         public DependencyPropertyNotification Notification { get; set; }
 
+        /// <summary>
+        /// Invoked once per property, when assembly is loaded
+        /// </summary>
+        /// <param name="context">The property info advice context</param>
         public void Advise(PropertyInfoAdviceContext context)
         {
             var propertyInfo = context.TargetProperty;
             propertyInfo.CreateDependencyProperty(DefaultValue, Notification);
         }
 
+        /// <summary>
+        /// Implements advice logic.
+        /// Usually, advice must invoke context.Proceed()
+        /// </summary>
+        /// <param name="context">The method advice context.</param>
         public void Advise(PropertyAdviceContext context)
         {
             if (context.IsGetter)
