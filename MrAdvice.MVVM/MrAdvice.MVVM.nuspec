@@ -19,7 +19,7 @@
       <dependency id="MrAdvice.Fody" />
       <dependency id="CommonServiceLocator" />
     </dependencies>
-    <developmentDependency>true</developmentDependency>
+    <developmentDependency>false</developmentDependency>
   </metadata>
   <files>
     <file src="$ProjectDir$bin\$ConfigurationName$\MrAdvice.MVVM.xml" target="lib\net40-Client"/>
