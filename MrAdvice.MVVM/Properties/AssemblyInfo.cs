@@ -22,7 +22,7 @@ using System.Windows.Markup;
 [assembly: AssemblyCulture("")]
 [assembly: NeutralResourcesLanguage("en")]
 
-[assembly: AssemblyTitle("MrAdvice.MVVM")]
+[assembly: AssemblyTitle("Mr. Advice MVVM")]
 
 [assembly: CLSCompliant(true)]
 
@@ -32,5 +32,5 @@ using System.Windows.Markup;
 // ReSharper disable once CheckNamespace
 internal static class Product
 {
-    public const string Version = "0.9.5";
+    public const string Version = "0.9.6";
 }
