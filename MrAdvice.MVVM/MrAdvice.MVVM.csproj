@@ -83,6 +83,7 @@
     <Compile Include="MVVM\View\CommandExtension.cs" />
     <Compile Include="MVVM\View\Navigator.cs" />
     <Compile Include="Utility\ApplicationExtensions.cs" />
+    <Compile Include="Utility\DispatcherExtensions.cs" />
     <Compile Include="Utility\ObjectExtensions.cs" />
     <Compile Include="Utility\ObjectTypeConverter.cs" />
     <Compile Include="Properties\Annotations.cs" />

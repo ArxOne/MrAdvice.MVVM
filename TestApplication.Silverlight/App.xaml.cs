@@ -1,40 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
+﻿#region Mr. Advice MVVM
+// Mr. Advice MVVM
+// A simple MVVM package using Mr. Advice aspect weaver
+// https://github.com/ArxOne/MrAdvice.MVVM
+// Released under MIT license http://opensource.org/licenses/mit-license.php
+#endregion
 
 namespace TestApplication.Silverlight
 {
+    using System;
+    using System.Windows;
+    using ArxOne.MrAdvice.MVVM.Navigation;
+    using ArxOne.MrAdvice.Utility;
+    using View;
+    using ViewModel;
+
     public partial class App : Application
     {
 
         public App()
         {
-            this.Startup += this.Application_Startup;
-            this.Exit += this.Application_Exit;
-            this.UnhandledException += this.Application_UnhandledException;
+            Startup += OnStartup;
+            UnhandledException += OnApplicationUnhandledException;
 
             InitializeComponent();
         }
 
-        private void Application_Startup(object sender, StartupEventArgs e)
+        private void OnStartup(object sender, StartupEventArgs e)
         {
-            this.RootVisual = new MainPage();
+            var navigator = this.GetNavigator();
+            navigator.Show<MainViewModel>();
         }
 
-        private void Application_Exit(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Application_UnhandledException(object sender, ApplicationUnhandledExceptionEventArgs e)
+        private void OnApplicationUnhandledException(object sender, ApplicationUnhandledExceptionEventArgs e)
         {
             // If the app is running outside of the debugger then report the exception using
             // the browser's exception mechanism. On IE this will display it a yellow alert 

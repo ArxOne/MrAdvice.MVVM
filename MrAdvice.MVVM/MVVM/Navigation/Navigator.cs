@@ -12,6 +12,7 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
     using System.Linq;
     using System.Reflection;
     using System.Windows;
+    using System.Windows.Controls;
     using System.Windows.Threading;
     using Annotations;
     using Properties;
@@ -67,7 +68,13 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
             var viewType = GetViewType(viewModelType);
             var view = (FrameworkElement)GetOrCreateInstance(viewType);
             view.DataContext = viewModel;
-#if !SILVERLIGHT
+#if SILVERLIGHT
+            var page = view as Page;
+            if (page != null)
+            {
+                Application.Current.RootVisual = page;
+            }
+#else
             var window = view as Window;
             if (window != null)
             {

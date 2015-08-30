@@ -21,7 +21,13 @@ namespace ArxOne.MrAdvice.MVVM.View
     /// </summary>
     public class CommandExtension : MarkupExtension
     {
-        private readonly object _name;
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
+        /// <value>
+        /// The name.
+        /// </value>
+        public object Name { get; set; }
 
         /// <summary>
         /// Gets or sets the parameter.
@@ -34,10 +40,16 @@ namespace ArxOne.MrAdvice.MVVM.View
         /// <summary>
         /// Initializes a new instance of the <see cref="CommandExtension"/> class.
         /// </summary>
+        public CommandExtension()
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CommandExtension"/> class.
+        /// </summary>
         /// <param name="name">The name.</param>
         public CommandExtension(object name)
         {
-            _name = name;
+            Name = name;
         }
 
         /// <summary>
@@ -65,7 +77,7 @@ namespace ArxOne.MrAdvice.MVVM.View
                 if (viewModel == null)
                     return;
 
-                var name = _name;
+                var name = Name;
                 var bindingParameter = name as Binding;
                 // because we bind to a method, this allows us to have a syntax control in XAML editor
                 if (bindingParameter != null)

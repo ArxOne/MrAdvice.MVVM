@@ -12,6 +12,7 @@ namespace ArxOne.MrAdvice.MVVM.Threading
     using System.Windows;
     using System.Windows.Threading;
     using Advice;
+    using Utility;
 
     /// <summary>
     /// Allows to invoke a method asynchronously (here, in a background thread)
@@ -49,15 +50,7 @@ namespace ArxOne.MrAdvice.MVVM.Threading
         /// <param name="action">The action.</param>
         public static void Invoke(Action action)
         {
-#if SILVERLIGHT
-            var dispatcher = Application.Current.RootVisual.Dispatcher;
-#else
-            var dispatcher = Application.Current.Dispatcher;
-#endif
-            if (dispatcher.CheckAccess())
-                action();
-            else
-                dispatcher.BeginInvoke(action);
+            Application.Current.GetDispatcher().Invoke(action);
         }
     }
 }
