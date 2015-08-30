@@ -37,8 +37,8 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MrAdvice, Version=0.9.9.2, Culture=neutral, PublicKeyToken=c0e7e6eab6f293d8, processorArchitecture=MSIL">
-      <HintPath>..\packages\MrAdvice.Fody.0.9.9.2\lib\portable-net40+sl5+wp8\MrAdvice.dll</HintPath>
+    <Reference Include="MrAdvice, Version=0.10.3.0, Culture=neutral, PublicKeyToken=c0e7e6eab6f293d8, processorArchitecture=MSIL">
+      <HintPath>..\packages\MrAdvice.Fody.0.10.3\lib\portable-net40+sl5+wp8\MrAdvice.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
