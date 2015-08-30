@@ -23,5 +23,7 @@
   </metadata>
   <files>
     <file src="$ProjectDir$bin\$ConfigurationName$\MrAdvice.MVVM.xml" target="lib\net40-Client"/>
+    <file src="$ProjectDir$binsl\$ConfigurationName$\MrAdvice.MVVM.dll" target="lib\sl5"/>
+    <file src="$ProjectDir$binsl\$ConfigurationName$\MrAdvice.MVVM.xml" target="lib\sl5"/>
   </files>
 </package>

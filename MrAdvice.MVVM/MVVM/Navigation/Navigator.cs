@@ -14,7 +14,6 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
     using System.Windows;
     using System.Windows.Threading;
     using Annotations;
-    using Microsoft.Practices.ServiceLocation;
     using Properties;
     using Utility;
     using ViewModel;
@@ -31,7 +30,9 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
 
         private readonly IDictionary<Type, Type> _viewByViewModel = new Dictionary<Type, Type>();
 
+#if !SILVERLIGHT
         private readonly Stack<Window> _windows = new Stack<Window>();
+#endif
 
         public event EventHandler Exiting;
 
@@ -66,6 +67,7 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
             var viewType = GetViewType(viewModelType);
             var view = (FrameworkElement)GetOrCreateInstance(viewType);
             view.DataContext = viewModel;
+#if !SILVERLIGHT
             var window = view as Window;
             if (window != null)
             {
@@ -73,6 +75,7 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
                     return ShowMain(window, viewModel);
                 return ShowDialog(window, viewModel);
             }
+#endif
             return null;
         }
 
@@ -84,9 +87,7 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
         /// <returns></returns>
         private static object GetOrCreateInstance(Type type)
         {
-            if (!ServiceLocator.IsLocationProviderSet)
-                return Activator.CreateInstance(type);
-            return ServiceLocator.Current.GetOrCreateInstance(type);
+            return ServiceLocatorAccessor.Activate(type) ?? Activator.CreateInstance(type);
         }
 
         /// <summary>
@@ -163,6 +164,8 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
             return viewType;
         }
 
+#if !SILVERLIGHT
+
         /// <summary>
         /// Shows the view/view-model as dialog.
         /// </summary>
@@ -229,7 +232,7 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
                     onExiting(this, EventArgs.Empty);
                 // this is not something I'm very proud of
                 // TODO: have a nice exit
-                Application.Current.DispatcherUnhandledException += delegate(object sender, DispatcherUnhandledExceptionEventArgs e) { e.Handled = true; };
+                Application.Current.DispatcherUnhandledException += delegate (object sender, DispatcherUnhandledExceptionEventArgs e) { e.Handled = true; };
                 Application.Current.Shutdown();
             }
             else
@@ -238,5 +241,6 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
                 window.Close();
             }
         }
+#endif
     }
 }

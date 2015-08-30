@@ -27,7 +27,9 @@ namespace ArxOne.MrAdvice.MVVM.Threading
         /// </value>
         public bool KillExisting { get; set; }
 
+#if !SILVERLIGHT
         [NonSerialized]
+#endif
         private Thread _thread;
 
         /// <summary>

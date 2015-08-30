@@ -33,7 +33,7 @@ namespace ArxOne.MrAdvice.Utility
             if (sourceType == typeof(Uri))
                 return Convert(o.ToString(), targetType);
 
-            var c = System.Convert.ChangeType(o, targetType);
+            var c = System.Convert.ChangeType(o, targetType, null);
             return c;
         }
 
