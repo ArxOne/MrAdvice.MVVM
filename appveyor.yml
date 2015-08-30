@@ -3,7 +3,7 @@
 branches:
   only:
     - master
-	- silverlight
+    - silverlight
 
 version: '{branch}-{build}'
 
