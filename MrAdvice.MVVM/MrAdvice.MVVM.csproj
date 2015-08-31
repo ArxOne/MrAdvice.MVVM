@@ -117,8 +117,8 @@
   </Target>
   <PropertyGroup>
     <PostBuildEvent>if "$(Configuration)" == "Release" (
-"$(SolutionDir)\.nuget\nuget" pack "$(ProjectPath)" -verbosity:detailed -properties ConfigurationName=$(ConfigurationName)
-"$(SolutionDir)\.nuget\nuget" pack "$(ProjectPath)" -verbosity:detailed -properties ConfigurationName=$(ConfigurationName) -symbols
+"$(SolutionDir)\.nuget\nuget" pack "$(ProjectPath)" -verbosity detailed -properties ConfigurationName=$(ConfigurationName)
+"$(SolutionDir)\.nuget\nuget" pack "$(ProjectPath)" -verbosity detailed -properties ConfigurationName=$(ConfigurationName) -symbols
 )</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\Fody.1.29.3\build\portable-net+sl+win+wpa+wp\Fody.targets" Condition="Exists('..\packages\Fody.1.29.3\build\portable-net+sl+win+wpa+wp\Fody.targets')" />
