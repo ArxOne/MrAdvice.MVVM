@@ -22,7 +22,6 @@
     <developmentDependency>false</developmentDependency>
   </metadata>
   <files>
-    <file src="binsl\Release\MrAdvice.MVVM.dll" target="lib\sl5"/>
     <file src="binsl\$ConfigurationName$\MrAdvice.MVVM.xml" target="lib\sl5"/>
   </files>
 </package>
