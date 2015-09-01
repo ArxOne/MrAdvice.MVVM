@@ -1,0 +1,24 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ output extension=".cs" #>
+<#@ include file="ProductInfoValues.tt" #>
+#region Mr. Advice MVVM
+// Mr. Advice MVVM
+// A simple MVVM package using Mr. Advice aspect weaver
+// https://github.com/ArxOne/MrAdvice.MVVM
+// Released under MIT license http://opensource.org/licenses/mit-license.php
+#endregion
+
+using System.Reflection;
+using System.Resources;
+using ArxOne.MrAdvice.Properties;
+
+[assembly: AssemblyDescription("<#=Description#>")]
+[assembly: AssemblyCompany("<#=Company#>")]
+[assembly: AssemblyProduct("<#=Title#>")]
+[assembly: AssemblyCopyright("MIT license <#=LicenseUrl#>")]
+[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCulture("")]
+[assembly: NeutralResourcesLanguage("en")]
+
+[assembly: AssemblyVersion("<#=Version#>")]
+

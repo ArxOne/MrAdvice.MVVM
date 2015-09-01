@@ -85,6 +85,11 @@
     <Compile Include="MVVM\View\Command.cs" />
     <Compile Include="MVVM\View\CommandExtension.cs" />
     <Compile Include="MVVM\View\Navigator.cs" />
+    <Compile Include="Properties\ProductInfo.cs">
+      <DependentUpon>ProductInfo.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Include="Utility\ApplicationExtensions.cs" />
     <Compile Include="Utility\DispatcherExtensions.cs" />
     <Compile Include="Utility\ObjectExtensions.cs" />
@@ -100,11 +105,11 @@
     <None Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="MrAdvice.MVVM.nuspec">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\MrAdvice.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
@@ -117,8 +122,8 @@
   </Target>
   <PropertyGroup>
     <PostBuildEvent>if "$(Configuration)" == "Release" (
-"$(SolutionDir)\.nuget\nuget" pack "$(ProjectPath)" -verbosity detailed -properties ConfigurationName=$(ConfigurationName)
-"$(SolutionDir)\.nuget\nuget" pack "$(ProjectPath)" -verbosity detailed -properties ConfigurationName=$(ConfigurationName) -symbols
+"$(SolutionDir)\.nuget\nuget" pack "$(ProjectDir)MrAdvice.MVVM.nuspec" -properties ConfigurationName=$(ConfigurationName)
+"$(SolutionDir)\.nuget\nuget" pack "$(ProjectDir)MrAdvice.MVVM.nuspec" -properties ConfigurationName=$(ConfigurationName) -symbols
 )</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\Fody.1.29.3\build\portable-net+sl+win+wpa+wp\Fody.targets" Condition="Exists('..\packages\Fody.1.29.3\build\portable-net+sl+win+wpa+wp\Fody.targets')" />
