@@ -73,8 +73,7 @@
     <Reference Include="System.Windows.Browser" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="**\*.cs" />
-    <None Include="objsl\**\*.cs" />
+    <Compile Include="**\*.cs" Exclude="objsl\**\*.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\MrAdvice.snk" />
