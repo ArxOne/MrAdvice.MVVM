@@ -85,10 +85,10 @@
     <Compile Include="**\*.cs" Exclude="objsl\**\*.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="MrAdvice.MVVM.tt">
+    <None Include="MrAdvice.MVVM.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>MrAdvice.MVVM.nuspec</LastGenOutput>
-    </Content>
+    </None>
     <None Include="MrAdvice.MVVM.nuspec">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
