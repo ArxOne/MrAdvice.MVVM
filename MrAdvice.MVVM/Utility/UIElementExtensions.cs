@@ -33,6 +33,7 @@ namespace ArxOne.MrAdvice.Utility
             }
         }
 
+#if !SILVERLIGHT
         /// <summary>
         /// Gets the object and parents from logical tree.
         /// </summary>
@@ -46,6 +47,7 @@ namespace ArxOne.MrAdvice.Utility
                 dependencyObject = LogicalTreeHelper.GetParent(dependencyObject);
             }
         }
+#endif
 
         /// <summary>
         /// Sets the command to given <see cref="UIElement"/>.
@@ -63,9 +65,11 @@ namespace ArxOne.MrAdvice.Utility
         private static bool SetCommandAndParameter(this UIElement uiElement, object targetProperty, Func<ICommand> commandSetter, Func<object> commandParameterSetter)
         {
             string propertyName = null;
+#if !SILVERLIGHT
             var dependencyProperty = targetProperty as DependencyProperty;
             if (dependencyProperty != null)
                 propertyName = dependencyProperty.Name;
+#endif
             var propertyInfo = targetProperty as PropertyInfo;
             if (propertyInfo != null)
                 propertyName = propertyInfo.Name;

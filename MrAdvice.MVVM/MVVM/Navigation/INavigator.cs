@@ -36,10 +36,12 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
         /// <returns>The view model if dialog is OK, null if cancelled</returns>
         object Show(Type viewModelType, Action<object> initializer = null);
 
+#if !SILVERLIGHT
         /// <summary>
         /// Exits the view.
         /// </summary>
         /// <param name="validate">for a dialog, true if the result has to be used</param>
         void Exit(bool validate);
+#endif
     }
 }
