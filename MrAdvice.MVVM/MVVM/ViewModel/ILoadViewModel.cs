@@ -7,6 +7,8 @@
 
 namespace ArxOne.MrAdvice.MVVM.ViewModel
 {
+    using System.Threading.Tasks;
+
     /// <summary>
     /// Loadable view-model
     /// </summary>
@@ -15,6 +17,6 @@ namespace ArxOne.MrAdvice.MVVM.ViewModel
         /// <summary>
         /// This method is called by the navigator once the view-model is initialized.
         /// </summary>
-        void Load();
+        Task Load();
     }
 }

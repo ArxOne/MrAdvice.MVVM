@@ -4,11 +4,13 @@
 // https://github.com/ArxOne/MrAdvice.MVVM
 // Released under MIT license http://opensource.org/licenses/mit-license.php
 #endregion
+
 namespace TestApplication.ViewModel
 {
     using System.ComponentModel;
     using System.Reflection;
     using System.Threading;
+    using System.Threading.Tasks;
     using System.Windows;
     using ArxOne.MrAdvice.MVVM.Navigation;
     using ArxOne.MrAdvice.MVVM.Properties;
@@ -34,12 +36,11 @@ namespace TestApplication.ViewModel
 
         [NotifyPropertyChanged]
         public string PopupSaid { get; set; }
-
-
+        
         /// <summary>
         /// This method is called by the navigator once the view-model is initialized.
         /// </summary>
-        public void Load()
+        public async Task Load()
         {
             PopupSaid = "nothing yet, you have to use it";
             // This method is called when the navigator creates the view-model
@@ -49,7 +50,7 @@ namespace TestApplication.ViewModel
         [Async]
         private void UpdateAutomaticCounter()
         {
-            for (; ; )
+            for (;;)
             {
                 ++AutomaticCounter;
                 Thread.Sleep(1000);
@@ -73,15 +74,20 @@ namespace TestApplication.ViewModel
             ++ButtonActionCount;
         }
 
-        public void OpenPopup()
+        public async void OpenPopup()
         {
             // DEMO: navigation opens a window
-            var popupViewModel = Navigator.Show<PopupViewModel>();
+            var popupViewModel = await Navigator.Show<PopupViewModel>();
             // when the popup exits with validatoin it returns itself
             if (popupViewModel != null)
                 PopupSaid = "\"" + popupViewModel.Said + "\"";
             else // otherwise, it is null
                 PopupSaid = "nothing, user escaped cowardly.";
+        }
+
+        public async void Exit()
+        {
+            Navigator.Exit(false);
         }
     }
 }

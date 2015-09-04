@@ -8,6 +8,7 @@
 namespace ArxOne.MrAdvice.MVVM.Navigation
 {
     using System;
+    using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Controls;
     using ViewModel = System.Object;
@@ -21,14 +22,16 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
         /// <param name="view">The view.</param>
         /// <param name="viewModel">The view model.</param>
         /// <returns></returns>
-        private object ShowDialog(UIElement view, ViewModel viewModel)
+        private async Task<object> ShowDialog(UIElement view, ViewModel viewModel)
         {
             var childWindow = (ChildWindow)view;
             // the Exit() method is called only if the window is still present
-            childWindow.Closed += delegate { if (_views.Contains(childWindow)) Exit(false); };
+            var tcs = new TaskCompletionSource<object>();
+            childWindow.Closed += delegate { tcs.SetResult(null); };
             _views.Push(childWindow);
             childWindow.Show();
-            return null;
+            await tcs.Task;
+            return childWindow.DialogResult ?? false ? viewModel : null;
         }
 
         /// <summary>
@@ -37,7 +40,7 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
         /// <param name="view">The view.</param>
         /// <param name="viewModel">The view model.</param>
         /// <returns></returns>
-        private object ShowMain(UIElement view, ViewModel viewModel)
+        private async Task<object> ShowMain(UIElement view, ViewModel viewModel)
         {
             _views.Push(view);
             if (!View.Navigator.GetKeepHidden(view))
@@ -51,18 +54,11 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
         /// <param name="validate">for a dialog, true if the result has to be used</param>
         public void Exit(bool validate)
         {
-            var view = _views.Pop();
-            if (_views.Count == 0)
+            if (_views.Count > 1)
             {
-                var onExiting = Exiting;
-                if (onExiting != null)
-                    onExiting(this, EventArgs.Empty);
-            }
-            else
-            {
-                var childWindow = (ChildWindow) view;
+                var view = _views.Pop();
+                var childWindow = (ChildWindow)view;
                 childWindow.DialogResult = validate;
-                childWindow.Close();
             }
         }
     }

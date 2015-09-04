@@ -7,15 +7,26 @@
 
 namespace TestApplication.Silverlight.ViewModel
 {
-    using ArxOne.MrAdvice.MVVM.ViewModel;
+    using System.Windows;
+    using ArxOne.MrAdvice.MVVM.Navigation;
+    using ArxOne.MrAdvice.Utility;
 
     public class PopupViewModel
     {
+        public INavigator Navigator { get { return Application.Current.GetNavigator(); } }
+
+        public string Answer;
+
         public void FortyTwo()
         {
+            Answer = "42";
+            Navigator.Exit(true);
         }
+
         public void OutThere()
         {
+            Answer = "The truth is out there";
+            Navigator.Exit(true);
         }
     }
 }

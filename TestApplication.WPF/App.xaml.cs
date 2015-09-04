@@ -21,12 +21,12 @@ namespace TestApplication
             Startup += OnStartup;
         }
 
-        private void OnStartup(object sender, StartupEventArgs e)
+        private async void OnStartup(object sender, StartupEventArgs e)
         {
             // DEMO: the INavigator.
             // You can also configure you IoC container with INavigator --> Navigator
             var navigator = this.GetNavigator();
-            navigator.Show<MainViewModel>();
+            await navigator.Show<MainViewModel>();
         }
     }
 }

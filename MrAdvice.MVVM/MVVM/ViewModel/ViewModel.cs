@@ -9,6 +9,7 @@ namespace ArxOne.MrAdvice.MVVM.ViewModel
 {
     using System.ComponentModel;
     using System.Reflection;
+    using System.Threading.Tasks;
     using Properties;
     using Threading;
 
@@ -47,7 +48,7 @@ namespace ArxOne.MrAdvice.MVVM.ViewModel
         /// <summary>
         /// Loads data related to this view-model.
         /// </summary>
-        public virtual void Load()
+        public virtual async Task Load()
         { }
     }
 }

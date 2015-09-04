@@ -11,6 +11,7 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
+    using System.Threading.Tasks;
     using System.Windows;
     using Annotations;
     using Properties;
@@ -31,8 +32,6 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
 
         private readonly Stack<UIElement> _views = new Stack<UIElement>();
 
-        public event EventHandler Exiting;
-
         /// <summary>
         /// Configures the specified view model type to be used with view type.
         /// </summary>
@@ -51,22 +50,22 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
         /// <returns>
         /// The view model if dialog is OK, null if cancelled
         /// </returns>
-        public object Show(Type viewModelType, Action<object> initializer = null)
+        public async Task<object> Show(Type viewModelType, Func<object, Task> initializer = null)
         {
             var viewModel = (ViewModel)GetOrCreateInstance(viewModelType);
             // initializer comes first
             if (initializer != null)
-                initializer(viewModel);
+                await initializer(viewModel);
             // load comes second
             var loadViewModel = viewModel as ILoadViewModel;
             if (loadViewModel != null)
-                loadViewModel.Load();
+                await loadViewModel.Load();
             var viewType = GetViewType(viewModelType);
             var view = (FrameworkElement)GetOrCreateInstance(viewType);
             view.DataContext = viewModel;
             if (_views.Count == 0)
-                return ShowMain(view, viewModel);
-            return ShowDialog(view, viewModel);
+                return await ShowMain(view, viewModel);
+            return await ShowDialog(view, viewModel);
         }
 
         /// <summary>

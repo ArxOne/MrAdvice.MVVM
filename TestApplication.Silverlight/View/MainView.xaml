@@ -23,6 +23,10 @@
                 <Run Text="{Binding AutomaticCounter, Mode=OneWay}"/>
             </TextBlock>
             <Button Content="An important question..." Command="{mrAdvice:Command Name=BigQuestion}" HorizontalAlignment="Left" />
+            <TextBlock>
+                <Run Text="The answer is: "/>
+                <Run Text="{Binding ImportantAnswer, Mode=OneWay}"/>
+            </TextBlock>
         </StackPanel>
     </Grid>
 </navigation:Page>

@@ -10,6 +10,7 @@ namespace TestApplication.Silverlight.ViewModel
     using System.ComponentModel;
     using System.Reflection;
     using System.Threading;
+    using System.Threading.Tasks;
     using System.Windows;
     using ArxOne.MrAdvice.MVVM.Navigation;
     using ArxOne.MrAdvice.MVVM.Properties;
@@ -30,6 +31,9 @@ namespace TestApplication.Silverlight.ViewModel
         [NotifyPropertyChanged]
         public int AutomaticCounter { get; set; }
 
+        [NotifyPropertyChanged]
+        public string ImportantAnswer { get; set; } = "no answer until here";
+
         [UISync]
         public void OnPropertyChanged(PropertyInfo propertyInfo, NotifyPropertyChanged sender)
         {
@@ -41,7 +45,7 @@ namespace TestApplication.Silverlight.ViewModel
         /// <summary>
         /// This method is called by the navigator once the view-model is initialized.
         /// </summary>
-        public void Load()
+        public async Task Load()
         {
             // This method is called when the navigator creates the view-model
             UpdateAutomaticCounter();
@@ -62,9 +66,10 @@ namespace TestApplication.Silverlight.ViewModel
             ++ButtonActionCount;
         }
 
-        public void BigQuestion()
+        public async void BigQuestion()
         {
-            Navigator.Show<PopupViewModel>();
+            var viewModel = await Navigator.Show<PopupViewModel>();
+            ImportantAnswer = viewModel?.Answer ?? "you escaped the answer :'(";
         }
     }
 }

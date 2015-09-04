@@ -50,6 +50,8 @@
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <NoWarn>1998</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -60,8 +62,13 @@
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <NoWarn>1998</NoWarn>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AsyncBridge.Portable, Version=0.0.0.0, Culture=neutral, PublicKeyToken=b3b1c0202c0d6a87, processorArchitecture=MSIL">
+      <HintPath>..\packages\AsyncBridge.Portable.0.2.0\lib\AsyncBridge.Portable.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MrAdvice, Version=0.10.3.0, Culture=neutral, PublicKeyToken=c0e7e6eab6f293d8, processorArchitecture=MSIL">
       <HintPath>..\packages\MrAdvice.Fody.0.10.3\lib\portable-net40+sl5+wp8\MrAdvice.dll</HintPath>
       <Private>True</Private>

@@ -8,16 +8,19 @@
 namespace ArxOne.MrAdvice.MVVM.Navigation
 {
     using System;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// Navigation interface, to be injected in view-models
     /// </summary>
     public interface INavigator
     {
+#if !SILVERLIGHT
         /// <summary>
         /// Occurs when exiting.
         /// </summary>
         event EventHandler Exiting;
+#endif
 
         /// <summary>
         /// Configures the specified view model type to be used with view type.
@@ -34,14 +37,12 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
         /// <param name="viewModelType">Type of the view model.</param>
         /// <param name="initializer"></param>
         /// <returns>The view model if dialog is OK, null if cancelled</returns>
-        object Show(Type viewModelType, Action<object> initializer = null);
+        Task<object> Show(Type viewModelType, Func<object, Task> initializer = null);
 
-#if !SILVERLIGHT
         /// <summary>
         /// Exits the view.
         /// </summary>
         /// <param name="validate">for a dialog, true if the result has to be used</param>
         void Exit(bool validate);
-#endif
     }
 }

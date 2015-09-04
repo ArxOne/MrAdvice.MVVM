@@ -8,6 +8,7 @@
 namespace ArxOne.MrAdvice.MVVM.Navigation
 {
     using System;
+    using System.Threading.Tasks;
     using System.Windows;
 
     /// <summary>
@@ -34,10 +35,13 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
         /// <param name="navigator">The navigator.</param>
         /// <param name="initializer">The initializer.</param>
         /// <returns></returns>
-        public static TViewModel Show<TViewModel>(this INavigator navigator, Action<TViewModel> initializer = null)
+        public static async Task<TViewModel> Show<TViewModel>(this INavigator navigator, Func<TViewModel, Task> initializer = null)
         {
-            var objectInitializer = initializer != null ? delegate(object o) { initializer((TViewModel)o); } : (Action<object>)null;
-            return (TViewModel)navigator.Show(typeof(TViewModel), objectInitializer);
+            var objectInitializer = initializer != null
+                ? async delegate(object o) { await initializer((TViewModel) o); }
+                : (Func<object, Task>) null;
+            var result = await navigator.Show(typeof(TViewModel), objectInitializer);
+            return (TViewModel)result;
         }
     }
 }

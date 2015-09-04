@@ -26,6 +26,7 @@
                 <Run Text="The popup said "/>
                 <Run Text="{Binding PopupSaid, Mode=OneWay}"/>
             </TextBlock>
+            <Button Content="Exit" Command="{mrAdvice:Command {Binding Exit}}" HorizontalAlignment="Left" />
         </StackPanel>
     </Grid>
 </Window>

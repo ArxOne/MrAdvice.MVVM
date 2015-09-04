@@ -25,10 +25,10 @@ namespace TestApplication.Silverlight
             InitializeComponent();
         }
 
-        private void OnStartup(object sender, StartupEventArgs e)
+        private async void OnStartup(object sender, StartupEventArgs e)
         {
             var navigator = this.GetNavigator();
-            navigator.Show<MainViewModel>();
+            await navigator.Show<MainViewModel>();
         }
 
         private void OnApplicationUnhandledException(object sender, ApplicationUnhandledExceptionEventArgs e)

@@ -8,11 +8,13 @@
 namespace ArxOne.MrAdvice.MVVM.Navigation
 {
     using System;
+    using System.Threading.Tasks;
     using System.Windows;
     using ViewModel = System.Object;
 
     partial class Navigator
     {
+        public event EventHandler Exiting;
 
         /// <summary>
         /// Shows the view/view-model as dialog.
@@ -20,12 +22,12 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
         /// <param name="view">The view.</param>
         /// <param name="viewModel">The view model.</param>
         /// <returns></returns>
-        private object ShowDialog(UIElement view, ViewModel viewModel)
+        private async Task<ViewModel> ShowDialog(UIElement view, ViewModel viewModel)
         {
-            var window = view as Window;
+            var window = (Window)view;
             window.Owner = (Window)_views.Peek();
             // the Exit() method is called only if the window is still present
-            window.Closed += delegate { if (_views.Contains(window)) Exit(false); };
+            window.Closed += delegate { _views.Pop(); };
             _views.Push(window);
             var ok = window.ShowDialog();
             return ok ?? (false) ? viewModel : null;
@@ -37,10 +39,9 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
         /// <param name="view">The view.</param>
         /// <param name="viewModel">The view model.</param>
         /// <returns></returns>
-        private object ShowMain(UIElement view, ViewModel viewModel)
+        private async Task<ViewModel> ShowMain(UIElement view, ViewModel viewModel)
         {
             var window = view as Window;
-            _views.Push(view);
             // This is a very dirty hack. I'm not proud of it.
             if (!View.Navigator.GetKeepHidden(view))
             {
@@ -49,8 +50,10 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
                     window.Show();
                     if (window.ShowActivated)
                         window.Activate();
+                    window.Closed += delegate { Shutdown(); };
                 }
             }
+            _views.Push(view);
             view.IsVisibleChanged += OnVisibleChanged;
             return viewModel;
         }
@@ -77,22 +80,33 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
         /// <param name="validate">for a dialog, true if the result has to be used</param>
         public void Exit(bool validate)
         {
-            var view = (Window)_views.Pop();
-            if (_views.Count == 0)
+            var view = _views.Peek();
+            // down to first window?
+            if (_views.Count == 1)
             {
-                var onExiting = Exiting;
-                if (onExiting != null)
-                    onExiting(this, EventArgs.Empty);
-                // this is not something I'm very proud of
-                // TODO: have a nice exit
-                Application.Current.DispatcherUnhandledException += (sender, e) => e.Handled = true;
-                Application.Current.Shutdown();
+                // for windows, we invoke their close method, wich then invokes the Shutdown()
+                var window = view as Window;
+                if (window != null)
+                    window.Close();
+                else // other it is a direct shutdown
+                    Shutdown();
             }
-            else
-            {
-                view.DialogResult = validate;
-                view.Close();
-            }
+            else // otherwise simple exit from dialog
+                ((Window)view).DialogResult = validate;
+        }
+
+        /// <summary>
+        /// Shuts down the application.
+        /// </summary>
+        private void Shutdown()
+        {
+            var onExiting = Exiting;
+            if (onExiting != null)
+                onExiting(this, EventArgs.Empty);
+            // this is not something I'm very proud of
+            // TODO: have a nice exit
+            Application.Current.DispatcherUnhandledException += (sender, e) => e.Handled = true;
+            Application.Current.Shutdown();
         }
     }
 }
