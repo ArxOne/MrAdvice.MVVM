@@ -10,12 +10,17 @@ namespace TestApplication.Silverlight.ViewModel
     using System.ComponentModel;
     using System.Reflection;
     using System.Threading;
+    using System.Windows;
+    using ArxOne.MrAdvice.MVVM.Navigation;
     using ArxOne.MrAdvice.MVVM.Properties;
     using ArxOne.MrAdvice.MVVM.Threading;
     using ArxOne.MrAdvice.MVVM.ViewModel;
+    using ArxOne.MrAdvice.Utility;
 
     public class MainViewModel : INotifyPropertyChangedViewModel, ILoadViewModel
     {
+        public INavigator Navigator { get { return Application.Current.GetNavigator(); } }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         // DEMO: the NotifyPropertyChanged aspect
@@ -55,6 +60,11 @@ namespace TestApplication.Silverlight.ViewModel
         public void ButtonAction()
         {
             ++ButtonActionCount;
+        }
+
+        public void BigQuestion()
+        {
+            Navigator.Show<PopupViewModel>();
         }
     }
 }

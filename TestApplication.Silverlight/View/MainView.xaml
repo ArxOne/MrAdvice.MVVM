@@ -22,6 +22,7 @@
                 <Run Text="This is an automatic counter, updated in background "/>
                 <Run Text="{Binding AutomaticCounter, Mode=OneWay}"/>
             </TextBlock>
+            <Button Content="An important question..." Command="{mrAdvice:Command Name=BigQuestion}" HorizontalAlignment="Left" />
         </StackPanel>
     </Grid>
 </navigation:Page>

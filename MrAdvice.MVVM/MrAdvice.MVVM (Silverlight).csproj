@@ -69,6 +69,7 @@
     <Reference Include="System.Core">
       <HintPath>$(TargetFrameworkDirectory)System.Core.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Controls, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Windows.Controls.Navigation, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Net" />
@@ -82,7 +83,7 @@
     <None Include="Properties\ProductInfoValues.tt" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="**\*.cs" Exclude="objsl\**\*.cs" />
+    <Compile Include="**\*.cs" Exclude="objsl\**\*.cs;**\*.Wpf.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="MrAdvice.MVVM.tt">

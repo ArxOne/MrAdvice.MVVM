@@ -13,9 +13,9 @@ namespace TestApplication.ViewModel
 
     public class PopupViewModel
     {
-         public INavigator Navigator { get { return Application.Current.GetNavigator(); } }
+        public INavigator Navigator { get { return Application.Current.GetNavigator(); } }
 
-       public string Said { get; set; }
+        public string Said { get; set; }
 
         public void SayYes()
         {

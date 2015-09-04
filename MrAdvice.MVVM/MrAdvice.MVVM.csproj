@@ -69,6 +69,7 @@
     <Compile Include="Collection\DispatcherObservableCollection.cs" />
     <Compile Include="MVVM\Navigation\INavigator.cs" />
     <Compile Include="MVVM\Navigation\Navigator.cs" />
+    <Compile Include="MVVM\Navigation\Navigator.Wpf.cs" />
     <Compile Include="MVVM\Navigation\NavigatorExtensions.cs" />
     <Compile Include="MVVM\Properties\Attached.cs" />
     <Compile Include="MVVM\Properties\DependencyProperties.cs" />

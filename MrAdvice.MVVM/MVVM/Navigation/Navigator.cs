@@ -12,8 +12,6 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
     using System.Linq;
     using System.Reflection;
     using System.Windows;
-    using System.Windows.Controls;
-    using System.Windows.Threading;
     using Annotations;
     using Properties;
     using Utility;
@@ -24,16 +22,14 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
     /// The navigator implements navigation logic
     /// </summary>
     [UsedImplicitly(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature)]
-    internal class Navigator : INavigator
+    internal partial class Navigator : INavigator
     {
         [Attached]
         public static Property<Window, bool> WasShown { get; set; }
 
         private readonly IDictionary<Type, Type> _viewByViewModel = new Dictionary<Type, Type>();
 
-#if !SILVERLIGHT
-        private readonly Stack<Window> _windows = new Stack<Window>();
-#endif
+        private readonly Stack<UIElement> _views = new Stack<UIElement>();
 
         public event EventHandler Exiting;
 
@@ -68,22 +64,9 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
             var viewType = GetViewType(viewModelType);
             var view = (FrameworkElement)GetOrCreateInstance(viewType);
             view.DataContext = viewModel;
-#if SILVERLIGHT
-            var page = view as Page;
-            if (page != null)
-            {
-                Application.Current.RootVisual = page;
-            }
-#else
-            var window = view as Window;
-            if (window != null)
-            {
-                if (_windows.Count == 0)
-                    return ShowMain(window, viewModel);
-                return ShowDialog(window, viewModel);
-            }
-#endif
-            return null;
+            if (_views.Count == 0)
+                return ShowMain(view, viewModel);
+            return ShowDialog(view, viewModel);
         }
 
         /// <summary>
@@ -170,84 +153,5 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
             _viewByViewModel.TryGetValue(viewModelType, out viewType);
             return viewType;
         }
-
-#if !SILVERLIGHT
-
-        /// <summary>
-        /// Shows the view/view-model as dialog.
-        /// </summary>
-        /// <param name="window">The window.</param>
-        /// <param name="viewModel">The view model.</param>
-        /// <returns></returns>
-        private object ShowDialog(Window window, ViewModel viewModel)
-        {
-            window.Owner = _windows.Peek();
-            // the Exit() method is called only if the window is still present
-            window.Closed += delegate { if (_windows.Contains(window)) Exit(false); };
-            _windows.Push(window);
-            var ok = window.ShowDialog();
-            return ok ?? (false) ? viewModel : null;
-        }
-
-        /// <summary>
-        /// Shows the view/view-model as main window (first window).
-        /// </summary>
-        /// <param name="window">The window.</param>
-        /// <param name="viewModel">The view model.</param>
-        /// <returns></returns>
-        private object ShowMain(Window window, ViewModel viewModel)
-        {
-            _windows.Push(window);
-            // This is a very dirty hack. I'm not proud of it.
-            if (!View.Navigator.GetKeepHidden(window))
-            {
-                window.Show();
-                if (window.ShowActivated)
-                    window.Activate();
-            }
-            window.IsVisibleChanged += OnVisibleChanged;
-            return viewModel;
-        }
-
-        /// <summary>
-        /// Called when the visible property has changed.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
-        private static void OnVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            var window = (Window)sender;
-            if (!WasShown[window] && window.IsVisible)
-            {
-                WasShown[window] = true;
-                window.Show();
-                window.Activate();
-            }
-        }
-
-        /// <summary>
-        /// Exits the view.
-        /// </summary>
-        /// <param name="validate">for a dialog, true if the result has to be used</param>
-        public void Exit(bool validate)
-        {
-            var window = _windows.Pop();
-            if (_windows.Count == 0)
-            {
-                var onExiting = Exiting;
-                if (onExiting != null)
-                    onExiting(this, EventArgs.Empty);
-                // this is not something I'm very proud of
-                // TODO: have a nice exit
-                Application.Current.DispatcherUnhandledException += delegate (object sender, DispatcherUnhandledExceptionEventArgs e) { e.Handled = true; };
-                Application.Current.Shutdown();
-            }
-            else
-            {
-                window.DialogResult = validate;
-                window.Close();
-            }
-        }
-#endif
     }
 }
