@@ -202,6 +202,17 @@
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
         }
       },
+      "MrAdvice.Fody/0.11.1": {
+        "dependencies": {
+          "Fody": "(, )"
+        },
+        "compile": {
+          "lib/portable-net40+sl5+wp8+uap10.0/MrAdvice.dll": {}
+        },
+        "runtime": {
+          "lib/portable-net40+sl5+wp8+uap10.0/MrAdvice.dll": {}
+        }
+      },
       "System.AppContext/4.0.0": {
         "dependencies": {
           "System.Runtime": "[4.0.20, )",
@@ -1779,6 +1790,17 @@
         },
         "runtime": {
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
+        }
+      },
+      "MrAdvice.Fody/0.11.1": {
+        "dependencies": {
+          "Fody": "(, )"
+        },
+        "compile": {
+          "lib/portable-net40+sl5+wp8+uap10.0/MrAdvice.dll": {}
+        },
+        "runtime": {
+          "lib/portable-net40+sl5+wp8+uap10.0/MrAdvice.dll": {}
         }
       },
       "System.AppContext/4.0.0": {
@@ -3391,6 +3413,17 @@
         },
         "runtime": {
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
+        }
+      },
+      "MrAdvice.Fody/0.11.1": {
+        "dependencies": {
+          "Fody": "(, )"
+        },
+        "compile": {
+          "lib/portable-net40+sl5+wp8+uap10.0/MrAdvice.dll": {}
+        },
+        "runtime": {
+          "lib/portable-net40+sl5+wp8+uap10.0/MrAdvice.dll": {}
         }
       },
       "System.AppContext/4.0.0": {
@@ -5010,6 +5043,17 @@
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
         }
       },
+      "MrAdvice.Fody/0.11.1": {
+        "dependencies": {
+          "Fody": "(, )"
+        },
+        "compile": {
+          "lib/portable-net40+sl5+wp8+uap10.0/MrAdvice.dll": {}
+        },
+        "runtime": {
+          "lib/portable-net40+sl5+wp8+uap10.0/MrAdvice.dll": {}
+        }
+      },
       "System.AppContext/4.0.0": {
         "dependencies": {
           "System.Runtime": "[4.0.20, )",
@@ -6620,6 +6664,17 @@
         },
         "runtime": {
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
+        }
+      },
+      "MrAdvice.Fody/0.11.1": {
+        "dependencies": {
+          "Fody": "(, )"
+        },
+        "compile": {
+          "lib/portable-net40+sl5+wp8+uap10.0/MrAdvice.dll": {}
+        },
+        "runtime": {
+          "lib/portable-net40+sl5+wp8+uap10.0/MrAdvice.dll": {}
         }
       },
       "System.AppContext/4.0.0": {
@@ -8239,6 +8294,17 @@
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
         }
       },
+      "MrAdvice.Fody/0.11.1": {
+        "dependencies": {
+          "Fody": "(, )"
+        },
+        "compile": {
+          "lib/portable-net40+sl5+wp8+uap10.0/MrAdvice.dll": {}
+        },
+        "runtime": {
+          "lib/portable-net40+sl5+wp8+uap10.0/MrAdvice.dll": {}
+        }
+      },
       "System.AppContext/4.0.0": {
         "dependencies": {
           "System.Runtime": "[4.0.20, )",
@@ -9849,6 +9915,17 @@
         },
         "runtime": {
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
+        }
+      },
+      "MrAdvice.Fody/0.11.1": {
+        "dependencies": {
+          "Fody": "(, )"
+        },
+        "compile": {
+          "lib/portable-net40+sl5+wp8+uap10.0/MrAdvice.dll": {}
+        },
+        "runtime": {
+          "lib/portable-net40+sl5+wp8+uap10.0/MrAdvice.dll": {}
         }
       },
       "System.AppContext/4.0.0": {
@@ -11895,6 +11972,21 @@
         "ref/xamarinios10/_._",
         "ref/xamarinmac20/_._",
         "package/services/metadata/core-properties/1d4eb9d0228b48b88d2df3822fba2d86.psmdcp",
+        "[Content_Types].xml"
+      ]
+    },
+    "MrAdvice.Fody/0.11.1": {
+      "sha512": "ECfLvsTTpoIfsWNd8Mkd1c7MBcK5d/luUaew3gt/WybVRe/9NpCFuARtQPHYZOMCt5E8LbU41bHmz4N0KiOs8A==",
+      "type": "Package",
+      "files": [
+        "_rels/.rels",
+        "MrAdvice.Fody.nuspec",
+        "tools/install.ps1",
+        "tools/uninstall.ps1",
+        "lib/portable-net40+sl5+wp8+uap10.0/MrAdvice.dll",
+        "lib/portable-net40+sl5+wp8+uap10.0/MrAdvice.xml",
+        "MrAdvice.Weaver.Fody.dll",
+        "package/services/metadata/core-properties/b5dd2067374246cc83b77741c946d07a.psmdcp",
         "[Content_Types].xml"
       ]
     },
@@ -14597,7 +14689,8 @@
   "projectFileDependencyGroups": {
     "": [
       "Fody >= 1.29.3",
-      "Microsoft.NETCore.UniversalWindowsPlatform >= 5.0.0"
+      "Microsoft.NETCore.UniversalWindowsPlatform >= 5.0.0",
+      "MrAdvice.Fody >= 0.11.1"
     ],
     "UAP,Version=v10.0": []
   }
