@@ -9,6 +9,9 @@ namespace ArxOne.MrAdvice.Utility
 {
     using System.Windows;
     using System.Windows.Threading;
+#if WINDOWS_UWP
+    using Windows.UI.Xaml;
+#endif
     using MVVM.Navigation;
 
     /// <summary>
