@@ -113,7 +113,7 @@
     <Content Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MrAdvice.MVVM\MrAdvice.MVVM %28Silverlight%29.csproj">
+    <ProjectReference Include="..\MrAdvice.MVVM.Silverlight\MrAdvice.MVVM %28Silverlight%29.csproj">
       <Project>{8387A320-D149-4BB3-8455-DD0D56DCEA74}</Project>
       <Name>MrAdvice.MVVM %28Silverlight%29</Name>
     </ProjectReference>

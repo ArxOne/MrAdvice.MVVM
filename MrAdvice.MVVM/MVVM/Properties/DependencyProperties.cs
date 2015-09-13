@@ -10,25 +10,32 @@ namespace ArxOne.MrAdvice.MVVM.Properties
     using System;
     using System.Collections.Generic;
     using System.Reflection;
-    using System.Windows;
     using Utility;
+#if WINDOWS_UWP
+    using Windows.UI.Xaml;
+    using SystemDependencyProperty = Windows.UI.Xaml.DependencyProperty;
+#else
+    using System.Windows;
+    using SystemDependencyProperty = System.Windows.DependencyProperty;
+#endif
 
     /// <summary>
     /// This class holds all auto DependencyProperties, grouped by control type
     /// </summary>
     public static class DependencyProperties
     {
-        private static readonly IDictionary<Type, IDictionary<string, System.Windows.DependencyProperty>> RegisteredTypes = new Dictionary<Type, IDictionary<string, System.Windows.DependencyProperty>>();
+        private static readonly IDictionary<Type, IDictionary<string, SystemDependencyProperty>> RegisteredTypes 
+            = new Dictionary<Type, IDictionary<string, SystemDependencyProperty>>();
 
         /// <summary>
         /// Gets the dependency property matching the given PropertyInfo.
         /// </summary>
         /// <param name="propertyInfo">The property information.</param>
         /// <returns></returns>
-        public static System.Windows.DependencyProperty GetDependencyProperty(this PropertyInfo propertyInfo)
+        public static SystemDependencyProperty GetDependencyProperty(this PropertyInfo propertyInfo)
         {
             var dependencyProperties = GetDependencyProperties(propertyInfo);
-            System.Windows.DependencyProperty property;
+            SystemDependencyProperty property;
             dependencyProperties.TryGetValue(propertyInfo.Name, out property);
             return property;
         }
@@ -50,12 +57,12 @@ namespace ArxOne.MrAdvice.MVVM.Properties
             {
                 // property type is very specific here, because it comes from the second argument of the generic
                 var propertyType = propertyInfo.PropertyType.GetGenericArguments()[1];
-                dependencyProperties[propertyName] = System.Windows.DependencyProperty.RegisterAttached(propertyName, propertyType, ownerType,
+                dependencyProperties[propertyName] = SystemDependencyProperty.RegisterAttached(propertyName, propertyType, ownerType,
                     new PropertyMetadata(defaultPropertyValue ?? propertyType.Default(), onPropertyChanged));
             }
             else
             {
-                dependencyProperties[propertyName] = System.Windows.DependencyProperty.Register(propertyName, propertyInfo.PropertyType, ownerType,
+                dependencyProperties[propertyName] = SystemDependencyProperty.Register(propertyName, propertyInfo.PropertyType, ownerType,
                     new PropertyMetadata(defaultPropertyValue ?? propertyInfo.PropertyType.Default(), onPropertyChanged));
             }
         }
@@ -101,12 +108,12 @@ namespace ArxOne.MrAdvice.MVVM.Properties
         /// </summary>
         /// <param name="propertyInfo">The property.</param>
         /// <returns></returns>
-        private static IDictionary<string, System.Windows.DependencyProperty> GetDependencyProperties(PropertyInfo propertyInfo)
+        private static IDictionary<string, SystemDependencyProperty> GetDependencyProperties(PropertyInfo propertyInfo)
         {
-            IDictionary<string, System.Windows.DependencyProperty> dependencyProperties;
+            IDictionary<string, SystemDependencyProperty> dependencyProperties;
             var ownerType = propertyInfo.DeclaringType;
             if (!RegisteredTypes.TryGetValue(ownerType, out dependencyProperties))
-                RegisteredTypes[ownerType] = dependencyProperties = new Dictionary<string, System.Windows.DependencyProperty>();
+                RegisteredTypes[ownerType] = dependencyProperties = new Dictionary<string, SystemDependencyProperty>();
             return dependencyProperties;
         }
     }

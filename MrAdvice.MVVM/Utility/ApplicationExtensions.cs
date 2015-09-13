@@ -8,7 +8,11 @@
 namespace ArxOne.MrAdvice.Utility
 {
     using System.Windows;
+#if WINDOWS_UWP
+    using Windows.UI.Xaml;
+#else
     using System.Windows.Threading;
+#endif
     using MVVM.Navigation;
 
     /// <summary>
@@ -16,7 +20,7 @@ namespace ArxOne.MrAdvice.Utility
     /// </summary>
     public static class ApplicationExtensions
     {
-#if SILVERLIGHT
+#if SILVERLIGHT || WINDOWS_UWP
         private static INavigator _navigator;
 #endif
         /// <summary>
@@ -26,7 +30,7 @@ namespace ArxOne.MrAdvice.Utility
         /// <returns></returns>
         public static INavigator GetNavigator(this Application application)
         {
-#if SILVERLIGHT
+#if SILVERLIGHT || WINDOWS_UWP
             if (_navigator == null)
                 _navigator = new Navigator();
             return _navigator;
@@ -39,6 +43,7 @@ namespace ArxOne.MrAdvice.Utility
 #endif
         }
 
+#if !WINDOWS_UWP
         /// <summary>
         /// Gets the dispatcher.
         /// </summary>
@@ -53,5 +58,6 @@ namespace ArxOne.MrAdvice.Utility
 #endif
             return dispatcher;
         }
+#endif
     }
 }

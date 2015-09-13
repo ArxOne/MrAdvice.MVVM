@@ -5,6 +5,8 @@
 // Released under MIT license http://opensource.org/licenses/mit-license.php
 #endregion
 
+using System.ComponentModel;
+
 namespace TestApplication.UWP
 {
     using System;

@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8387A320-D149-4BB3-8455-DD0D56DCEA74}</ProjectGuid>
+    <ProjectTypeGuids>{A1591282-1198-4647-A2B1-27E5FF5F6F3B};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ArxOne.MrAdvice</RootNamespace>
+    <AssemblyName>MrAdvice.MVVM</AssemblyName>
+    <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
+    <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
+    <SilverlightApplication>false</SilverlightApplication>
+    <ValidateXaml>true</ValidateXaml>
+    <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <!-- This property group is only here to support building this project using the 
+       MSBuild 3.5 toolset. In order to work correctly with this older toolset, it needs 
+       to set the TargetFrameworkVersion to v3.5 -->
+  <PropertyGroup Condition="'$(MSBuildToolsVersion)' == '3.5'">
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\MrAdvice.MVVM.XML</DocumentationFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <NoWarn>1998</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\MrAdvice.MVVM.XML</DocumentationFile>
+    <NoWarn>1998</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\MrAdvice.MVVM\Properties\MrAdvice.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AsyncBridge.Portable, Version=0.0.0.0, Culture=neutral, PublicKeyToken=b3b1c0202c0d6a87, processorArchitecture=MSIL">
+      <HintPath>..\packages\AsyncBridge.Portable.0.2.0\lib\AsyncBridge.Portable.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MrAdvice, Version=0.11.1.0, Culture=neutral, PublicKeyToken=c0e7e6eab6f293d8, processorArchitecture=MSIL">
+      <HintPath>..\packages\MrAdvice.Fody.0.11.1\lib\portable-net40+sl5+wp8+uap10.0\MrAdvice.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="mscorlib" />
+    <Reference Include="System.Windows" />
+    <Reference Include="system" />
+    <Reference Include="System.Core">
+      <HintPath>$(TargetFrameworkDirectory)System.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Controls, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Controls.Navigation, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Windows.Browser" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="FodyWeavers.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\MrAdvice.MVVM\Collection\DispatcherObservableCollection.cs">
+      <Link>Collection\DispatcherObservableCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\MrAdvice.MVVM\MVVM\Navigation\INavigator.cs">
+      <Link>MVVM\Navigation\INavigator.cs</Link>
+    </Compile>
+    <Compile Include="..\MrAdvice.MVVM\MVVM\Navigation\Navigator.cs">
+      <Link>MVVM\Navigation\Navigator.cs</Link>
+    </Compile>
+    <Compile Include="..\MrAdvice.MVVM\MVVM\Navigation\NavigatorExtensions.cs">
+      <Link>MVVM\Navigation\NavigatorExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\MrAdvice.MVVM\MVVM\Properties\AspectPriority.cs">
+      <Link>MVVM\Properties\AspectPriority.cs</Link>
+    </Compile>
+    <Compile Include="..\MrAdvice.MVVM\MVVM\Properties\Attached.cs">
+      <Link>MVVM\Properties\Attached.cs</Link>
+    </Compile>
+    <Compile Include="..\MrAdvice.MVVM\MVVM\Properties\DependencyProperties.cs">
+      <Link>MVVM\Properties\DependencyProperties.cs</Link>
+    </Compile>
+    <Compile Include="..\MrAdvice.MVVM\MVVM\Properties\DependencyProperty.cs">
+      <Link>MVVM\Properties\DependencyProperty.cs</Link>
+    </Compile>
+    <Compile Include="..\MrAdvice.MVVM\MVVM\Properties\DependencyPropertyNotification.cs">
+      <Link>MVVM\Properties\DependencyPropertyNotification.cs</Link>
+    </Compile>
+    <Compile Include="..\MrAdvice.MVVM\MVVM\Properties\NotifyPropertyChanged.cs">
+      <Link>MVVM\Properties\NotifyPropertyChanged.cs</Link>
+    </Compile>
+    <Compile Include="..\MrAdvice.MVVM\MVVM\Properties\Property.cs">
+      <Link>MVVM\Properties\Property.cs</Link>
+    </Compile>
+    <Compile Include="..\MrAdvice.MVVM\MVVM\Threading\Async.cs">
+      <Link>MVVM\Threading\Async.cs</Link>
+    </Compile>
+    <Compile Include="..\MrAdvice.MVVM\MVVM\Threading\UISync.cs">
+      <Link>MVVM\Threading\UISync.cs</Link>
+    </Compile>
+    <Compile Include="..\MrAdvice.MVVM\MVVM\ViewModel\ILoadViewModel.cs">
+      <Link>MVVM\ViewModel\ILoadViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\MrAdvice.MVVM\MVVM\ViewModel\INotifyPropertyChangedViewModel.cs">
+      <Link>MVVM\ViewModel\INotifyPropertyChangedViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\MrAdvice.MVVM\MVVM\ViewModel\ViewModel.cs">
+      <Link>MVVM\ViewModel\ViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\MrAdvice.MVVM\MVVM\View\Command.cs">
+      <Link>MVVM\View\Command.cs</Link>
+    </Compile>
+    <Compile Include="..\MrAdvice.MVVM\MVVM\View\CommandExtension.cs">
+      <Link>MVVM\View\CommandExtension.cs</Link>
+    </Compile>
+    <Compile Include="..\MrAdvice.MVVM\MVVM\View\Navigator.cs">
+      <Link>MVVM\View\Navigator.cs</Link>
+    </Compile>
+    <Compile Include="..\MrAdvice.MVVM\Properties\Annotations.cs">
+      <Link>Properties\Annotations.cs</Link>
+    </Compile>
+    <Compile Include="..\MrAdvice.MVVM\Properties\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\MrAdvice.MVVM\Properties\ProductInfo.cs">
+      <Link>Properties\ProductInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\MrAdvice.MVVM\Utility\ApplicationExtensions.cs">
+      <Link>Utility\ApplicationExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\MrAdvice.MVVM\Utility\DispatcherExtensions.cs">
+      <Link>Utility\DispatcherExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\MrAdvice.MVVM\Utility\ObjectExtensions.cs">
+      <Link>Utility\ObjectExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\MrAdvice.MVVM\Utility\ObjectTypeConverter.cs">
+      <Link>Utility\ObjectTypeConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\MrAdvice.MVVM\Utility\PropertyInfoExtensions.cs">
+      <Link>Utility\PropertyInfoExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\MrAdvice.MVVM\Utility\ServiceLocatorAccessor.cs">
+      <Link>Utility\ServiceLocatorAccessor.cs</Link>
+    </Compile>
+    <Compile Include="..\MrAdvice.MVVM\Utility\TypeExtensions.cs">
+      <Link>Utility\TypeExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\MrAdvice.MVVM\Utility\UIElementExtensions.cs">
+      <Link>Utility\UIElementExtensions.cs</Link>
+    </Compile>
+    <Compile Include="MVVM\Navigation\Navigator.Silverlight.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\MrAdvice.MVVM\Properties\MrAdvice.snk">
+      <Link>Properties\MrAdvice.snk</Link>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{A1591282-1198-4647-A2B1-27E5FF5F6F3B}">
+        <SilverlightProjectProperties />
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Import Project="..\packages\Fody.1.29.3\build\portable-net+sl+win+wpa+wp\Fody.targets" Condition="Exists('..\packages\Fody.1.29.3\build\portable-net+sl+win+wpa+wp\Fody.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Fody.1.29.3\build\portable-net+sl+win+wpa+wp\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.1.29.3\build\portable-net+sl+win+wpa+wp\Fody.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

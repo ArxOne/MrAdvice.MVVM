@@ -10,6 +10,11 @@ namespace ArxOne.MrAdvice.MVVM.Properties
     using System;
     using Advice;
     using Annotation;
+#if WINDOWS_UWP
+    using SystemDependencyProperty = Windows.UI.Xaml.DependencyProperty;
+#else
+    using SystemDependencyProperty = System.Windows.DependencyProperty;
+#endif
 
     /// <summary>
     /// Aspect for attached properties
@@ -40,7 +45,7 @@ namespace ArxOne.MrAdvice.MVVM.Properties
         /// The syntax for using all of this is elegant, much more elegant than the implementation
         /// </summary>
         [ThreadStatic]
-        internal static System.Windows.DependencyProperty CurrentProperty;
+        internal static SystemDependencyProperty CurrentProperty;
 
         private static readonly object[] NoParameter = new object[0];
 

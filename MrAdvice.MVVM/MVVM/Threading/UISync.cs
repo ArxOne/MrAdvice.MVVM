@@ -9,8 +9,12 @@ namespace ArxOne.MrAdvice.MVVM.Threading
 {
     using System;
     using System.Reflection;
+#if WINDOWS_UWP
+    using Windows.UI.Xaml;
+    using Windows.UI.Core;
+#else
     using System.Windows;
-    using System.Windows.Threading;
+#endif
     using Advice;
     using Utility;
 
@@ -50,7 +54,14 @@ namespace ArxOne.MrAdvice.MVVM.Threading
         /// <param name="action">The action.</param>
         public static void Invoke(Action action)
         {
+#if WINDOWS_UWP
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, delegate
+            {
+                action();
+            });
+#else
             Application.Current.GetDispatcher().Invoke(action);
+#endif
         }
     }
 }
