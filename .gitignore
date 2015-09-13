@@ -181,5 +181,10 @@ UpgradeLog*.htm
 
 # Microsoft Fakes
 FakesAssemblies/
+
+# Visual Studio
+.vs/
+
+# Mr Advice MVVM specific
 MrAdvice.MVVM/Properties/ProductInfo.cs
 MrAdvice.MVVM/MrAdvice.MVVM.nuspec
