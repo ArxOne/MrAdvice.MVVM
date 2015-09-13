@@ -134,10 +134,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>if "$(Configuration)" == "Release" (
-"$(SolutionDir)\.nuget\nuget" pack "$(ProjectDir)MrAdvice.MVVM.nuspec" -properties ConfigurationName=$(ConfigurationName)
-"$(SolutionDir)\.nuget\nuget" pack "$(ProjectDir)MrAdvice.MVVM.nuspec" -properties ConfigurationName=$(ConfigurationName) -symbols
-)</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\Fody.1.29.3\build\portable-net+sl+win+wpa+wp\Fody.targets" Condition="Exists('..\packages\Fody.1.29.3\build\portable-net+sl+win+wpa+wp\Fody.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
