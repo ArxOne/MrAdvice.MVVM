@@ -3,7 +3,7 @@
 branches:
   only:
     - master
-    - silverlight
+    - uwp2
 
 version: '{branch}-{build}'
 
