@@ -7,10 +7,13 @@
 
 using System;
 using System.Reflection;
+
+#if !WINDOWS_UWP
 using System.Windows.Markup;
 
 [assembly: XmlnsDefinition("urn:MrAdvice/View", "ArxOne.MrAdvice.MVVM.View")]
 [assembly: XmlnsPrefix("urn:MrAdvice/View", "mrAdvice")]
+#endif 
 
 [assembly: AssemblyTitle("Mr. Advice MVVM")]
 

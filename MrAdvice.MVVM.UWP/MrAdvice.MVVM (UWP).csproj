@@ -16,14 +16,13 @@
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <BaseIntermediateOutputPath>objuw</BaseIntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>binuw\Debug\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -32,7 +31,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>binuw\Release\</OutputPath>
+    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -40,7 +39,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <PlatformTarget>ARM</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>binuw\ARM\Debug\</OutputPath>
+    <OutputPath>bin\ARM\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <NoWarn>;2008</NoWarn>
     <DebugType>full</DebugType>
@@ -51,7 +50,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
     <PlatformTarget>ARM</PlatformTarget>
-    <OutputPath>binuw\ARM\Release\</OutputPath>
+    <OutputPath>bin\ARM\Release\</OutputPath>
     <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <Optimize>true</Optimize>
     <NoWarn>;2008</NoWarn>
@@ -64,7 +63,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <PlatformTarget>x64</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>binuw\x64\Debug\</OutputPath>
+    <OutputPath>bin\x64\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <NoWarn>;2008</NoWarn>
     <DebugType>full</DebugType>
@@ -75,7 +74,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <PlatformTarget>x64</PlatformTarget>
-    <OutputPath>binuw\x64\Release\</OutputPath>
+    <OutputPath>bin\x64\Release\</OutputPath>
     <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <Optimize>true</Optimize>
     <NoWarn>;2008</NoWarn>
@@ -88,7 +87,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>binuw\x86\Debug\</OutputPath>
+    <OutputPath>bin\x86\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <NoWarn>;2008</NoWarn>
     <DebugType>full</DebugType>
@@ -99,7 +98,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <PlatformTarget>x86</PlatformTarget>
-    <OutputPath>binuw\x86\Release\</OutputPath>
+    <OutputPath>bin\x86\Release\</OutputPath>
     <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <Optimize>true</Optimize>
     <NoWarn>;2008</NoWarn>
@@ -111,27 +110,98 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <None Include="..\MrAdvice.MVVM\Properties\MrAdvice.snk">
+      <Link>Properties\MrAdvice.snk</Link>
+    </None>
     <None Include="project.json" />
-    <None Include="Properties\MrAdvice.snk" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="**\*.cs" Exclude="objsl\**\*.cs;objuw\**\*.cs;**\*.Silverlight.cs;**\*.Wpf.cs" />
-  </ItemGroup>
-  <ItemGroup>
+    <Content Include="FodyWeavers.xml" />
     <Content Include="Properties\MrAdvice.MVVM.rd.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="MrAdvice">
-      <HintPath>..\packages\MrAdvice.Fody.0.11.1\lib\portable-net40+sl5+wp8+uap10.0\MrAdvice.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Xaml">
-      <HintPath>..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\Profile\Client\System.Xaml.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <SDKReference Include="Microsoft.NET.Native.Runtime.1.1, Version=1.1">
-      <Name>Microsoft .NET Core Runtime Package for Windows</Name>
-    </SDKReference>
+    <Compile Include="..\mradvice.mvvm\collection\DispatcherObservableCollection.cs">
+      <Link>Collection\DispatcherObservableCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\mradvice.mvvm\mvvm\navigation\INavigator.cs">
+      <Link>MVVM\Navigation\INavigator.cs</Link>
+    </Compile>
+    <Compile Include="..\mradvice.mvvm\mvvm\navigation\Navigator.cs">
+      <Link>MVVM\Navigation\Navigator.cs</Link>
+    </Compile>
+    <Compile Include="..\mradvice.mvvm\mvvm\navigation\NavigatorExtensions.cs">
+      <Link>MVVM\Navigation\NavigatorExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\mradvice.mvvm\mvvm\properties\AspectPriority.cs">
+      <Link>MVVM\Properties\AspectPriority.cs</Link>
+    </Compile>
+    <Compile Include="..\mradvice.mvvm\mvvm\properties\Attached.cs">
+      <Link>MVVM\Properties\Attached.cs</Link>
+    </Compile>
+    <Compile Include="..\mradvice.mvvm\mvvm\properties\DependencyProperties.cs">
+      <Link>MVVM\Properties\DependencyProperties.cs</Link>
+    </Compile>
+    <Compile Include="..\mradvice.mvvm\mvvm\properties\DependencyProperty.cs">
+      <Link>MVVM\Properties\DependencyProperty.cs</Link>
+    </Compile>
+    <Compile Include="..\mradvice.mvvm\mvvm\properties\DependencyPropertyNotification.cs">
+      <Link>MVVM\Properties\DependencyPropertyNotification.cs</Link>
+    </Compile>
+    <Compile Include="..\mradvice.mvvm\mvvm\properties\NotifyPropertyChanged.cs">
+      <Link>MVVM\Properties\NotifyPropertyChanged.cs</Link>
+    </Compile>
+    <Compile Include="..\mradvice.mvvm\mvvm\properties\Property.cs">
+      <Link>MVVM\Properties\Property.cs</Link>
+    </Compile>
+    <Compile Include="..\mradvice.mvvm\mvvm\threading\Async.cs">
+      <Link>MVVM\Threading\Async.cs</Link>
+    </Compile>
+    <Compile Include="..\mradvice.mvvm\mvvm\threading\UISync.cs">
+      <Link>MVVM\Threading\UISync.cs</Link>
+    </Compile>
+    <Compile Include="..\mradvice.mvvm\mvvm\viewmodel\ILoadViewModel.cs">
+      <Link>MVVM\ViewModel\ILoadViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\mradvice.mvvm\mvvm\viewmodel\INotifyPropertyChangedViewModel.cs">
+      <Link>MVVM\ViewModel\INotifyPropertyChangedViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\mradvice.mvvm\mvvm\viewmodel\ViewModel.cs">
+      <Link>MVVM\ViewModel\ViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\mradvice.mvvm\mvvm\view\Command.cs">
+      <Link>MVVM\View\Command.cs</Link>
+    </Compile>
+    <Compile Include="..\mradvice.mvvm\mvvm\view\Navigator.cs">
+      <Link>MVVM\View\Navigator.cs</Link>
+    </Compile>
+    <Compile Include="..\MrAdvice.MVVM\Properties\Annotations.cs">
+      <Link>Properties\Annotations.cs</Link>
+    </Compile>
+    <Compile Include="..\MrAdvice.MVVM\Properties\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\MrAdvice.MVVM\Properties\ProductInfo.cs">
+      <Link>Properties\ProductInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\mradvice.mvvm\utility\ApplicationExtensions.cs">
+      <Link>Utility\ApplicationExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\mradvice.mvvm\utility\ObjectExtensions.cs">
+      <Link>Utility\ObjectExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\mradvice.mvvm\utility\ObjectTypeConverter.cs">
+      <Link>Utility\ObjectTypeConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\mradvice.mvvm\utility\PropertyInfoExtensions.cs">
+      <Link>Utility\PropertyInfoExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\mradvice.mvvm\utility\TypeExtensions.cs">
+      <Link>Utility\TypeExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\mradvice.mvvm\utility\UIElementExtensions.cs">
+      <Link>Utility\UIElementExtensions.cs</Link>
+    </Compile>
+    <Compile Include="MVVM\Navigation\Navigator.Uwp.cs" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
@@ -140,7 +210,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>Properties\MrAdvice.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>..\MrAdvice.MVVM\Properties\MrAdvice.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

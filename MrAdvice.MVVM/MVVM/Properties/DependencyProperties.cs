@@ -10,11 +10,12 @@ namespace ArxOne.MrAdvice.MVVM.Properties
     using System;
     using System.Collections.Generic;
     using System.Reflection;
-    using System.Windows;
     using Utility;
 #if WINDOWS_UWP
+    using Windows.UI.Xaml;
     using SystemDependencyProperty = Windows.UI.Xaml.DependencyProperty;
 #else
+    using System.Windows;
     using SystemDependencyProperty = System.Windows.DependencyProperty;
 #endif
 

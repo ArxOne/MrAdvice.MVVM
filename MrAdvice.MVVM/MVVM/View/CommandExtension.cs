@@ -10,15 +10,16 @@ namespace ArxOne.MrAdvice.MVVM.View
     using System;
     using System.ComponentModel;
     using System.Linq;
-    using System.Windows.Markup;
     using Utility;
 #if WINDOWS_UWP
     using System.Reflection;
     using Windows.UI.Xaml;
     using Windows.UI.Xaml.Data;
+    using Windows.UI.Xaml.Markup;
 #else
     using System.Windows;
     using System.Windows.Data;
+    using System.Windows.Markup;
 #endif
 
     /// <summary>

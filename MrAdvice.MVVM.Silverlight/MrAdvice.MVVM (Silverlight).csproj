@@ -56,7 +56,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>MrAdvice.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>..\MrAdvice.MVVM\Properties\MrAdvice.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AsyncBridge.Portable, Version=0.0.0.0, Culture=neutral, PublicKeyToken=b3b1c0202c0d6a87, processorArchitecture=MSIL">
@@ -186,7 +186,6 @@
     <None Include="..\MrAdvice.MVVM\Properties\MrAdvice.snk">
       <Link>Properties\MrAdvice.snk</Link>
     </None>
-    <None Include="MrAdvice.snk" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />

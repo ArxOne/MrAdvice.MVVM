@@ -111,7 +111,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />
-    <Content Include="HTMLPage1.html" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MrAdvice.MVVM.Silverlight\MrAdvice.MVVM %28Silverlight%29.csproj">

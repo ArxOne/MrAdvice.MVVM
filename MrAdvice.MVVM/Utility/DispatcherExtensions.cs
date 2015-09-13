@@ -7,7 +7,6 @@
 
 namespace ArxOne.MrAdvice.Utility
 {
-#if !WINDOWS_UWP
     using System;
     using System.Windows.Threading;
 
@@ -29,5 +28,4 @@ namespace ArxOne.MrAdvice.Utility
                 dispatcher.BeginInvoke(method);
         }
     }
-#endif
 }
