@@ -5,8 +5,6 @@
 // // Released under MIT license http://opensource.org/licenses/mit-license.php
 #endregion
 
-using Windows.UI.Xaml;
-
 namespace ArxOne.MrAdvice.MVVM.Properties
 {
     using System;

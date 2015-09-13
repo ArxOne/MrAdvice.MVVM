@@ -10,6 +10,8 @@ namespace ArxOne.MrAdvice.Utility
     using System.Windows;
 #if WINDOWS_UWP
     using Windows.UI.Xaml;
+#else
+    using System.Windows.Threading;
 #endif
     using MVVM.Navigation;
 

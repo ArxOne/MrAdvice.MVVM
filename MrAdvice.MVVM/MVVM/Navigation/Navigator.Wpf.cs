@@ -8,8 +8,10 @@
 namespace ArxOne.MrAdvice.MVVM.Navigation
 {
     using System;
+    using System.Net.Mime;
     using System.Threading.Tasks;
     using System.Windows;
+    using Properties;
     using ViewModel = System.Object;
 
     partial class Navigator
