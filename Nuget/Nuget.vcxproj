@@ -66,6 +66,7 @@
     <NMakeOutput>MrAdvice.MVVM.nupkg</NMakeOutput>
     <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
     <NMakeBuildCommandLine>if "$(Configuration)" == "Release" (
+del $(SolutionDir)\TemporaryGeneratedFile*.cs /s
 "$(SolutionDir)\.nuget\nuget" pack "$(SolutionDir)MrAdvice.MVVM\MrAdvice.MVVM.nuspec" -properties ConfigurationName=$(Configuration)
 "$(SolutionDir)\.nuget\nuget" pack "$(SolutionDir)MrAdvice.MVVM\MrAdvice.MVVM.nuspec" -properties ConfigurationName=$(Configuration) -symbols
 )</NMakeBuildCommandLine>
@@ -74,6 +75,7 @@
     <NMakeOutput>MrAdvice.MVVM.nupkg</NMakeOutput>
     <NMakePreprocessorDefinitions>WIN32;NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
     <NMakeBuildCommandLine>if "$(Configuration)" == "Release" (
+del $(SolutionDir)\TemporaryGeneratedFile*.cs /s
 "$(SolutionDir)\.nuget\nuget" pack "$(SolutionDir)MrAdvice.MVVM\MrAdvice.MVVM.nuspec" -properties ConfigurationName=$(Configuration)
 "$(SolutionDir)\.nuget\nuget" pack "$(SolutionDir)MrAdvice.MVVM\MrAdvice.MVVM.nuspec" -properties ConfigurationName=$(Configuration) -symbols
 )</NMakeBuildCommandLine>
