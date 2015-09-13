@@ -112,20 +112,35 @@
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <None Include="project.json" />
+    <None Include="Properties\MrAdvice.snk" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="**\*.cs" Exclude="objsl\**\*.cs;**\*.Silverlight.cs;**\*.Wpf.cs" />
+    <Compile Include="**\*.cs" Exclude="objsl\**\*.cs;objuw\**\*.cs;**\*.Silverlight.cs;**\*.Wpf.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Properties\MrAdvice.MVVM.rd.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="MrAdvice">
+      <HintPath>..\packages\MrAdvice.Fody.0.11.1\lib\portable-net40+sl5+wp8+uap10.0\MrAdvice.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xaml">
       <HintPath>..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\Profile\Client\System.Xaml.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <ItemGroup>
+    <SDKReference Include="Microsoft.NET.Native.Runtime.1.1, Version=1.1">
+      <Name>Microsoft .NET Core Runtime Package for Windows</Name>
+    </SDKReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Properties\MrAdvice.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

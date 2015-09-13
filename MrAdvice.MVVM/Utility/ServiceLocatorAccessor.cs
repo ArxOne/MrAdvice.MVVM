@@ -7,6 +7,7 @@
 
 namespace ArxOne.MrAdvice.Utility
 {
+#if !WINDOWS_UWP
     using System;
     using Microsoft.Practices.ServiceLocation;
 
@@ -30,4 +31,5 @@ namespace ArxOne.MrAdvice.Utility
             return null;
         }
     }
+#endif
 }

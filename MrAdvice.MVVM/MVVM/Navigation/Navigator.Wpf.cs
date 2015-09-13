@@ -14,6 +14,9 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
 
     partial class Navigator
     {
+        [Attached]
+        public static Property<Window, bool> WasShown { get; set; }
+
         public event EventHandler Exiting;
 
         /// <summary>

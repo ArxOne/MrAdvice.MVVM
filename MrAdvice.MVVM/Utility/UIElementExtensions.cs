@@ -10,9 +10,14 @@ namespace ArxOne.MrAdvice.Utility
     using System;
     using System.Collections.Generic;
     using System.Reflection;
+#if WINDOWS_UWP
+    using Windows.UI.Xaml;
+    using Windows.UI.Xaml.Media;
+#else
     using System.Windows;
-    using System.Windows.Input;
     using System.Windows.Media;
+#endif
+    using System.Windows.Input;
 
     /// <summary>
     /// Extensions to UI elements
@@ -33,7 +38,7 @@ namespace ArxOne.MrAdvice.Utility
             }
         }
 
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINDOWS_UWP
         /// <summary>
         /// Gets the object and parents from logical tree.
         /// </summary>
@@ -65,7 +70,7 @@ namespace ArxOne.MrAdvice.Utility
         private static bool SetCommandAndParameter(this UIElement uiElement, object targetProperty, Func<ICommand> commandSetter, Func<object> commandParameterSetter)
         {
             string propertyName = null;
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINDOWS_UWP
             var dependencyProperty = targetProperty as DependencyProperty;
             if (dependencyProperty != null)
                 propertyName = dependencyProperty.Name;

@@ -10,10 +10,16 @@ namespace ArxOne.MrAdvice.MVVM.View
     using System;
     using System.ComponentModel;
     using System.Linq;
-    using System.Windows;
-    using System.Windows.Data;
     using System.Windows.Markup;
     using Utility;
+#if WINDOWS_UWP
+    using System.Reflection;
+    using Windows.UI.Xaml;
+    using Windows.UI.Xaml.Data;
+#else
+    using System.Windows;
+    using System.Windows.Data;
+#endif
 
     /// <summary>
     /// Allows to bind commands directly to view-model methods
@@ -67,8 +73,13 @@ namespace ArxOne.MrAdvice.MVVM.View
                 return null;
 
             // no need to go further in design mode
+#if WINDOWS_UWP
+            if (Windows.ApplicationModel.DesignMode.DesignModeEnabled)
+                return null;
+#else
             if (DesignerProperties.GetIsInDesignMode(element))
                 return null;
+#endif
 
             var targetProperty = provideValueTarget.TargetProperty;
             element.DataContextChanged += delegate
