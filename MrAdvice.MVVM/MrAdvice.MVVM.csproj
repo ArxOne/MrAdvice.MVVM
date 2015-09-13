@@ -103,14 +103,14 @@
     <Content Include="FodyWeavers.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="MrAdvice.MVVM.tt">
+    <None Include="MrAdvice.MVVM.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>MrAdvice.MVVM.nuspec</LastGenOutput>
-    </Content>
-    <Content Include="Properties\ProductInfo.tt">
+    </None>
+    <None Include="Properties\ProductInfo.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ProductInfo.cs</LastGenOutput>
-    </Content>
+    </None>
     <Content Include="Properties\ProductInfoValues.tt" />
   </ItemGroup>
   <ItemGroup>
