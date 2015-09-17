@@ -5,11 +5,17 @@
     xmlns:local="using:TestApplication.UWP"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    xmlns:mvvm="using:ArxOne.MrAdvice.MVVM.View"
+    xmlns:viewModel="using:TestApplication.UWP.ViewModel"
+    mc:Ignorable="d" 
+    d:DataContext="{d:DesignInstance viewModel:MainViewModel}">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <StackPanel Orientation="Vertical" Margin="8">
-            <Button Content="Click me"/>
+            <StackPanel Orientation="Horizontal">
+                <Button Content="Click here..." mvvm:Command.Target="ClickHere"/>
+                <Button Content="... Or there" mvvm:Command.Target="ClickThere"/>
+            </StackPanel>
             <TextBlock Text="Hello there"/>
         </StackPanel>
     </Grid>

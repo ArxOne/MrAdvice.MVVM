@@ -95,7 +95,7 @@ namespace ArxOne.MrAdvice.MVVM.View
                 if (bindingParameter != null)
                     name = viewModel.GetType().GetMember(bindingParameter.Path.Path).FirstOrDefault();
 
-                var command = new Command(viewModel, name);
+                var command = new RelayCommand(viewModel, name);
                 element.SetCommand(targetProperty, command, Parameter);
             };
 

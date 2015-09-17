@@ -55,6 +55,26 @@ namespace ArxOne.MrAdvice.Utility
 #endif
 
         /// <summary>
+        /// Sets the command to target element.
+        /// </summary>
+        /// <param name="uiElement">The UI element.</param>
+        /// <param name="command">The command.</param>
+        /// <param name="commandParameter">The command parameter.</param>
+        /// <returns></returns>
+        /// <exception cref="System.InvalidOperationException">$Could not find command property on type {uiElement.GetType().Name}</exception>
+        public static bool SetCommand(this UIElement uiElement, ICommand command, object commandParameter)
+        {
+            var commandProperty = GetCommandProperty(uiElement);
+            return SetCommand(uiElement, commandProperty, command, commandParameter);
+        }
+
+        private static PropertyInfo GetCommandProperty(UIElement uiElement)
+        {
+            var commandProperty = uiElement.GetType().GetProperty("Command");
+            return commandProperty;
+        }
+
+        /// <summary>
         /// Sets the command to given <see cref="UIElement"/>.
         /// </summary>
         /// <param name="uiElement">The UI element to be inject.</param>

@@ -20,5 +20,15 @@ namespace TestApplication.UWP.ViewModel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyInfo.Name));
         }
+
+        public void ClickHere()
+        {
+            
+        }
+
+        public void ClickThere()
+        {
+            
+        }
     }
 }

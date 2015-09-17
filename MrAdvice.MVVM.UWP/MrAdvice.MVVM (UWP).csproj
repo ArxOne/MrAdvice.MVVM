@@ -180,6 +180,9 @@
     <Compile Include="..\mradvice.mvvm\mvvm\view\Navigator.cs">
       <Link>MVVM\View\Navigator.cs</Link>
     </Compile>
+    <Compile Include="..\MrAdvice.MVVM\MVVM\View\RelayCommand.cs">
+      <Link>MVVM\View\RelayCommand.cs</Link>
+    </Compile>
     <Compile Include="..\MrAdvice.MVVM\Properties\Annotations.cs">
       <Link>Properties\Annotations.cs</Link>
     </Compile>
