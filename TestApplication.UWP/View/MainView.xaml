@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="TestApplication.UWP.MainPage"
+    x:Class="TestApplication.UWP.MainView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:TestApplication.UWP"
@@ -9,7 +9,7 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <StackPanel Orientation="Vertical">
-            <TextBlock Text="Hello"/>
+            <TextBlock Text="Hello there"/>
         </StackPanel>
     </Grid>
 </Page>
