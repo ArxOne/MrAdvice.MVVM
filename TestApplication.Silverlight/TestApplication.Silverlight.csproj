@@ -69,8 +69,8 @@
       <HintPath>..\packages\AsyncBridge.Portable.0.2.0\lib\AsyncBridge.Portable.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MrAdvice, Version=1.1.1.0, Culture=neutral, PublicKeyToken=c0e7e6eab6f293d8, processorArchitecture=MSIL">
-      <HintPath>..\packages\MrAdvice.Fody.1.1.1\lib\portable-net40+sl5+wp8+uap10.0\MrAdvice.dll</HintPath>
+    <Reference Include="MrAdvice, Version=1.1.4.0, Culture=neutral, PublicKeyToken=c0e7e6eab6f293d8, processorArchitecture=MSIL">
+      <HintPath>..\packages\MrAdvice.Fody.1.1.4\lib\portable-net40+sl5+wp8+uap10.0\MrAdvice.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="mscorlib" />
@@ -110,15 +110,14 @@
     <None Include="Properties\AppManifest.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="FodyWeavers.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\MrAdvice.MVVM.Silverlight\MrAdvice.MVVM %28Silverlight%29.csproj">
       <Project>{8387A320-D149-4BB3-8455-DD0D56DCEA74}</Project>
       <Name>MrAdvice.MVVM %28Silverlight%29</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="FodyWeavers.xml" />
+  </ItemGroup>
   <ItemGroup>
     <Page Include="View\MainView.xaml">
       <SubType>Designer</SubType>
