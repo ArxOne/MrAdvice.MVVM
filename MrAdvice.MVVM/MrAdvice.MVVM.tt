@@ -32,9 +32,9 @@
     <file src="..\MrAdvice.MVVM.Silverlight\bin\$ConfigurationName$\MrAdvice.MVVM.dll" target="lib\sl5"/>
     <file src="..\MrAdvice.MVVM.Silverlight\bin\$ConfigurationName$\MrAdvice.MVVM.xml" target="lib\sl5"/>
     <file src="..\MrAdvice.MVVM.Silverlight\bin\$ConfigurationName$\MrAdvice.MVVM.pdb" target="lib\sl5"/>
-    <file src="..\MrAdvice.MVVM.UWP\bin\$ConfigurationName$\MrAdvice.MVVM.dll" target="lib\uap10.0"/>
+    <!--<file src="..\MrAdvice.MVVM.UWP\bin\$ConfigurationName$\MrAdvice.MVVM.dll" target="lib\uap10.0"/>
     <file src="..\MrAdvice.MVVM.UWP\bin\$ConfigurationName$\MrAdvice.MVVM.xml" target="lib\uap10.0"/>
-    <file src="..\MrAdvice.MVVM.UWP\bin\$ConfigurationName$\MrAdvice.MVVM.pdb" target="lib\uap10.0"/>
+    <file src="..\MrAdvice.MVVM.UWP\bin\$ConfigurationName$\MrAdvice.MVVM.pdb" target="lib\uap10.0"/>-->
     <file src="**\*.cs" target="src"/>
     <file src="..\MrAdvice.MVVM.Silverlight\**\*.cs" target="src"/>
     <file src="..\MrAdvice.MVVM.UWP\**\*.cs" target="src"/>
