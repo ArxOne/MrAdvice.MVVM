@@ -5,6 +5,8 @@
 // // Released under MIT license http://opensource.org/licenses/mit-license.php
 #endregion
 
+using System.ComponentModel;
+
 namespace ArxOne.MrAdvice.MVVM.Threading
 {
     using System;
@@ -27,11 +29,11 @@ namespace ArxOne.MrAdvice.MVVM.Threading
         /// </value>
         public bool KillExisting { get; set; }
 
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINDOWS_UWP
         [NonSerialized]
 #endif
-        private Thread _thread;
 
+        private BackgroundWorker _worker;
         /// <summary>
         /// Invoked once per method, when assembly is loaded
         /// </summary>
@@ -52,10 +54,11 @@ namespace ArxOne.MrAdvice.MVVM.Threading
         /// <param name="context">The method advice context.</param>
         public void Advise(MethodAdviceContext context)
         {
-            if (KillExisting && _thread != null && _thread.IsAlive)
-                _thread.Abort();
-            _thread = new Thread(context.Proceed) { IsBackground = true, Name = context.TargetMethod.Name };
-            _thread.Start();
+            if (KillExisting && _worker != null && _worker.IsBusy)
+                _worker.CancelAsync();
+            _worker = new BackgroundWorker();
+            _worker.DoWork += delegate { context.Proceed(); };
+            _worker.RunWorkerAsync();
         }
     }
 }

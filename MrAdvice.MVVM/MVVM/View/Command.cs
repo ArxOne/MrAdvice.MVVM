@@ -1,60 +1,63 @@
 ﻿#region Mr. Advice MVVM
-// // Mr. Advice MVVM
-// // A simple MVVM package using Mr. Advice aspect weaver
-// // https://github.com/ArxOne/MrAdvice.MVVM
-// // Released under MIT license http://opensource.org/licenses/mit-license.php
+// Mr. Advice MVVM
+// A simple MVVM package using Mr. Advice aspect weaver
+// https://github.com/ArxOne/MrAdvice.MVVM
+// Released under MIT license http://opensource.org/licenses/mit-license.php
 #endregion
+
 namespace ArxOne.MrAdvice.MVVM.View
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Reflection;
-    using System.Windows.Input;
+#if WINDOWS_UWP
+    using Windows.UI.Xaml;
+#else
+    using System.Windows;
+#endif
+    using Utility;
 
-    internal class Command : ICommand
+    /// <summary>
+    /// Command attached property holder
+    /// </summary>
+    public static class Command
     {
-        private readonly object _viewModel;
-        private MethodBase _commandMethod;
-
-#pragma warning disable 0067
-        public event EventHandler CanExecuteChanged;
-#pragma warning restore 0067
+        /// <summary>
+        /// The target property
+        /// </summary>
+        public static readonly DependencyProperty TargetProperty = DependencyProperty.RegisterAttached(
+                    "Target", typeof(object), typeof(Command), new PropertyMetadata(default(object), BindTarget));
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Command" /> class.
+        /// Sets the target.
         /// </summary>
-        /// <param name="viewModel">The view model.</param>
-        /// <param name="parameter">The parameter.</param>
-        public Command(object viewModel, object parameter)
+        /// <param name="element">The element.</param>
+        /// <param name="value">The value.</param>
+        public static void SetTarget(DependencyObject element, object value)
         {
-            _viewModel = viewModel;
-            SetCommand(parameter);
+            element.SetValue(TargetProperty, value);
         }
 
-        private void SetCommand(object parameter)
+        /// <summary>
+        /// Gets the target.
+        /// </summary>
+        /// <param name="element">The element.</param>
+        /// <returns></returns>
+        public static object GetTarget(DependencyObject element)
         {
-            _commandMethod = parameter as MethodBase;
-            if (_commandMethod != null)
-                return;
-
-            var commandString = (string)parameter;
-            _commandMethod = _viewModel.GetType().GetMethod(commandString);
-            if (_commandMethod == null)
-                throw new InvalidOperationException(string.Format("Command '{0}' not found", commandString));
+            return (object)element.GetValue(TargetProperty);
         }
 
-        public bool CanExecute(object parameter)
+        private static void BindTarget(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            // TODO :)
-            return true;
+            var element = (FrameworkElement)d;
+            if (element.DataContext == null)
+                element.DataContextChanged += delegate { SetCommand(element, e.NewValue); };
+            else
+                SetCommand(element, e.NewValue);
         }
 
-        public void Execute(object parameter)
+        private static void SetCommand(FrameworkElement element, object value)
         {
-            var parameters = new List<object>();
-            if (_commandMethod.GetParameters().Length > 0)
-                parameters.Add(parameter);
-            _commandMethod.Invoke(_viewModel, parameters.ToArray());
+            var command = new RelayCommand(element.DataContext, value);
+            element.SetCommand(command, null);
         }
     }
 }

@@ -8,7 +8,11 @@
 namespace ArxOne.MrAdvice.MVVM.Properties
 {
     using System;
+#if WINDOWS_UWP
+    using Windows.UI.Xaml;
+#else
     using System.Windows;
+#endif
     using Advice;
     using Annotation;
     using Utility;

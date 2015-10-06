@@ -12,7 +12,11 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
     using System.Linq;
     using System.Reflection;
     using System.Threading.Tasks;
+#if WINDOWS_UWP
+    using Windows.UI.Xaml;
+#else
     using System.Windows;
+#endif
     using Annotations;
     using Properties;
     using Utility;
@@ -25,9 +29,6 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
     [UsedImplicitly(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature)]
     internal partial class Navigator : INavigator
     {
-        [Attached]
-        public static Property<Window, bool> WasShown { get; set; }
-
         private readonly IDictionary<Type, Type> _viewByViewModel = new Dictionary<Type, Type>();
 
         private readonly Stack<UIElement> _views = new Stack<UIElement>();
@@ -76,7 +77,11 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
         /// <returns></returns>
         private static object GetOrCreateInstance(Type type)
         {
-            return ServiceLocatorAccessor.Activate(type) ?? Activator.CreateInstance(type);
+            return
+#if !WINDOWS_UWP
+                ServiceLocatorAccessor.Activate(type) ?? 
+#endif
+                Activator.CreateInstance(type);
         }
 
         /// <summary>
@@ -117,7 +122,7 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
                 return null;
             var rawName = viewModelType.Name.Substring(0, viewModelType.Name.Length - viewModelSuffix.Length);
             var viewTypeName = rawName + viewSuffix;
-            return FindViewType(viewModelType.Namespace, viewTypeName) ?? FindViewType(viewModelType.Assembly, viewTypeName) ?? FindViewType(viewTypeName);
+            return FindViewType(viewModelType.Namespace, viewTypeName) ?? FindViewType(viewModelType.TypeInfo().Assembly, viewTypeName) ?? FindViewType(viewTypeName);
         }
 
         /// <summary>
@@ -138,7 +143,12 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
 
         private static Type FindViewType(string viewTypeName)
         {
+#if WINDOWS_UWP
+            var assembly = Application.Current.GetType().GetTypeInfo().Assembly;
+            return FindViewType(assembly, viewTypeName);
+#else
             return AppDomain.CurrentDomain.GetAssemblies().Select(assembly => FindViewType(assembly, viewTypeName)).FirstOrDefault(viewType => viewType != null);
+#endif
         }
 
         /// <summary>

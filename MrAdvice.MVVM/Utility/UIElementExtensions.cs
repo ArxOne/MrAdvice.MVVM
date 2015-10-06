@@ -10,9 +10,14 @@ namespace ArxOne.MrAdvice.Utility
     using System;
     using System.Collections.Generic;
     using System.Reflection;
+#if WINDOWS_UWP
+    using Windows.UI.Xaml;
+    using Windows.UI.Xaml.Media;
+#else
     using System.Windows;
-    using System.Windows.Input;
     using System.Windows.Media;
+#endif
+    using System.Windows.Input;
 
     /// <summary>
     /// Extensions to UI elements
@@ -33,7 +38,7 @@ namespace ArxOne.MrAdvice.Utility
             }
         }
 
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINDOWS_UWP
         /// <summary>
         /// Gets the object and parents from logical tree.
         /// </summary>
@@ -48,6 +53,26 @@ namespace ArxOne.MrAdvice.Utility
             }
         }
 #endif
+
+        /// <summary>
+        /// Sets the command to target element.
+        /// </summary>
+        /// <param name="uiElement">The UI element.</param>
+        /// <param name="command">The command.</param>
+        /// <param name="commandParameter">The command parameter.</param>
+        /// <returns></returns>
+        /// <exception cref="System.InvalidOperationException">$Could not find command property on type {uiElement.GetType().Name}</exception>
+        public static bool SetCommand(this UIElement uiElement, ICommand command, object commandParameter)
+        {
+            var commandProperty = GetCommandProperty(uiElement);
+            return SetCommand(uiElement, commandProperty, command, commandParameter);
+        }
+
+        private static PropertyInfo GetCommandProperty(UIElement uiElement)
+        {
+            var commandProperty = uiElement.GetType().GetProperty("Command");
+            return commandProperty;
+        }
 
         /// <summary>
         /// Sets the command to given <see cref="UIElement"/>.
@@ -65,7 +90,7 @@ namespace ArxOne.MrAdvice.Utility
         private static bool SetCommandAndParameter(this UIElement uiElement, object targetProperty, Func<ICommand> commandSetter, Func<object> commandParameterSetter)
         {
             string propertyName = null;
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINDOWS_UWP
             var dependencyProperty = targetProperty as DependencyProperty;
             if (dependencyProperty != null)
                 propertyName = dependencyProperty.Name;
