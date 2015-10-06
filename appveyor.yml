@@ -38,4 +38,4 @@ deploy:
   skip_symbols: false
 
 after_test:
-  ps: Get-ChildItem .\*.nupkg -Recurse | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
+  ps: Get-ChildItem .\MrAdvice.MVVM.*.nupkg -Recurse | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
