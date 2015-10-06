@@ -26,9 +26,9 @@
     <developmentDependency>false</developmentDependency>
   </metadata>
   <files>
-    <file src="bin\$ConfigurationName$\MrAdvice.MVVM.dll" target="lib\net40-Client"/>
-    <file src="bin\$ConfigurationName$\MrAdvice.MVVM.xml" target="lib\net40-Client"/>
-    <file src="bin\$ConfigurationName$\MrAdvice.MVVM.pdb" target="lib\net40-Client"/>
+    <file src="bin\$ConfigurationName$\MrAdvice.MVVM.dll" target="lib\net45"/>
+    <file src="bin\$ConfigurationName$\MrAdvice.MVVM.xml" target="lib\net45"/>
+    <file src="bin\$ConfigurationName$\MrAdvice.MVVM.pdb" target="lib\net45"/>
     <file src="..\MrAdvice.MVVM.Silverlight\bin\$ConfigurationName$\MrAdvice.MVVM.dll" target="lib\sl5"/>
     <file src="..\MrAdvice.MVVM.Silverlight\bin\$ConfigurationName$\MrAdvice.MVVM.xml" target="lib\sl5"/>
     <file src="..\MrAdvice.MVVM.Silverlight\bin\$ConfigurationName$\MrAdvice.MVVM.pdb" target="lib\sl5"/>
