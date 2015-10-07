@@ -27,6 +27,10 @@
                 <Run Text="{Binding PopupSaid, Mode=OneWay}"/>
             </TextBlock>
             <Button Content="Exit" Command="{mrAdvice:Command {Binding Exit}}" HorizontalAlignment="Left" />
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Type only digits here (otherwise there is an error): "/>
+                <TextBox Text="{Binding ValidatedValue}" />
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Window>

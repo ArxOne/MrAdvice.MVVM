@@ -8,7 +8,9 @@
 namespace TestApplication.ViewModel
 {
     using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
     using System.Reflection;
+    using System.Runtime.CompilerServices;
     using System.Threading;
     using System.Threading.Tasks;
     using System.Windows;
@@ -23,7 +25,7 @@ namespace TestApplication.ViewModel
     /// </summary>
     public class MainViewModel : INotifyPropertyChangedViewModel, ILoadViewModel
     {
-        public INavigator Navigator { get { return Application.Current.GetNavigator(); } }
+        public INavigator Navigator => Application.Current.GetNavigator();
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -36,7 +38,12 @@ namespace TestApplication.ViewModel
 
         [NotifyPropertyChanged]
         public string PopupSaid { get; set; }
-        
+
+        [Required(ErrorMessage = @"Type something!")]
+        [RegularExpression(@"\d*", ErrorMessage = @"Only digits")]
+        [MaxLength(5, ErrorMessage = @"Only 5 digits at most")]
+        public string ValidatedValue { get; set; }
+
         /// <summary>
         /// This method is called by the navigator once the view-model is initialized.
         /// </summary>
