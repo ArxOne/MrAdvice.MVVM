@@ -7,16 +7,21 @@
 
 namespace ArxOne.MrAdvice.MVVM.ViewModel
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
     using System.ComponentModel;
+    using System.Linq;
     using System.Reflection;
     using System.Threading.Tasks;
+    using global::MrAdvice.MVVM.MVVM.ViewModel;
     using Properties;
     using Threading;
 
     /// <summary>
     /// View-model base
     /// </summary>
-    public class ViewModel : ILoadViewModel, INotifyPropertyChangedViewModel
+    public class ViewModel : ILoadViewModel, INotifyPropertyChangedViewModel, INotifyDataErrorViewModel
     {
         /// <summary>
         /// Invoked when a property is changed.
@@ -50,5 +55,63 @@ namespace ArxOne.MrAdvice.MVVM.ViewModel
         /// </summary>
         public virtual async Task Load()
         { }
+
+        private readonly IDictionary<string, object[]> _errors = new Dictionary<string, object[]>();
+        private readonly object[] _noError = new object[0];
+
+        /// <summary>
+        /// Gets the errors.
+        /// </summary>
+        /// <param name="propertyName">Name of the property.</param>
+        /// <returns></returns>
+        IEnumerable INotifyDataErrorInfo.GetErrors(string propertyName)
+        {
+            return GetErrors(propertyName);
+        }
+
+        private object[] GetErrors(string propertyName)
+        {
+            object[] errors;
+            if (_errors.TryGetValue(propertyName, out errors))
+                return errors;
+            return _noError;
+        }
+
+        /// <summary>
+        /// Determines whether the specified property name has errors.
+        /// </summary>
+        /// <param name="propertyName">Name of the property.</param>
+        /// <returns></returns>
+        protected bool HasErrors(string propertyName)
+        {
+            return GetErrors(propertyName).Length > 0;
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this instance has errors.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if this instance has errors; otherwise, <c>false</c>.
+        /// </value>
+        bool INotifyDataErrorInfo.HasErrors => _errors.Any(kv => kv.Value.Any());
+
+        /// <summary>
+        /// Occurs when the validation errors have changed for a property or for the entire entity.
+        /// </summary>
+        public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
+
+        /// <summary>
+        /// Sets the errors for the given property name.
+        /// </summary>
+        /// <param name="propertyName">Name of the property.</param>
+        /// <param name="errors">The errors.</param>
+        public void SetErrors(string propertyName, IEnumerable errors)
+        {
+            _errors[propertyName] = errors.Cast<object>().ToArray();
+
+            var errorsChanged = ErrorsChanged;
+            if (errorsChanged != null)
+                errorsChanged(this, new DataErrorsChangedEventArgs(propertyName));
+        }
     }
 }

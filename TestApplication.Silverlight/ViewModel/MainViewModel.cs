@@ -8,6 +8,7 @@
 namespace TestApplication.Silverlight.ViewModel
 {
     using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
@@ -18,11 +19,9 @@ namespace TestApplication.Silverlight.ViewModel
     using ArxOne.MrAdvice.MVVM.ViewModel;
     using ArxOne.MrAdvice.Utility;
 
-    public class MainViewModel : INotifyPropertyChangedViewModel, ILoadViewModel
+    public class MainViewModel : ViewModel
     {
-        public INavigator Navigator { get { return Application.Current.GetNavigator(); } }
-
-        public event PropertyChangedEventHandler PropertyChanged;
+        public INavigator Navigator => Application.Current.GetNavigator();
 
         // DEMO: the NotifyPropertyChanged aspect
         [NotifyPropertyChanged]
@@ -34,18 +33,15 @@ namespace TestApplication.Silverlight.ViewModel
         [NotifyPropertyChanged]
         public string ImportantAnswer { get; set; } = "no answer until here";
 
-        [UISync]
-        public void OnPropertyChanged(PropertyInfo propertyInfo, NotifyPropertyChanged sender)
-        {
-            var onPropertyChanged = PropertyChanged;
-            if (onPropertyChanged != null)
-                onPropertyChanged(this, new PropertyChangedEventArgs(propertyInfo.Name));
-        }
+        [NotifyPropertyChanged]
+        [Required(ErrorMessage = @"Type something!")]
+        [RegularExpression(@"\d*", ErrorMessage = @"Only digits")]
+        public string ValidatedValue { get; set; }
 
         /// <summary>
         /// This method is called by the navigator once the view-model is initialized.
         /// </summary>
-        public async Task Load()
+        public override async Task Load()
         {
             // This method is called when the navigator creates the view-model
             UpdateAutomaticCounter();

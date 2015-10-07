@@ -27,6 +27,10 @@
                 <Run Text="The answer is: "/>
                 <Run Text="{Binding ImportantAnswer, Mode=OneWay}"/>
             </TextBlock>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Type only digits here (otherwise there is an error): "/>
+                <TextBox Text="{Binding ValidatedValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" />
+            </StackPanel>
         </StackPanel>
     </Grid>
 </navigation:Page>
