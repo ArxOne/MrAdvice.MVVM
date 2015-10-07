@@ -113,13 +113,13 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MrAdvice.MVVM\MrAdvice.MVVM.csproj">
-      <Project>{3CC33C7B-65E5-47F0-AE8A-1A473D8720E1}</Project>
-      <Name>MrAdvice.MVVM</Name>
-    </ProjectReference>
+    <Resource Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="FodyWeavers.xml" />
+    <ProjectReference Include="..\MrAdvice.MVVM.WPF\MrAdvice.MVVM %28WPF%29.csproj">
+      <Project>{3cc33c7b-65e5-47f0-ae8a-1a473d8720e1}</Project>
+      <Name>MrAdvice.MVVM %28WPF%29</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.1.29.3\build\dotnet\Fody.targets" Condition="Exists('..\packages\Fody.1.29.3\build\dotnet\Fody.targets')" />

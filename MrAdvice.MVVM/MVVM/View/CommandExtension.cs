@@ -7,20 +7,14 @@
 
 namespace ArxOne.MrAdvice.MVVM.View
 {
+#if !WINDOWS_UWP
     using System;
     using System.ComponentModel;
     using System.Linq;
     using Utility;
-#if WINDOWS_UWP
-    using System.Reflection;
-    using Windows.UI.Xaml;
-    using Windows.UI.Xaml.Data;
-    using Windows.UI.Xaml.Markup;
-#else
     using System.Windows;
     using System.Windows.Data;
     using System.Windows.Markup;
-#endif
 
     /// <summary>
     /// Allows to bind commands directly to view-model methods
@@ -102,4 +96,5 @@ namespace ArxOne.MrAdvice.MVVM.View
             return null;
         }
     }
+#endif
 }

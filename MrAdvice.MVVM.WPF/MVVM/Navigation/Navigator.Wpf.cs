@@ -144,7 +144,7 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
 
             view.ApplyTemplate();
             var contentFrame = view.GetVisualSelfAndChildren().OfType<ContentControl>().Single(c => c.Name == "ContentFrame");
-            ContentControl.ContentProperty.RegisterChangeCallback(contentFrame, OnContentChanged);
+            ContentControl.ContentProperty.RegisterChangeCallback(contentFrame, "Content", OnContentChanged);
         }
 
         private void HandleModernUIContentNavigation(FrameworkElement parentView)
@@ -158,7 +158,7 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
 
                 view.ApplyTemplate();
                 var contentFrame = view.GetVisualSelfAndChildren().OfType<Control>().Single(c => c.GetType().Name == "ModernFrame");
-                ContentControl.ContentProperty.RegisterChangeCallback(contentFrame, OnContentChanged);
+                ContentControl.ContentProperty.RegisterChangeCallback(contentFrame, "Content", OnContentChanged);
             }
         }
 
@@ -181,8 +181,7 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
         /// Called when content has changed.
         /// </summary>
         /// <param name="d">The d.</param>
-        /// <param name="e">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
-        private void OnContentChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private void OnContentChanged(DependencyObject d)
         {
             var contentControl = (ContentControl)d;
             var content = contentControl.Content as FrameworkElement;

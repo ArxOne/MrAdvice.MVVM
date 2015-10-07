@@ -9,10 +9,17 @@
 
 namespace ArxOne.MrAdvice.Utility
 {
+    using System;
     using System.Collections.Generic;
+#if WINDOWS_UWP
+    using Windows.UI.Xaml;
+    using Windows.UI.Xaml.Data;
+    using DependencyProperty = Windows.UI.Xaml.DependencyProperty;
+#else
     using System.Windows;
     using System.Windows.Data;
     using DependencyProperty = System.Windows.DependencyProperty;
+#endif
 
     /// <summary>
     /// Simple wrapper to watch dependency property
@@ -31,18 +38,16 @@ namespace ArxOne.MrAdvice.Utility
             }
 
             private readonly DependencyObject _source;
-            private readonly DependencyProperty _dependencyProperty;
-            private readonly PropertyChangedCallback _callback;
+            private readonly Action<DependencyObject> _callback;
 
-            public Watcher(DependencyObject source, DependencyProperty dependencyProperty, PropertyChangedCallback callback)
+            public Watcher(DependencyObject source, Action<DependencyObject> callback)
             {
                 _source = source;
-                _dependencyProperty = dependencyProperty;
                 _callback = callback;
             }
             private void Callback(DependencyPropertyChangedEventArgs args)
             {
-                _callback(_source, new DependencyPropertyChangedEventArgs(_dependencyProperty, args.OldValue, args.NewValue));
+                _callback(_source);
             }
         }
 
@@ -58,12 +63,13 @@ namespace ArxOne.MrAdvice.Utility
         /// </summary>
         /// <param name="dependencyProperty">The dependency property.</param>
         /// <param name="source">The source.</param>
+        /// <param name="sourcePath">The source path.</param>
         /// <param name="callback">The callback.</param>
-        public static void RegisterChangeCallback(this DependencyProperty dependencyProperty, DependencyObject source, PropertyChangedCallback callback)
+        public static void RegisterChangeCallback(this DependencyProperty dependencyProperty, DependencyObject source, string sourcePath, Action<DependencyObject> callback)
         {
-            var watcher = new Watcher(source, dependencyProperty, callback);
+            var watcher = new Watcher(source, callback);
             Watchers.Add(watcher);
-            BindingOperations.SetBinding(watcher, Watcher.WatchedPropertyProperty, new Binding(dependencyProperty.Name) { Source = source, Mode = BindingMode.TwoWay });
+            BindingOperations.SetBinding(watcher, Watcher.WatchedPropertyProperty, new Binding { Source = source, Path = new PropertyPath(sourcePath), Mode = BindingMode.TwoWay });
         }
     }
 }

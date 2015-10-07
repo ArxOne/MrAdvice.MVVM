@@ -3,8 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mrAdvice="urn:MrAdvice/View"
              xmlns:viewModel="clr-namespace:TestApplication.ModernUI.ViewModel"
+             xmlns:mrAdvice="urn:MrAdvice/View"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300" d:DataContext="{d:DesignInstance viewModel:HomeViewModel}">
     <Grid Style="{StaticResource ContentRoot}">

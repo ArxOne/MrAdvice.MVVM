@@ -110,13 +110,13 @@
     <Content Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MrAdvice.MVVM\MrAdvice.MVVM.csproj">
-      <Project>{3CC33C7B-65E5-47F0-AE8A-1A473D8720E1}</Project>
-      <Name>MrAdvice.MVVM</Name>
-    </ProjectReference>
+    <Folder Include="Pages\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Pages\" />
+    <ProjectReference Include="..\MrAdvice.MVVM.WPF\MrAdvice.MVVM %28WPF%29.csproj">
+      <Project>{3CC33C7B-65E5-47F0-AE8A-1A473D8720E1}</Project>
+      <Name>MrAdvice.MVVM %28WPF%29</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.1.29.3\build\dotnet\Fody.targets" Condition="Exists('..\packages\Fody.1.29.3\build\dotnet\Fody.targets')" />
