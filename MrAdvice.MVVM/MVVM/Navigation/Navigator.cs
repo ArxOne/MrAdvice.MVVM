@@ -29,6 +29,9 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
     [UsedImplicitly(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature)]
     internal partial class Navigator : INavigator
     {
+        private const string ViewModelTypeSuffix = "ViewModel";
+        private const string ViewTypeSuffix = "View";
+
         private readonly IDictionary<Type, Type> _viewByViewModel = new Dictionary<Type, Type>();
 
         private readonly Stack<UIElement> _views = new Stack<UIElement>();
@@ -79,7 +82,7 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
         {
             return
 #if !WINDOWS_UWP
-                ServiceLocatorAccessor.Activate(type) ?? 
+                ServiceLocatorAccessor.Activate(type) ??
 #endif
                 Activator.CreateInstance(type);
         }
@@ -102,7 +105,7 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
         /// <returns></returns>
         private Type GetViewTypeFromConvention(Type viewModelType)
         {
-            var viewType = GetViewTypeFromConvention(viewModelType, "ViewModel", "View");
+            var viewType = GetTypeFromConvention(viewModelType, ViewModelTypeSuffix, ViewTypeSuffix);
             if (viewType == null)
                 return null;
             _viewByViewModel[viewModelType] = viewType;
@@ -112,42 +115,42 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
         /// <summary>
         /// Gets the view type from naming convention.
         /// </summary>
-        /// <param name="viewModelType">Type of the view model.</param>
-        /// <param name="viewModelSuffix">The view model suffix.</param>
-        /// <param name="viewSuffix">The view suffix.</param>
+        /// <param name="referenceType">Type of the view model.</param>
+        /// <param name="referenceTypeSuffix">The search type suffix.</param>
+        /// <param name="relatedTypeSuffix">The replace type suffix.</param>
         /// <returns></returns>
-        private static Type GetViewTypeFromConvention(Type viewModelType, string viewModelSuffix, string viewSuffix)
+        private static Type GetTypeFromConvention(Type referenceType, string referenceTypeSuffix, string relatedTypeSuffix)
         {
-            if (!viewModelType.Name.EndsWith(viewModelSuffix))
+            if (!referenceType.Name.EndsWith(referenceTypeSuffix))
                 return null;
-            var rawName = viewModelType.Name.Substring(0, viewModelType.Name.Length - viewModelSuffix.Length);
-            var viewTypeName = rawName + viewSuffix;
-            return FindViewType(viewModelType.Namespace, viewTypeName) ?? FindViewType(viewModelType.TypeInfo().Assembly, viewTypeName) ?? FindViewType(viewTypeName);
+            var referenceBase = referenceType.Name.Substring(0, referenceType.Name.Length - referenceTypeSuffix.Length);
+            var relatedTypeName = referenceBase + relatedTypeSuffix;
+            return FindType(referenceType.Namespace, relatedTypeName) ?? FindType(referenceType.TypeInfo().Assembly, relatedTypeName) ?? FindType(relatedTypeName);
         }
 
         /// <summary>
         /// Finds the view type given a name and namespace.
         /// </summary>
         /// <param name="ns">The ns.</param>
-        /// <param name="viewTypeName">Name of the view type.</param>
+        /// <param name="relatedTypeName">Name of the view type.</param>
         /// <returns></returns>
-        private static Type FindViewType(string ns, string viewTypeName)
+        private static Type FindType(string ns, string relatedTypeName)
         {
-            return Type.GetType(ns + "." + viewTypeName);
+            return Type.GetType(ns + "." + relatedTypeName);
         }
 
-        private static Type FindViewType(Assembly assembly, string viewTypeName)
+        private static Type FindType(Assembly assembly, string relatedTypeName)
         {
-            return assembly.GetTypes().SingleOrDefault(t => t.Name == viewTypeName);
+            return assembly.GetTypes().SingleOrDefault(t => t.Name == relatedTypeName);
         }
 
-        private static Type FindViewType(string viewTypeName)
+        private static Type FindType(string typeName)
         {
 #if WINDOWS_UWP
             var assembly = Application.Current.GetType().GetTypeInfo().Assembly;
-            return FindViewType(assembly, viewTypeName);
+            return FindType(assembly, typeName);
 #else
-            return AppDomain.CurrentDomain.GetAssemblies().Select(assembly => FindViewType(assembly, viewTypeName)).FirstOrDefault(viewType => viewType != null);
+            return AppDomain.CurrentDomain.GetAssemblies().Select(assembly => FindType(assembly, typeName)).FirstOrDefault(viewType => viewType != null);
 #endif
         }
 
@@ -161,6 +164,42 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
             Type viewType;
             _viewByViewModel.TryGetValue(viewModelType, out viewType);
             return viewType;
+        }
+
+        /// <summary>
+        /// Gets the type of the view model.
+        /// </summary>
+        /// <param name="viewType">Type of the view.</param>
+        /// <returns></returns>
+        private Type GetViewModelType(Type viewType)
+        {
+            return GetViewModelTypeFromRegistration(viewType) ?? GetViewModelTypeFromConvention(viewType);
+        }
+
+        /// <summary>
+        /// Gets the view-model type from registration.
+        /// </summary>
+        /// <param name="viewType">Type of the view.</param>
+        /// <returns></returns>
+        private Type GetViewModelTypeFromRegistration(Type viewType)
+        {
+            return (from kv in _viewByViewModel
+                    where kv.Value == viewType
+                    select kv.Key).SingleOrDefault();
+        }
+
+        /// <summary>
+        /// Gets the view-model type from naming convention.
+        /// </summary>
+        /// <param name="viewType">Type of the view.</param>
+        /// <returns></returns>
+        private Type GetViewModelTypeFromConvention(Type viewType)
+        {
+            var viewModelType = GetTypeFromConvention(viewType, ViewTypeSuffix, ViewModelTypeSuffix);
+            if (viewModelType == null)
+                return null;
+            _viewByViewModel[viewType] = viewModelType;
+            return viewModelType;
         }
     }
 }

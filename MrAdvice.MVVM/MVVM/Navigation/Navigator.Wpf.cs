@@ -8,16 +8,23 @@
 namespace ArxOne.MrAdvice.MVVM.Navigation
 {
     using System;
-    using System.Net.Mime;
+    using System.Linq;
+    using System.Reflection;
     using System.Threading.Tasks;
     using System.Windows;
+    using System.Windows.Controls;
     using Properties;
+    using Utility;
+    using DependencyProperty = System.Windows.DependencyProperty;
     using ViewModel = System.Object;
 
     partial class Navigator
     {
         [Attached]
         public static Property<Window, bool> WasShown { get; set; }
+
+        [Attached]
+        public static Property<FrameworkElement, bool> IsWatched { get; set; }
 
         public event EventHandler Exiting;
 
@@ -30,6 +37,7 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
         private async Task<ViewModel> ShowDialog(UIElement view, ViewModel viewModel)
         {
             var window = (Window)view;
+            HandleModernUIWindowNavigation(window);
             window.Owner = (Window)_views.Peek();
             // the Exit() method is called only if the window is still present
             window.Closed += delegate { _views.Pop(); };
@@ -52,6 +60,7 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
             {
                 if (window != null)
                 {
+                    HandleModernUIWindowNavigation(window);
                     window.Show();
                     if (window.ShowActivated)
                         window.Activate();
@@ -112,6 +121,69 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
             // TODO: have a nice exit
             Application.Current.DispatcherUnhandledException += (sender, e) => e.Handled = true;
             Application.Current.Shutdown();
+        }
+
+        private void HandleModernUIWindowNavigation(Window view)
+        {
+            if (!IsModernUIWindow(view) || IsWatched[view])
+                return;
+            IsWatched[view] = true;
+
+            view.ApplyTemplate();
+            var contentFrame = view.GetVisualSelfAndChildren().OfType<ContentControl>().Single(c => c.Name == "ContentFrame");
+            ContentControl.ContentProperty.RegisterChangeCallback(contentFrame, OnContentChanged);
+        }
+
+        private void HandleModernUIContentNavigation(FrameworkElement parentView)
+        {
+            parentView.ApplyTemplate();
+            foreach (var view in parentView.GetVisualSelfAndChildren().OfType<FrameworkElement>())
+            {
+                if (!IsModernUIContent(view) || IsWatched[view])
+                    continue;
+                IsWatched[view] = true;
+
+                view.ApplyTemplate();
+                var contentFrame = view.GetVisualSelfAndChildren().OfType<Control>().Single(c => c.GetType().Name == "ModernFrame");
+                ContentControl.ContentProperty.RegisterChangeCallback(contentFrame, OnContentChanged);
+            }
+        }
+
+        /// <summary>
+        /// Determines whether [is modern UI window] [the specified view].
+        /// </summary>
+        /// <param name="view">The view.</param>
+        /// <returns></returns>
+        private static bool IsModernUIWindow(Window view)
+        {
+            return view.GetType().GetSelfAndAncestors().Any(t => t.Name == "ModernWindow");
+        }
+
+        private static bool IsModernUIContent(UIElement content)
+        {
+            return content.GetType().GetSelfAndAncestors().Any(t => t.Name == "ModernTab");
+        }
+
+        /// <summary>
+        /// Called when content has changed.
+        /// </summary>
+        /// <param name="d">The d.</param>
+        /// <param name="e">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        private void OnContentChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var contentControl = (ContentControl)d;
+            var content = contentControl.Content as FrameworkElement;
+            if (content == null)
+                return;
+            HandleModernUIContentNavigation(content);
+            var viewType = content.GetType();
+            // now find associated view-model
+            var viewModelType = GetViewModelType(viewType);
+            if (viewModelType == null)
+                return;
+            // then check for data context
+            if (contentControl.DataContext == null || contentControl.DataContext.GetType() != viewModelType)
+                contentControl.DataContext = GetOrCreateInstance(viewModelType);
         }
     }
 }

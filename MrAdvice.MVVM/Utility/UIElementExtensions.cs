@@ -13,9 +13,11 @@ namespace ArxOne.MrAdvice.Utility
 #if WINDOWS_UWP
     using Windows.UI.Xaml;
     using Windows.UI.Xaml.Media;
+    using Windows.UI.Xaml.Controls;
 #else
     using System.Windows;
     using System.Windows.Media;
+    using System.Windows.Controls;
 #endif
     using System.Windows.Input;
 
@@ -53,6 +55,32 @@ namespace ArxOne.MrAdvice.Utility
             }
         }
 #endif
+
+        /// <summary>
+        /// Gets the visual self and children.
+        /// </summary>
+        /// <param name="dependencyObject">The dependency object.</param>
+        /// <returns></returns>
+        public static IEnumerable<DependencyObject> GetVisualSelfAndChildren(this DependencyObject dependencyObject)
+        {
+            yield return dependencyObject;
+
+            var contentPresenter = dependencyObject as ContentPresenter;
+            var content = contentPresenter?.Content as DependencyObject;
+            if (content != null)
+            {
+                foreach (var contentChild in GetVisualSelfAndChildren(content))
+                    yield return contentChild;
+            }
+
+            var count = VisualTreeHelper.GetChildrenCount(dependencyObject);
+            for (int index = 0; index < count; index++)
+            {
+                var child = VisualTreeHelper.GetChild(dependencyObject, index);
+                foreach (var visualSelfChild in GetVisualSelfAndChildren(child))
+                    yield return visualSelfChild;
+            }
+        }
 
         /// <summary>
         /// Sets the command to target element.

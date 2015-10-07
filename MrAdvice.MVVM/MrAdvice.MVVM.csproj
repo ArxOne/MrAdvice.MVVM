@@ -81,6 +81,7 @@
       <DependentUpon>ProductInfo.tt</DependentUpon>
     </Compile>
     <Compile Include="Utility\ApplicationExtensions.cs" />
+    <Compile Include="Utility\DependencyPropertyWatcher.cs" />
     <Compile Include="Utility\DispatcherExtensions.cs" />
     <Compile Include="Utility\ObjectExtensions.cs" />
     <Compile Include="Utility\ObjectTypeConverter.cs" />
