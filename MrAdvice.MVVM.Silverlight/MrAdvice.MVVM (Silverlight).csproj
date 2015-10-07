@@ -107,7 +107,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\MrAdvice.MVVM\Properties\ProductInfo.cs">
+    <Compile Include="..\MrAdvice.MVVM.WPF\Properties\ProductInfo.cs">
       <Link>Properties\ProductInfo.cs</Link>
     </Compile>
     <Compile Include="MVVM\Navigation\Navigator.Silverlight.cs" />
