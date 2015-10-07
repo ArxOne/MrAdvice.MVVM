@@ -67,8 +67,8 @@
     <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
     <NMakeBuildCommandLine>if "$(Configuration)" == "Release" (
 del $(SolutionDir)\TemporaryGeneratedFile*.cs /s
-"$(SolutionDir)\.nuget\nuget" pack "$(SolutionDir)MrAdvice.MVVM\MrAdvice.MVVM.nuspec" -properties ConfigurationName=$(Configuration)
-"$(SolutionDir)\.nuget\nuget" pack "$(SolutionDir)MrAdvice.MVVM\MrAdvice.MVVM.nuspec" -properties ConfigurationName=$(Configuration) -symbols
+"$(SolutionDir)\.nuget\nuget" pack "$(SolutionDir)MrAdvice.MVVM.WPF\MrAdvice.MVVM.nuspec" -properties ConfigurationName=$(Configuration)
+"$(SolutionDir)\.nuget\nuget" pack "$(SolutionDir)MrAdvice.MVVM.WPF\MrAdvice.MVVM.nuspec" -properties ConfigurationName=$(Configuration) -symbols
 )</NMakeBuildCommandLine>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -76,8 +76,8 @@ del $(SolutionDir)\TemporaryGeneratedFile*.cs /s
     <NMakePreprocessorDefinitions>WIN32;NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
     <NMakeBuildCommandLine>if "$(Configuration)" == "Release" (
 del $(SolutionDir)\TemporaryGeneratedFile*.cs /s
-"$(SolutionDir)\.nuget\nuget" pack "$(SolutionDir)MrAdvice.MVVM\MrAdvice.MVVM.nuspec" -properties ConfigurationName=$(Configuration)
-"$(SolutionDir)\.nuget\nuget" pack "$(SolutionDir)MrAdvice.MVVM\MrAdvice.MVVM.nuspec" -properties ConfigurationName=$(Configuration) -symbols
+"$(SolutionDir)\.nuget\nuget" pack "$(SolutionDir)MrAdvice.MVVM.WPF\MrAdvice.MVVM.nuspec" -properties ConfigurationName=$(Configuration)
+"$(SolutionDir)\.nuget\nuget" pack "$(SolutionDir)MrAdvice.MVVM.WPF\MrAdvice.MVVM.nuspec" -properties ConfigurationName=$(Configuration) -symbols
 )</NMakeBuildCommandLine>
   </PropertyGroup>
   <ItemDefinitionGroup>

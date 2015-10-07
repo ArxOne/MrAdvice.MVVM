@@ -29,7 +29,7 @@ build:
   verbosity: minimal
 
 artifacts:
-  - path: 'MrAdvice.MVVM\bin\$(Configuration)\*.nupkg'
+  - path: 'MrAdvice.MVVM.WPF\bin\$(Configuration)\*.nupkg'
 
 deploy:
   provider: NuGet
