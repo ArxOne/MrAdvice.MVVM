@@ -189,6 +189,6 @@ FakesAssemblies/
 .vs/
 
 # Mr Advice MVVM specific
-MrAdvice.MVVM/Properties/ProductInfo.cs
+MrAdvice.MVVM.WPF/Properties/ProductInfo.cs
 MrAdvice.MVVM.WPF/MrAdvice.MVVM.nuspec
 
