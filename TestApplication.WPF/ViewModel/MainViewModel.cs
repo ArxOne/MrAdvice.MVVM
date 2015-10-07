@@ -22,6 +22,7 @@ namespace TestApplication.ViewModel
     /// </summary>
     public class MainViewModel : ViewModel
     {
+        private string _validatedValue;
         public INavigator Navigator => Application.Current.GetNavigator();
 
         // DEMO: the NotifyPropertyChanged aspect
@@ -38,7 +39,16 @@ namespace TestApplication.ViewModel
         [Required(ErrorMessage = @"Type something!")]
         [RegularExpression(@"\d*", ErrorMessage = @"Only digits")]
         [MaxLength(5, ErrorMessage = @"Only 5 digits at most")]
-        public string ValidatedValue { get; set; }
+        public string ValidatedValue
+        {
+            get { return _validatedValue; }
+            set
+            {
+                _validatedValue = value;
+                if (_validatedValue == "42")
+                    throw new ValidationException("Not this answer!");
+            }
+        }
 
         /// <summary>
         /// This method is called by the navigator once the view-model is initialized.
@@ -59,7 +69,7 @@ namespace TestApplication.ViewModel
                 Thread.Sleep(1000);
             }
         }
-        
+
         public void ButtonAction()
         {
             ++ButtonActionCount;

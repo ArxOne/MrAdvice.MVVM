@@ -44,11 +44,21 @@ namespace ArxOne.MrAdvice.MVVM.Properties
             }
             else
             {
+                bool validated = false;
                 var newValue = context.Value;
                 var oldValue = context.TargetProperty.GetValue(context.Target, context.Index.ToArray());
 
-                // first, set the value
-                context.Proceed();
+                try
+                {
+                    // first, set the value
+                    context.Proceed();
+                }
+                catch (ValidationException e)
+                {
+                    var notifyDataErrorInfoViewModel = context.Target as INotifyDataErrorViewModel;
+                    notifyDataErrorInfoViewModel?.SetErrors(context.TargetProperty.Name, new[] { e.ValidationResult });
+                    validated = true;
+                }
 
                 // then, notify, if it has changed
                 if (!oldValue.SafeEquals(newValue))
@@ -61,7 +71,8 @@ namespace ArxOne.MrAdvice.MVVM.Properties
 
                 // validation comes after actual setter
                 // this is not convenient, but otherwise it fails the display
-                Validate(context, newValue);
+                if (!validated)
+                    Validate(context, newValue);
             }
         }
 
@@ -88,7 +99,7 @@ namespace ArxOne.MrAdvice.MVVM.Properties
         /// <returns></returns>
         private bool Validate(INotifyDataErrorViewModel notifyDataErrorViewModel, object target, PropertyInfo targetProperty, object value)
         {
-            var validationAttributes = targetProperty.GetCustomAttributes(typeof (ValidationAttribute), true).Cast<ValidationAttribute>().ToArray();
+            var validationAttributes = targetProperty.GetCustomAttributes(typeof(ValidationAttribute), true).Cast<ValidationAttribute>().ToArray();
             if (validationAttributes.Length == 0)
                 return true;
 
