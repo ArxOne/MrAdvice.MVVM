@@ -33,6 +33,9 @@ namespace ArxOne.MrAdvice.MVVM.View
 
         private void SetCommand(object parameter)
         {
+            if (parameter == null)
+                return;
+
             // a method is bound directly
             _commandMethod = parameter as MethodBase;
             if (_commandMethod != null)

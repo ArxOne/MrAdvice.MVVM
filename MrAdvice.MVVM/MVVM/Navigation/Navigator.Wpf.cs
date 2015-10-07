@@ -28,6 +28,9 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
 
         public event EventHandler Exiting;
 
+        private bool _modernUI;
+        private ContentControl _modernUIContentControl;
+
         /// <summary>
         /// Shows the view/view-model as dialog.
         /// </summary>
@@ -36,6 +39,15 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
         /// <returns></returns>
         private async Task<ViewModel> ShowDialog(UIElement view, ViewModel viewModel)
         {
+            if (_modernUI)
+            {
+                if (_modernUIContentControl == null)
+                    _modernUIContentControl = Application.Current.MainWindow.GetVisualSelfAndChildren().OfType<ContentControl>().Single(c => c.Name == "ContentFrame");
+
+                _modernUIContentControl.Content = view;
+                return viewModel;
+            }
+
             var window = (Window)view;
             HandleModernUIWindowNavigation(window);
             window.Owner = (Window)_views.Peek();
@@ -60,6 +72,7 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
             {
                 if (window != null)
                 {
+                    _modernUI = IsModernUIWindow(window);
                     HandleModernUIWindowNavigation(window);
                     window.Show();
                     if (window.ShowActivated)
