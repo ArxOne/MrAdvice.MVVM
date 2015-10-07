@@ -39,6 +39,7 @@ namespace TestApplication.ViewModel
         [NotifyPropertyChanged]
         public string PopupSaid { get; set; }
 
+        [NotifyPropertyChanged]
         [Required(ErrorMessage = @"Type something!")]
         [RegularExpression(@"\d*", ErrorMessage = @"Only digits")]
         [MaxLength(5, ErrorMessage = @"Only 5 digits at most")]

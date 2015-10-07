@@ -23,6 +23,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)MVVM\Threading\Async.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MVVM\Threading\UISync.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MVVM\ViewModel\ILoadViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MVVM\ViewModel\INotifyDataErrorViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MVVM\ViewModel\INotifyPropertyChangedViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MVVM\ViewModel\ViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MVVM\View\Command.cs" />
