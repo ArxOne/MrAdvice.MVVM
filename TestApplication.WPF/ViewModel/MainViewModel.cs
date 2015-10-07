@@ -7,10 +7,7 @@
 
 namespace TestApplication.ViewModel
 {
-    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
-    using System.Reflection;
-    using System.Runtime.CompilerServices;
     using System.Threading;
     using System.Threading.Tasks;
     using System.Windows;
@@ -23,11 +20,10 @@ namespace TestApplication.ViewModel
     /// <summary>
     /// View-model for MainView
     /// </summary>
-    public class MainViewModel : INotifyPropertyChangedViewModel, ILoadViewModel
+    public class MainViewModel : ViewModel
     {
+        private string _validatedValue;
         public INavigator Navigator => Application.Current.GetNavigator();
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         // DEMO: the NotifyPropertyChanged aspect
         [NotifyPropertyChanged]
@@ -43,12 +39,21 @@ namespace TestApplication.ViewModel
         [Required(ErrorMessage = @"Type something!")]
         [RegularExpression(@"\d*", ErrorMessage = @"Only digits")]
         [MaxLength(5, ErrorMessage = @"Only 5 digits at most")]
-        public string ValidatedValue { get; set; }
+        public string ValidatedValue
+        {
+            get { return _validatedValue; }
+            set
+            {
+                _validatedValue = value;
+                if (_validatedValue == "42")
+                    throw new ValidationException("Not this answer!");
+            }
+        }
 
         /// <summary>
         /// This method is called by the navigator once the view-model is initialized.
         /// </summary>
-        public async Task Load()
+        public override async Task Load()
         {
             PopupSaid = "nothing yet, you have to use it";
             // This method is called when the navigator creates the view-model
@@ -63,18 +68,6 @@ namespace TestApplication.ViewModel
                 ++AutomaticCounter;
                 Thread.Sleep(1000);
             }
-        }
-
-        /// <summary>
-        /// Called to raise the PropertyChanged event.
-        /// </summary>
-        /// <param name="propertyInfo">The property information whose value changed.</param>
-        /// <param name="sender">The sender advice (right, you probably won't need it).</param>
-        public void OnPropertyChanged(PropertyInfo propertyInfo, NotifyPropertyChanged sender)
-        {
-            var onPropertyChanged = PropertyChanged;
-            if (onPropertyChanged != null)
-                onPropertyChanged(this, new PropertyChangedEventArgs(propertyInfo.Name));
         }
 
         public void ButtonAction()
