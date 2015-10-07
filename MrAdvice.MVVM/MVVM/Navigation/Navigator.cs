@@ -18,6 +18,7 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
     using System.Windows;
 #endif
     using Annotations;
+    using global::MrAdvice.MVVM.Utility;
     using Properties;
     using Utility;
     using ViewModel;
@@ -56,7 +57,7 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
         /// </returns>
         public async Task<object> Show(Type viewModelType, Func<object, Task> initializer = null)
         {
-            var viewModel = (ViewModel)GetOrCreateInstance(viewModelType);
+            var viewModel = (ViewModel)await GetOrCreateInstance(viewModelType);
             // initializer comes first
             if (initializer != null)
                 await initializer(viewModel);
@@ -65,7 +66,7 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
             if (loadViewModel != null)
                 await loadViewModel.Load();
             var viewType = GetViewType(viewModelType);
-            var view = (FrameworkElement)GetOrCreateInstance(viewType);
+            var view = (FrameworkElement)await GetOrCreateInstance(viewType);
             view.DataContext = viewModel;
             if (_views.Count == 0)
                 return await ShowMain(view, viewModel);
@@ -78,13 +79,13 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
         /// </summary>
         /// <param name="type">The type.</param>
         /// <returns></returns>
-        private static object GetOrCreateInstance(Type type)
+        private static async Task<object> GetOrCreateInstance(Type type)
         {
             return
 #if !WINDOWS_UWP
-                ServiceLocatorAccessor.Activate(type) ??
+                   await TaskUtility.Await(() => ServiceLocatorAccessor.Activate(type)) ??
 #endif
-                Activator.CreateInstance(type);
+                        Activator.CreateInstance(type);
         }
 
         /// <summary>

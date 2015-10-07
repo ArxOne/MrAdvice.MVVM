@@ -39,6 +39,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Utility\ObjectTypeConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utility\PropertyInfoExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utility\ServiceLocatorAccessor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utility\TaskUtility.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utility\TypeExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utility\UIElementExtensions.cs" />
   </ItemGroup>

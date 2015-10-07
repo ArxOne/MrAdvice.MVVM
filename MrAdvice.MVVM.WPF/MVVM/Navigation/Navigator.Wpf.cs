@@ -181,7 +181,7 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
         /// Called when content has changed.
         /// </summary>
         /// <param name="d">The d.</param>
-        private void OnContentChanged(DependencyObject d)
+        private async void OnContentChanged(DependencyObject d)
         {
             var contentControl = (ContentControl)d;
             var content = contentControl.Content as FrameworkElement;
@@ -195,7 +195,7 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
                 return;
             // then check for data context
             if (contentControl.DataContext == null || contentControl.DataContext.GetType() != viewModelType)
-                contentControl.DataContext = GetOrCreateInstance(viewModelType);
+                contentControl.DataContext = await GetOrCreateInstance(viewModelType);
         }
     }
 }
