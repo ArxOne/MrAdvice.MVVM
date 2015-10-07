@@ -26,6 +26,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApplication.WPF", "Test
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MrAdvice.MVVM (Silverlight)", "MrAdvice.MVVM.Silverlight\MrAdvice.MVVM (Silverlight).csproj", "{8387A320-D149-4BB3-8455-DD0D56DCEA74}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3CC33C7B-65E5-47F0-AE8A-1A473D8720E1} = {3CC33C7B-65E5-47F0-AE8A-1A473D8720E1}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApplication.Silverlight", "TestApplication.Silverlight\TestApplication.Silverlight.csproj", "{38974607-15D6-4EE2-8F43-F97EC20D1F82}"
 EndProject
@@ -51,6 +54,7 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "MrAdvice.MVVM", "MrAdvice.M
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		MrAdvice.MVVM\MrAdvice.MVVM.projitems*{8387a320-d149-4bb3-8455-dd0d56dcea74}*SharedItemsImports = 4
 		MrAdvice.MVVM\MrAdvice.MVVM.projitems*{a1163891-b918-439d-b9f3-29602a99d79f}*SharedItemsImports = 4
 		MrAdvice.MVVM\MrAdvice.MVVM.projitems*{3cc33c7b-65e5-47f0-ae8a-1a473d8720e1}*SharedItemsImports = 4
 		MrAdvice.MVVM\MrAdvice.MVVM.projitems*{998421f4-6ef6-41d5-ace8-81ca4bf6fecb}*SharedItemsImports = 13

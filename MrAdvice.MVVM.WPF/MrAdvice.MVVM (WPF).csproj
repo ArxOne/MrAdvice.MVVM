@@ -58,6 +58,8 @@
     <Compile Include="MVVM\Navigation\Navigator.Wpf.cs" />
     <Compile Include="Properties\ProductInfo.cs">
       <DependentUpon>ProductInfo.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -73,9 +75,10 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Properties\ProductInfoValues.tt" />
+    <None Include="Properties\ProductInfoValues.tt" />
     <None Include="Properties\ProductInfo.tt">
       <LastGenOutput>ProductInfo.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
     </None>
     <None Include="MrAdvice.MVVM.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -107,15 +110,15 @@
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
-  <Import Project="..\packages\Clarius.TransformOnBuild.1.1.12\build\Clarius.TransformOnBuild.targets" Condition="Exists('..\packages\Clarius.TransformOnBuild.1.1.12\build\Clarius.TransformOnBuild.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Clarius.TransformOnBuild.1.1.12\build\Clarius.TransformOnBuild.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Clarius.TransformOnBuild.1.1.12\build\Clarius.TransformOnBuild.targets'))" />
     <Error Condition="!Exists('..\packages\Fody.1.29.3\build\portable-net+sl+win+wpa+wp\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.1.29.3\build\portable-net+sl+win+wpa+wp\Fody.targets'))" />
+    <Error Condition="!Exists('..\packages\Clarius.TransformOnBuild.1.1.12\build\Clarius.TransformOnBuild.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Clarius.TransformOnBuild.1.1.12\build\Clarius.TransformOnBuild.targets'))" />
   </Target>
   <Import Project="..\packages\Fody.1.29.3\build\portable-net+sl+win+wpa+wp\Fody.targets" Condition="Exists('..\packages\Fody.1.29.3\build\portable-net+sl+win+wpa+wp\Fody.targets')" />
+  <Import Project="..\packages\Clarius.TransformOnBuild.1.1.12\build\Clarius.TransformOnBuild.targets" Condition="Exists('..\packages\Clarius.TransformOnBuild.1.1.12\build\Clarius.TransformOnBuild.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
