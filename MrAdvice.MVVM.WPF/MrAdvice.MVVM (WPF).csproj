@@ -47,17 +47,16 @@
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
-   <PropertyGroup>
+  <PropertyGroup>
     <AssemblyOriginatorKeyFile>..\MrAdvice.MVVM\Properties\MrAdvice.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
- <PropertyGroup>
+  <PropertyGroup>
     <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
     <None Include="..\MrAdvice.MVVM\Properties\MrAdvice.snk">
       <Link>Properties\MrAdvice.snk</Link>
     </None>
-    <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MVVM\Navigation\Navigator.Wpf.cs" />

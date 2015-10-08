@@ -8,6 +8,7 @@ namespace ArxOne.MrAdvice.MVVM.View
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.Reflection;
     using System.Windows.Input;
 
@@ -15,6 +16,9 @@ namespace ArxOne.MrAdvice.MVVM.View
     {
         private readonly object _viewModel;
         private MethodBase _commandMethod;
+        private string _canCommandPropertyName;
+        private bool _canExecute;
+        private PropertyInfo _canExecuteProperty;
 
 #pragma warning disable 0067
         public event EventHandler CanExecuteChanged;
@@ -39,20 +43,58 @@ namespace ArxOne.MrAdvice.MVVM.View
             // a method is bound directly
             _commandMethod = parameter as MethodBase;
             if (_commandMethod != null)
+            {
+                SetCanExecute(_commandMethod.Name);
                 return;
+            }
 
             // otherwise, search by its name
             var commandString = (string)parameter;
             _commandMethod = _viewModel.GetType().GetMethod(commandString);
             if (_commandMethod == null)
                 throw new InvalidOperationException($"Command '{commandString}' not found");
+            SetCanExecute(commandString);
         }
 
-        public bool CanExecute(object parameter)
+        private void SetCanExecute(string commandName)
         {
-            // TODO :)
-            return true;
+            var notifyPropertyChanged = _viewModel as INotifyPropertyChanged;
+            if (notifyPropertyChanged == null)
+                return;
+
+            _canCommandPropertyName = "Can" + commandName;
+            _canExecuteProperty = _viewModel.GetType().GetProperty(_canCommandPropertyName);
+            if (_canExecuteProperty == null)
+                return;
+
+            // check the property initial value
+            GetCanExecute();
+            // and stay tuned
+            notifyPropertyChanged.PropertyChanged += OnPropertyChanged;
         }
+
+        private void GetCanExecute()
+        {
+            _canExecute = (bool) _canExecuteProperty.GetValue(_viewModel, new object[0]);
+        }
+
+        /// <summary>
+        /// Called when the can execute property changed.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="PropertyChangedEventArgs"/> instance containing the event data.</param>
+        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == _canCommandPropertyName)
+            {
+                GetCanExecute();
+                var canExecuteChanged = CanExecuteChanged;
+                if (canExecuteChanged != null)
+                    canExecuteChanged(this, EventArgs.Empty);
+            }
+        }
+
+        public bool CanExecute(object parameter) => _canExecute;
 
         public void Execute(object parameter)
         {

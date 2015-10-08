@@ -11,7 +11,10 @@
     <Grid Margin="8">
         <StackPanel Orientation="Vertical">
             <!-- DEMO: binding command to view-model method -->
+            <StackPanel Orientation="Horizontal">
             <Button Content="Click me" Command="{mrAdvice:Command {Binding ButtonAction}}" HorizontalAlignment="Left" />
+            <CheckBox IsChecked="{Binding CanButtonAction}" Content="Enable button beside"/>
+            </StackPanel>
             <TextBlock>
                 <Run Text="You clicked me "/>
                 <Run Text="{Binding ButtonActionCount, Mode=OneWay}"/>
