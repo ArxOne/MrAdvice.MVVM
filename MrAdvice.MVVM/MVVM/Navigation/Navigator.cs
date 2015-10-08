@@ -81,11 +81,22 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
         /// <returns></returns>
         private static async Task<object> GetOrCreateInstance(Type type)
         {
-            return
-#if !WINDOWS_UWP
-                   await TaskUtility.Await(() => ServiceLocatorAccessor.Activate(type)) ??
+            return await GetServiceLocatorInstance(type) ?? Activator.CreateInstance(type);
+        }
+
+        private static async Task<object> GetServiceLocatorInstance(Type type)
+        {
+#if WINDOWS_UWP
+            return null;
+#else
+            // polymorphic approach: if the result is a task, we await for it
+            // otherwise, this is straightforward
+            var result = ServiceLocatorAccessor.Activate(type);
+            var awaitableResult = result as Task<object>;
+            if (awaitableResult != null)
+                return await awaitableResult;
+            return result;
 #endif
-                        Activator.CreateInstance(type);
         }
 
         /// <summary>
