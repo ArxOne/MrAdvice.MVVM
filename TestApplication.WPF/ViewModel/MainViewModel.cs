@@ -73,6 +73,7 @@ namespace TestApplication.ViewModel
         [NotifyPropertyChanged]
         public bool CanButtonAction { get; set; } = true;
 
+        [Command]
         public void ButtonAction()
         {
             ++ButtonActionCount;

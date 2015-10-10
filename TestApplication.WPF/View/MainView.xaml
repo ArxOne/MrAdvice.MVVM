@@ -12,7 +12,7 @@
         <StackPanel Orientation="Vertical">
             <!-- DEMO: binding command to view-model method -->
             <StackPanel Orientation="Horizontal">
-            <Button Content="Click me" Command="{mrAdvice:Command {Binding ButtonAction}}" HorizontalAlignment="Left" />
+            <Button Content="Click me" Command="{Binding ButtonAction}" HorizontalAlignment="Left" />
             <CheckBox IsChecked="{Binding CanButtonAction}" Content="Enable button beside"/>
             </StackPanel>
             <TextBlock>

@@ -35,6 +35,21 @@ namespace ArxOne.MrAdvice.MVVM.View
             SetCommand(parameter);
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RelayCommand"/> class.
+        /// </summary>
+        /// <param name="viewModel">The view model.</param>
+        /// <param name="command">The command.</param>
+        /// <param name="canCommand">The can command.</param>
+        public RelayCommand(object viewModel, MethodInfo command, PropertyInfo canCommand)
+        {
+            _viewModel = viewModel;
+            _commandMethod = command;
+            _canExecuteProperty = canCommand;
+            _canCommandPropertyName = canCommand?.Name;
+            SetCanExecute();
+        }
+
         private void SetCommand(object parameter)
         {
             if (parameter == null)
@@ -58,24 +73,33 @@ namespace ArxOne.MrAdvice.MVVM.View
 
         private void SetCanExecute(string commandName)
         {
+            _canCommandPropertyName = "Can" + commandName;
+            _canExecuteProperty = _viewModel.GetType().GetProperty(_canCommandPropertyName);
+            SetCanExecute();
+        }
+
+        private void SetCanExecute()
+        {
+            if (_canExecuteProperty == null)
+            {
+                _canExecute = true;
+                return;
+            }
+
+            // check the property initial value
+            GetCanExecute();
+
             var notifyPropertyChanged = _viewModel as INotifyPropertyChanged;
             if (notifyPropertyChanged == null)
                 return;
 
-            _canCommandPropertyName = "Can" + commandName;
-            _canExecuteProperty = _viewModel.GetType().GetProperty(_canCommandPropertyName);
-            if (_canExecuteProperty == null)
-                return;
-
-            // check the property initial value
-            GetCanExecute();
             // and stay tuned
             notifyPropertyChanged.PropertyChanged += OnPropertyChanged;
         }
 
         private void GetCanExecute()
         {
-            _canExecute = (bool) _canExecuteProperty.GetValue(_viewModel, new object[0]);
+            _canExecute = (bool)_canExecuteProperty.GetValue(_viewModel, new object[0]);
         }
 
         /// <summary>
