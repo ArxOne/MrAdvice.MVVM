@@ -57,7 +57,6 @@
     <None Include="..\MrAdvice.MVVM\Properties\MrAdvice.snk">
       <Link>Properties\MrAdvice.snk</Link>
     </None>
-    <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MVVM\Navigation\Navigator.Wpf.cs" />
