@@ -10,6 +10,7 @@ using System.ComponentModel;
 namespace TestApplication.UWP
 {
     using System;
+    using System.Windows.Input;
     using Windows.ApplicationModel;
     using Windows.ApplicationModel.Activation;
     using Windows.UI.Xaml;

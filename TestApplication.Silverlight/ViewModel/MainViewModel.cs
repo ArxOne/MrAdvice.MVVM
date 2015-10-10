@@ -18,6 +18,7 @@ namespace TestApplication.Silverlight.ViewModel
     using ArxOne.MrAdvice.MVVM.Threading;
     using ArxOne.MrAdvice.MVVM.ViewModel;
     using ArxOne.MrAdvice.Utility;
+    using MrAdvice.MVVM.MVVM.ViewModel;
 
     public class MainViewModel : ViewModel
     {
@@ -57,11 +58,13 @@ namespace TestApplication.Silverlight.ViewModel
             }
         }
 
+        [Command]
         public void ButtonAction()
         {
             ++ButtonActionCount;
         }
 
+        [Command]
         public async void BigQuestion()
         {
             var viewModel = await Navigator.Show<PopupViewModel>();

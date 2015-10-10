@@ -16,19 +16,27 @@ namespace TestApplication.UWP.ViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        [NotifyPropertyChanged]
+        public int HereCount { get; set; }
+
+        [NotifyPropertyChanged]
+        public int ThereCount { get; set; }
+
         public void OnPropertyChanged(PropertyInfo propertyInfo, NotifyPropertyChanged sender)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyInfo.Name));
         }
 
+        [Command]
         public void ClickHere()
         {
-            
+            ++HereCount;
         }
 
+        [Command]
         public void ClickThere()
         {
-            
+            ++ThereCount;
         }
     }
 }

@@ -11,8 +11,8 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Content="The answer is 42" Command="{mrAdvice:Command Name=FortyTwo}"/>
-            <Button Content="The truth is out there" Command="{mrAdvice:Command Name=OutThere}" Margin="8,0,0,0"/>
+            <Button Content="The answer is 42" Command="{Binding FortyTwo}"/>
+            <Button Content="The truth is out there" Command="{Binding OutThere}" Margin="8,0,0,0"/>
         </StackPanel>
     </Grid>
 </controls:ChildWindow>

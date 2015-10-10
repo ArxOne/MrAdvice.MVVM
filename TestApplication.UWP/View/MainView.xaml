@@ -13,10 +13,16 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <StackPanel Orientation="Vertical" Margin="8">
             <StackPanel Orientation="Horizontal">
-                <Button Content="Click here..." mvvm:Command.Target="ClickHere"/>
-                <Button Content="... Or there" mvvm:Command.Target="ClickThere"/>
+                <Button Content="Click here..." Command="{Binding ClickHere}"/>
+                <Button Content="... Or there" Command="{Binding ClickThere}"/>
             </StackPanel>
-            <TextBlock Text="Hello there"/>
+            <TextBlock>
+                <Run Text="You clicked here "/>
+                <Run Text="{Binding HereCount}"/>
+                <Run Text="times, and there "/>
+                <Run Text="{Binding ThereCount}"/>
+                <Run Text="times."/>
+            </TextBlock>
         </StackPanel>
     </Grid>
 </Page>

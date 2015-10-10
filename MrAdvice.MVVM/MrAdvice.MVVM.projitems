@@ -6,7 +6,7 @@
     <SharedGUID>998421f4-6ef6-41d5-ace8-81ca4bf6fecb</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>MrAdvice.MVVM</Import_RootNamespace>
+    <Import_RootNamespace>ArxOne.MrAdvice</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Collection\DispatcherObservableCollection.cs" />
@@ -22,11 +22,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)MVVM\Properties\Property.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MVVM\Threading\Async.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MVVM\Threading\UISync.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MVVM\ViewModel\Command.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MVVM\ViewModel\ILoadViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MVVM\ViewModel\INotifyDataErrorViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MVVM\ViewModel\INotifyPropertyChangedViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MVVM\ViewModel\ViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)MVVM\View\Command.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MVVM\View\CommandExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MVVM\View\Navigator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MVVM\View\RelayCommand.cs" />

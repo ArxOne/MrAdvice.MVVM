@@ -37,8 +37,8 @@
       <HintPath>..\packages\ModernUI.WPF.1.0.6\lib\net45\FirstFloor.ModernUI.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MrAdvice, Version=1.1.6.0, Culture=neutral, PublicKeyToken=c0e7e6eab6f293d8, processorArchitecture=MSIL">
-      <HintPath>..\packages\MrAdvice.Fody.1.1.6\lib\portable-net40+sl5+wp8+uap10.0\MrAdvice.dll</HintPath>
+    <Reference Include="MrAdvice, Version=1.1.8.0, Culture=neutral, PublicKeyToken=c0e7e6eab6f293d8, processorArchitecture=MSIL">
+      <HintPath>..\packages\MrAdvice.Fody.1.1.8\lib\portable-net40+sl5+wp8+uap10.0\MrAdvice.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />

@@ -12,7 +12,7 @@
             d:DataContext="{d:DesignInstance viewModel:MainViewModel}">
     <Grid >
         <StackPanel Orientation="Vertical" Margin="8">
-            <Button Content="A simple button" Command="{mrAdvice:Command Name=ButtonAction}" HorizontalAlignment="Left" />
+            <Button Content="A simple button" Command="{Binding ButtonAction}" HorizontalAlignment="Left" />
             <TextBlock>
                 <Run Text="You clicked that simple button "/>
                 <Run Text="{Binding ButtonActionCount, Mode=OneWay}"/>
@@ -22,7 +22,7 @@
                 <Run Text="This is an automatic counter, updated in background "/>
                 <Run Text="{Binding AutomaticCounter, Mode=OneWay}"/>
             </TextBlock>
-            <Button Content="An important question..." Command="{mrAdvice:Command Name=BigQuestion}" HorizontalAlignment="Left" />
+            <Button Content="An important question..." Command="{Binding BigQuestion}" HorizontalAlignment="Left" />
             <TextBlock>
                 <Run Text="The answer is: "/>
                 <Run Text="{Binding ImportantAnswer, Mode=OneWay}"/>
