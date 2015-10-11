@@ -191,4 +191,5 @@ FakesAssemblies/
 # Mr Advice MVVM specific
 MrAdvice.MVVM.WPF/Properties/ProductInfo.cs
 MrAdvice.MVVM.WPF/MrAdvice.MVVM.nuspec
-
+*.lock.json
+*.nuget.targets
