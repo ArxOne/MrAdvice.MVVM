@@ -1,8 +1,8 @@
 ﻿{
   "dependencies": {
-    "Fody": "1.29.3",
+    "Fody": "1.29.4",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.0.0",
-    "MrAdvice.Fody": "1.1.9"
+    "MrAdvice.Fody": "1.2.4"
   },
   "frameworks": {
     "uap10.0": {}
