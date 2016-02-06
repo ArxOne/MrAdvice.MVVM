@@ -130,10 +130,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MrAdvice.MVVM.UWP\MrAdvice.MVVM %28UWP%29.csproj">
-      <Project>{A1163891-B918-439D-B9F3-29602A99D79F}</Project>
-      <Name>MrAdvice.MVVM %28UWP%29</Name>
-    </ProjectReference>
     <ProjectReference Include="..\TestApplication.UWP.ViewModel\TestApplication.UWP.ViewModel.csproj">
       <Project>{b00b5819-3c5b-4ac8-8aa2-7c5fb7d25ce7}</Project>
       <Name>TestApplication.UWP.ViewModel</Name>
