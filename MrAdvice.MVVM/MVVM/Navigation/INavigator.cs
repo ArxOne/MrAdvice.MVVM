@@ -9,6 +9,7 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
 {
     using System;
     using System.Threading.Tasks;
+    using System.Windows;
 
     /// <summary>
     /// Navigation interface, to be injected in view-models
@@ -47,6 +48,13 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
         /// <param name="initializer"></param>
         /// <returns>The view model if dialog is OK, null if cancelled</returns>
         Task<object> Show(Type viewModelType, Func<object, Task> initializer = null);
+
+        /// <summary>
+        /// Gets (usually creates) a view related to an existing view-model.
+        /// </summary>
+        /// <param name="viewModel">The view model.</param>
+        /// <returns></returns>
+        Task<FrameworkElement> CreateView(object viewModel);
 
         /// <summary>
         /// Exits the view.

@@ -75,6 +75,19 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
         }
 
         /// <summary>
+        /// Gets (usually creates) a view related to an existing view-model.
+        /// </summary>
+        /// <param name="viewModel">The view model.</param>
+        /// <returns></returns>
+        public async Task<FrameworkElement> CreateView(ViewModel viewModel)
+        {
+            var viewType = GetViewType(viewModel.GetType());
+            var view = (FrameworkElement)await GetOrCreateInstance(viewType, InstanceType.View);
+            view.DataContext = viewModel;
+            return view;
+        }
+
+        /// <summary>
         /// Gets or create an instance of given type.
         /// This may use the CommonServiceLocator, assuming it's been correctly configured
         /// </summary>
