@@ -11,15 +11,8 @@ os: Visual Studio 2015
 install:
   - set PATH=C:\Program Files (x86)\MSBuild\14.0\Bin;%PATH%
 
-build:
-  parallel: true
-  project: 'MrAdvice.MVVM (no UWP).sln'
-#  publish_nuget: true
-#  publish_nuget_symbols: true
-  verbosity: minimal
-
 before_build:
-  nuget restore
+  nuget restore 'MrAdvice.MVVM (no UWP).sln'
 
 #nuget:
 #  account_feed: true
@@ -28,6 +21,13 @@ before_build:
 
 configuration: Release
 platform: Any CPU
+
+build:
+  parallel: true
+  project: 'MrAdvice.MVVM (no UWP).sln'
+#  publish_nuget: true
+#  publish_nuget_symbols: true
+  verbosity: minimal
 
 artifacts:
   - path: 'MrAdvice.MVVM.WPF\bin\$(Configuration)\*.nupkg'
