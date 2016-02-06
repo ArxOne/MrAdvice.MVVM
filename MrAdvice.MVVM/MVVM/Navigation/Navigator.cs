@@ -1,8 +1,8 @@
 ﻿#region Mr. Advice MVVM
-// // Mr. Advice MVVM
-// // A simple MVVM package using Mr. Advice aspect weaver
-// // https://github.com/ArxOne/MrAdvice.MVVM
-// // Released under MIT license http://opensource.org/licenses/mit-license.php
+// Mr. Advice MVVM
+// A simple MVVM package using Mr. Advice aspect weaver
+// https://github.com/ArxOne/MrAdvice.MVVM
+// Released under MIT license http://opensource.org/licenses/mit-license.php
 #endregion
 
 namespace ArxOne.MrAdvice.MVVM.Navigation
@@ -12,16 +12,14 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
     using System.Linq;
     using System.Reflection;
     using System.Threading.Tasks;
+    using Annotations;
+    using Utility;
+    using ViewModel;
 #if WINDOWS_UWP
     using Windows.UI.Xaml;
 #else
     using System.Windows;
 #endif
-    using Annotations;
-    using global::MrAdvice.MVVM.Utility;
-    using Properties;
-    using Utility;
-    using ViewModel;
     using ViewModel = System.Object;
 
     /// <summary>
@@ -36,6 +34,9 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
         private readonly IDictionary<Type, Type> _viewByViewModel = new Dictionary<Type, Type>();
 
         private readonly Stack<UIElement> _views = new Stack<UIElement>();
+
+        public event EventHandler<CreatingInstanceEventArgs> CreatingInstance;
+        public event EventHandler<CreatedInstanceEventArgs> CreatedInstance;
 
         /// <summary>
         /// Configures the specified view model type to be used with view type.
@@ -57,7 +58,7 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
         /// </returns>
         public async Task<object> Show(Type viewModelType, Func<object, Task> initializer = null)
         {
-            var viewModel = (ViewModel)await GetOrCreateInstance(viewModelType);
+            var viewModel = (ViewModel)await GetOrCreateInstance(viewModelType, InstanceType.ViewModel);
             // initializer comes first
             if (initializer != null)
                 await initializer(viewModel);
@@ -66,7 +67,7 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
             if (loadViewModel != null)
                 await loadViewModel.Load();
             var viewType = GetViewType(viewModelType);
-            var view = (FrameworkElement)await GetOrCreateInstance(viewType);
+            var view = (FrameworkElement)await GetOrCreateInstance(viewType, InstanceType.View);
             view.DataContext = viewModel;
             if (_views.Count == 0)
                 return await ShowMain(view, viewModel);
@@ -78,10 +79,34 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
         /// This may use the CommonServiceLocator, assuming it's been correctly configured
         /// </summary>
         /// <param name="type">The type.</param>
+        /// <param name="instanceType">Type of the instance.</param>
         /// <returns></returns>
-        private static async Task<object> GetOrCreateInstance(Type type)
+        private async Task<object> GetOrCreateInstance(Type type, InstanceType instanceType)
         {
-            return await GetServiceLocatorInstance(type) ?? Activator.CreateInstance(type);
+            return await GetServiceLocatorInstance(type) ?? CreateInstance(type, instanceType);
+        }
+
+        /// <summary>
+        /// Creates the instance.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="instanceType">Type of the instance.</param>
+        /// <returns></returns>
+        private object CreateInstance(Type type, InstanceType instanceType)
+        {
+            var onCreatingInstance = CreatingInstance;
+            if (onCreatingInstance != null)
+            {
+                var e = new CreatingInstanceEventArgs(instanceType);
+                onCreatingInstance.Invoke(this, e);
+                if (e.Instance != null)
+                    return e.Instance;
+            }
+            var instance = Activator.CreateInstance(type);
+            var onCreatedInstance = CreatedInstance;
+            if (onCreatedInstance != null)
+                onCreatedInstance.Invoke(this, new CreatedInstanceEventArgs(instance, instanceType));
+            return instance;
         }
 
         private static async Task<object> GetServiceLocatorInstance(Type type)

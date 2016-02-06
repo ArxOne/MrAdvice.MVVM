@@ -195,7 +195,7 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
                 return;
             // then check for data context
             if (contentControl.DataContext == null || contentControl.DataContext.GetType() != viewModelType)
-                contentControl.DataContext = await GetOrCreateInstance(viewModelType);
+                contentControl.DataContext = await GetOrCreateInstance(viewModelType, InstanceType.ViewModel);
         }
     }
 }

@@ -1,8 +1,8 @@
 ﻿#region Mr. Advice MVVM
-// // Mr. Advice MVVM
-// // A simple MVVM package using Mr. Advice aspect weaver
-// // https://github.com/ArxOne/MrAdvice.MVVM
-// // Released under MIT license http://opensource.org/licenses/mit-license.php
+// Mr. Advice MVVM
+// A simple MVVM package using Mr. Advice aspect weaver
+// https://github.com/ArxOne/MrAdvice.MVVM
+// Released under MIT license http://opensource.org/licenses/mit-license.php
 #endregion
 
 namespace ArxOne.MrAdvice.MVVM.Navigation
@@ -21,6 +21,15 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
         /// </summary>
         event EventHandler Exiting;
 #endif
+        /// <summary>
+        /// Occurs when creating a new instance.
+        /// </summary>
+        event EventHandler<CreatingInstanceEventArgs> CreatingInstance;
+
+        /// <summary>
+        /// Occurs when an instance is created.
+        /// </summary>
+        event EventHandler<CreatedInstanceEventArgs> CreatedInstance; 
 
         /// <summary>
         /// Configures the specified view model type to be used with view type.

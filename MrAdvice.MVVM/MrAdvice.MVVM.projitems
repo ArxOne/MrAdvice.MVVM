@@ -10,7 +10,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Collection\DispatcherObservableCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MVVM\Navigation\CreatingInstanceEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MVVM\Navigation\INavigator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MVVM\Navigation\CreatedInstanceEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MVVM\Navigation\InstanceType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MVVM\Navigation\Navigator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MVVM\Navigation\NavigatorExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MVVM\Properties\AspectPriority.cs" />
