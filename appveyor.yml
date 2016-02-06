@@ -24,10 +24,10 @@ platform: Any CPU
 
 build:
   parallel: true   
+  project: 'MrAdvice.MVVM (no UWP).sln'
 #  publish_nuget: true
 #  publish_nuget_symbols: true
   verbosity: minimal
-  project: "MrAdvice.MVVM (no UWP).sln"
 
 artifacts:
   - path: 'MrAdvice.MVVM.WPF\bin\$(Configuration)\*.nupkg'
