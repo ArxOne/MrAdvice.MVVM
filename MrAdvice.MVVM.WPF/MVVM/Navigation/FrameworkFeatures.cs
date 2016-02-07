@@ -21,14 +21,14 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
         /// <summary>
         /// The default type
         /// </summary>
-        Default = 1 << 32,
+        Default = 1 << 48,
         /// <summary>
         /// ModernUI
         /// </summary>
-        ModernUI = (2 << 32) | UsesContentFrame,
+        ModernUI = (2 << 48) | UsesContentFrame,
         /// <summary>
         /// The mahapps metro window
         /// </summary>
-        MahAppsMetroWindow = (3 << 32) | AutoClose,
+        MahAppsMetroWindow = (3 << 48) | AutoClose,
     }
 }

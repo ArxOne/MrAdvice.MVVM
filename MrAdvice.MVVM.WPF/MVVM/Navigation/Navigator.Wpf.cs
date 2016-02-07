@@ -66,7 +66,6 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
         private async Task<ViewModel> ShowMain(UIElement view, ViewModel viewModel)
         {
             var window = view as Window;
-            var autoClose = _features.HasFlag(FrameworkFeatures.AutoClose);
             // This is a very dirty hack. I'm not proud of it.
             if (!View.Navigator.GetKeepHidden(view))
             {
@@ -77,12 +76,12 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
                     window.Show();
                     if (window.ShowActivated)
                         window.Activate();
-                    if (!autoClose)
+                    if (!_features.HasFlag(FrameworkFeatures.AutoClose))
                         window.Closed += delegate { Shutdown(); };
                 }
             }
             // auto-close models requires not to keep track of them
-            _views.Push(autoClose ? null : view);
+            _views.Push(_features.HasFlag(FrameworkFeatures.AutoClose) ? null : view);
             view.IsVisibleChanged += OnVisibleChanged;
             return viewModel;
         }
