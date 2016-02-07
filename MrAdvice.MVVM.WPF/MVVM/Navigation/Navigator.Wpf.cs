@@ -9,7 +9,6 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
 {
     using System;
     using System.Linq;
-    using System.Reflection;
     using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Controls;
@@ -28,7 +27,7 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
 
         public event EventHandler Exiting;
 
-        private bool _modernUI;
+        private FrameworkFeatures _features;
         private ContentControl _modernUIContentControl;
 
         /// <summary>
@@ -39,7 +38,7 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
         /// <returns></returns>
         private async Task<ViewModel> ShowDialog(UIElement view, ViewModel viewModel)
         {
-            if (_modernUI)
+            if (_features.HasFlag(FrameworkFeatures.UsesContentFrame))
             {
                 if (_modernUIContentControl == null)
                     _modernUIContentControl = Application.Current.MainWindow.GetVisualSelfAndChildren().OfType<ContentControl>().Single(c => c.Name == "ContentFrame");
@@ -67,20 +66,23 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
         private async Task<ViewModel> ShowMain(UIElement view, ViewModel viewModel)
         {
             var window = view as Window;
+            var autoClose = _features.HasFlag(FrameworkFeatures.AutoClose);
             // This is a very dirty hack. I'm not proud of it.
             if (!View.Navigator.GetKeepHidden(view))
             {
                 if (window != null)
                 {
-                    _modernUI = IsModernUIWindow(window);
+                    _features = GetWindowFrameworkFeatures(window);
                     HandleModernUIWindowNavigation(window);
                     window.Show();
                     if (window.ShowActivated)
                         window.Activate();
-                    window.Closed += delegate { Shutdown(); };
+                    if (!autoClose)
+                        window.Closed += delegate { Shutdown(); };
                 }
             }
-            _views.Push(view);
+            // auto-close models requires not to keep track of them
+            _views.Push(autoClose ? null : view);
             view.IsVisibleChanged += OnVisibleChanged;
             return viewModel;
         }
@@ -160,6 +162,20 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
                 var contentFrame = view.GetVisualSelfAndChildren().OfType<Control>().Single(c => c.GetType().Name == "ModernFrame");
                 ContentControl.ContentProperty.RegisterChangeCallback(contentFrame, "Content", OnContentChanged);
             }
+        }
+
+        private static FrameworkFeatures GetWindowFrameworkFeatures(Window view)
+        {
+            if (IsModernUIWindow(view))
+                return FrameworkFeatures.ModernUI;
+            if (IsMahAppsMetroWindow(view))
+                return FrameworkFeatures.MahAppsMetroWindow;
+            return FrameworkFeatures.Default;
+        }
+
+        private static bool IsMahAppsMetroWindow(Window view)
+        {
+            return view.GetType().GetSelfAndAncestors().Any(t => t.FullName == "MahApps.Metro.Controls.MetroWindow");
         }
 
         /// <summary>

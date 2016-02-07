@@ -59,6 +59,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MVVM\Navigation\FrameworkFeatures.cs" />
     <Compile Include="MVVM\Navigation\Navigator.Wpf.cs" />
     <Compile Include="Properties\ProductInfo.cs">
       <DependentUpon>ProductInfo.tt</DependentUpon>
