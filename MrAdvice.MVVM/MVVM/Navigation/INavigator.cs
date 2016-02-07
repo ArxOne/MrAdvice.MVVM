@@ -45,9 +45,17 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
         /// Shows the specified view model type.
         /// </summary>
         /// <param name="viewModelType">Type of the view model.</param>
-        /// <param name="initializer"></param>
+        /// <param name="viewModelInitializer"></param>
         /// <returns>The view model if dialog is OK, null if cancelled</returns>
-        Task<object> Show(Type viewModelType, Func<object, Task> initializer = null);
+        Task<object> Show(Type viewModelType, Func<object, Task> viewModelInitializer = null);
+
+        /// <summary>
+        /// Creates the view model.
+        /// </summary>
+        /// <param name="viewModelType">Type of the view model.</param>
+        /// <param name="viewModelInitializer">The view model initializer.</param>
+        /// <returns></returns>
+        Task<object> CreateViewModel(Type viewModelType, Func<object, Task> viewModelInitializer);
 
         /// <summary>
         /// Gets (usually creates) a view related to an existing view-model.

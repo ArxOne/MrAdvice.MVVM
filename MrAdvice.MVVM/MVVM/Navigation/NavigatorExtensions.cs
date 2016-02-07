@@ -37,14 +37,30 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
         /// </summary>
         /// <typeparam name="TViewModel">The type of the view model.</typeparam>
         /// <param name="navigator">The navigator.</param>
-        /// <param name="initializer">The initializer.</param>
+        /// <param name="viewModelInitializer"></param>
         /// <returns></returns>
-        public static async Task<TViewModel> Show<TViewModel>(this INavigator navigator, Func<TViewModel, Task> initializer = null)
+        public static async Task<TViewModel> Show<TViewModel>(this INavigator navigator, Func<TViewModel, Task> viewModelInitializer = null)
         {
-            var objectInitializer = initializer != null
-                ? async delegate(object o) { await initializer((TViewModel) o); }
-                : (Func<object, Task>) null;
+            var objectInitializer = viewModelInitializer != null
+                ? async delegate (object o) { await viewModelInitializer((TViewModel)o); }
+            : (Func<object, Task>)null;
             var result = await navigator.Show(typeof(TViewModel), objectInitializer);
+            return (TViewModel)result;
+        }
+
+        /// <summary>
+        /// Creates the view model.
+        /// </summary>
+        /// <typeparam name="TViewModel">The type of the view model.</typeparam>
+        /// <param name="navigator">The navigator.</param>
+        /// <param name="viewModelInitializer">The view model initializer.</param>
+        /// <returns></returns>
+        public static async Task<TViewModel> CreateViewModel<TViewModel>(this INavigator navigator, Func<TViewModel, Task> viewModelInitializer = null)
+        {
+            var objectInitializer = viewModelInitializer != null
+                ? async delegate (object o) { await viewModelInitializer((TViewModel)o); }
+            : (Func<object, Task>)null;
+            var result = await navigator.CreateViewModel(typeof(TViewModel), objectInitializer);
             return (TViewModel)result;
         }
     }

@@ -52,26 +52,32 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
         /// Shows the specified view model type.
         /// </summary>
         /// <param name="viewModelType">Type of the view model.</param>
-        /// <param name="initializer"></param>
+        /// <param name="viewModelInitializer"></param>
         /// <returns>
         /// The view model if dialog is OK, null if cancelled
         /// </returns>
-        public async Task<object> Show(Type viewModelType, Func<object, Task> initializer = null)
+        public async Task<object> Show(Type viewModelType, Func<object, Task> viewModelInitializer = null)
         {
-            var viewModel = (ViewModel)await GetOrCreateInstance(viewModelType, InstanceType.ViewModel);
-            // initializer comes first
-            if (initializer != null)
-                await initializer(viewModel);
-            // load comes second
-            var loadViewModel = viewModel as ILoadViewModel;
-            if (loadViewModel != null)
-                await loadViewModel.Load();
+            var viewModel = await CreateViewModel(viewModelType, viewModelInitializer);
             var viewType = GetViewType(viewModelType);
             var view = (FrameworkElement)await GetOrCreateInstance(viewType, InstanceType.View);
             view.DataContext = viewModel;
             if (_views.Count == 0)
                 return await ShowMain(view, viewModel);
             return await ShowDialog(view, viewModel);
+        }
+
+        public async Task<object> CreateViewModel(Type viewModelType, Func<object, Task> viewModelInitializer)
+        {
+            var viewModel = (ViewModel) await GetOrCreateInstance(viewModelType, InstanceType.ViewModel);
+            // initializer comes first
+            if (viewModelInitializer != null)
+                await viewModelInitializer(viewModel);
+            // load comes second
+            var loadViewModel = viewModel as ILoadViewModel;
+            if (loadViewModel != null)
+                await loadViewModel.Load();
+            return viewModel;
         }
 
         /// <summary>
