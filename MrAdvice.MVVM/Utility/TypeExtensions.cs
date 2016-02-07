@@ -34,7 +34,8 @@ namespace ArxOne.MrAdvice.Utility
         /// <returns></returns>
         public static object Default(this Type type)
         {
-            if (type.TypeInfo().IsClass)
+            var typeInfo = type.TypeInfo();
+            if (typeInfo.IsClass || typeInfo.IsInterface)
                 return null;
             return Activator.CreateInstance(type);
         }
