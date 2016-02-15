@@ -15,6 +15,7 @@ namespace ArxOne.MrAdvice.MVVM.View
     internal partial class RelayCommand : ICommand
     {
         private readonly object _viewModel;
+        private readonly Func<object> _commandParameterGetter;
         private MethodBase _commandMethod;
         private string _canCommandPropertyName;
         private bool _canExecute;
@@ -25,13 +26,20 @@ namespace ArxOne.MrAdvice.MVVM.View
 #pragma warning restore 0067
 
         /// <summary>
+        /// Occurs when [command].
+        /// </summary>
+        public event EventHandler Command;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="RelayCommand" /> class.
         /// </summary>
         /// <param name="viewModel">The view model.</param>
         /// <param name="parameter">The parameter.</param>
-        public RelayCommand(object viewModel, object parameter)
+        /// <param name="commandParameterGetter">The command parameter getter.</param>
+        public RelayCommand(object viewModel, object parameter, Func<object> commandParameterGetter)
         {
             _viewModel = viewModel;
+            _commandParameterGetter = commandParameterGetter;
             SetCommand(parameter);
         }
 
@@ -122,10 +130,23 @@ namespace ArxOne.MrAdvice.MVVM.View
 
         public void Execute(object parameter)
         {
+            Command?.Invoke(this, EventArgs.Empty);
             var parameters = new List<object>();
             if (_commandMethod.GetParameters().Length > 0)
-                parameters.Add(parameter);
+                parameters.Add(GetParameter(parameter));
             _commandMethod.Invoke(_viewModel, parameters.ToArray());
+        }
+
+        /// <summary>
+        /// Gets the parameter.
+        /// </summary>
+        /// <param name="parameter">The parameter.</param>
+        /// <returns></returns>
+        private object GetParameter(object parameter)
+        {
+            if (_commandParameterGetter != null)
+                return _commandParameterGetter();
+            return parameter;
         }
     }
 }

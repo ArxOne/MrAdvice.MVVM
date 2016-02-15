@@ -12,8 +12,8 @@
         <StackPanel Orientation="Vertical">
             <!-- DEMO: binding command to view-model method -->
             <StackPanel Orientation="Horizontal">
-            <Button Content="Click me" Command="{Binding ButtonAction}" HorizontalAlignment="Left" />
-            <CheckBox IsChecked="{Binding CanButtonAction}" Content="Enable button beside"/>
+                <Button Content="Click me" Command="{Binding ButtonAction}" HorizontalAlignment="Left" />
+                <CheckBox IsChecked="{Binding CanButtonAction}" Content="Enable button beside"/>
             </StackPanel>
             <TextBlock>
                 <Run Text="You clicked me "/>
@@ -33,6 +33,13 @@
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Type only digits here (otherwise there is an error): "/>
                 <TextBox Text="{Binding ValidatedValue, UpdateSourceTrigger=PropertyChanged}" Width="100" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="A password here: "/>
+                <PasswordBox x:Name="PasswordBox" Width="100" />
+                <Button Content="Give me that password" Command="{mrAdvice:Command {Binding ShowPassword}, Parameter={mrAdvice:PropertyReader {Binding Password, ElementName=PasswordBox}}}" />
+                <TextBlock Text="The password is:"/>
+                <TextBlock Text="{Binding EnteredPassword}"/>
             </StackPanel>
         </StackPanel>
     </Grid>

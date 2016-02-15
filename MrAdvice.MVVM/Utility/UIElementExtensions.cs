@@ -9,7 +9,9 @@ namespace ArxOne.MrAdvice.Utility
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Reflection;
+    using System.Windows.Data;
 #if WINDOWS_UWP
     using Windows.UI.Xaml;
     using Windows.UI.Xaml.Media;
@@ -147,6 +149,25 @@ namespace ArxOne.MrAdvice.Utility
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Reads from binding... Without using binding (this allows to cheat).
+        /// </summary>
+        /// <param name="element">The element.</param>
+        /// <param name="binding">The binding.</param>
+        /// <returns></returns>
+        public static object ReadFromBinding(this FrameworkElement element, Binding binding)
+        {
+            object source = element.DataContext;
+            if (binding.ElementName != null)
+                source = element.FindName(binding.ElementName);
+            if (source == null)
+                return null;
+            var property = source.GetType().GetProperty(binding.Path.Path);
+            if (property == null)
+                return null;
+            return property.GetValue(source, new object[0]);
         }
     }
 }

@@ -38,6 +38,13 @@ namespace ArxOne.MrAdvice.MVVM.View
         /// </value>
         public object Parameter { get; set; }
 
+        internal FrameworkElement Element { get; private set; }
+
+        /// <summary>
+        /// Occurs when [command].
+        /// </summary>
+        public event EventHandler Command;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="CommandExtension"/> class.
         /// </summary>
@@ -63,7 +70,8 @@ namespace ArxOne.MrAdvice.MVVM.View
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
             var provideValueTarget = (IProvideValueTarget)serviceProvider.GetService(typeof(IProvideValueTarget));
-            var element = provideValueTarget.TargetObject as FrameworkElement;
+            var targetObject = provideValueTarget.TargetObject;
+            var element = targetObject as FrameworkElement;
             if (element == null)
                 return null;
 
@@ -76,6 +84,7 @@ namespace ArxOne.MrAdvice.MVVM.View
                 return null;
 #endif
 
+            Element = element;
             var targetProperty = provideValueTarget.TargetProperty;
             element.DataContextChanged += delegate
             {
@@ -89,7 +98,8 @@ namespace ArxOne.MrAdvice.MVVM.View
                 if (bindingParameter != null)
                     name = viewModel.GetType().GetMember(bindingParameter.Path.Path).FirstOrDefault();
 
-                var command = new RelayCommand(viewModel, name);
+                var command = new RelayCommand(viewModel, name, () => Parameter);
+                command.Command += (sender, e) => Command.Invoke(sender, e);
                 element.SetCommand(targetProperty, command, Parameter);
             };
 

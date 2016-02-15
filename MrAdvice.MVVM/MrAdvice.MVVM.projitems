@@ -32,6 +32,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)MVVM\ViewModel\ViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MVVM\View\CommandExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MVVM\View\Navigator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MVVM\View\PropertyReaderExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MVVM\View\RelayCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Properties\Annotations.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Properties\AssemblyInfo.cs" />

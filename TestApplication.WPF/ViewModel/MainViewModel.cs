@@ -94,5 +94,13 @@ namespace TestApplication.ViewModel
         {
             Navigator.Exit(false);
         }
+
+        [NotifyPropertyChanged]
+        public string EnteredPassword { get; set; }
+
+        public void ShowPassword(string enteredPassword)
+        {
+            EnteredPassword = enteredPassword;
+        }
     }
 }
