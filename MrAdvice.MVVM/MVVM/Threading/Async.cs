@@ -56,7 +56,7 @@ namespace ArxOne.MrAdvice.MVVM.Threading
         {
             if (KillExisting && _worker != null && _worker.IsBusy)
                 _worker.CancelAsync();
-            _worker = new BackgroundWorker();
+            _worker = new BackgroundWorker { WorkerSupportsCancellation = KillExisting };
             _worker.DoWork += delegate { context.Proceed(); };
             _worker.RunWorkerAsync();
         }
