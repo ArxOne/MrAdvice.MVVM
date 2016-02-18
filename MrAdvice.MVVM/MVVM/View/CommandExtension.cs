@@ -99,7 +99,7 @@ namespace ArxOne.MrAdvice.MVVM.View
                     name = viewModel.GetType().GetMember(bindingParameter.Path.Path).FirstOrDefault();
 
                 var command = new RelayCommand(viewModel, name, () => Parameter);
-                command.Command += (sender, e) => Command.Invoke(sender, e);
+                command.Command += (sender, e) => Command?.Invoke(sender, e);
                 element.SetCommand(targetProperty, command, Parameter);
             };
 
