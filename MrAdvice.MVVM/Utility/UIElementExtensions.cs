@@ -161,7 +161,11 @@ namespace ArxOne.MrAdvice.Utility
         {
             object source = element.DataContext;
             if (binding.ElementName != null)
-                source = element.FindName(binding.ElementName);
+                source = element.FindName(binding.ElementName)
+#if !SILVERLIGHT
+                    ?? VisualTreeHelper.GetParent(element).GetVisualSelfAndChildren().OfType<UIElement>().SingleOrDefault(e => e.Uid == binding.ElementName)
+#endif
+                    ;
             if (source == null)
                 return null;
             var property = source.GetType().GetProperty(binding.Path.Path);
