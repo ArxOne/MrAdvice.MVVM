@@ -164,10 +164,8 @@ namespace ArxOne.MrAdvice.Utility
                 source = element.FindName(binding.ElementName);
             if (source == null)
                 return null;
-            var property = source.GetType().GetProperty(binding.Path.Path);
-            if (property == null)
-                return null;
-            return property.GetValue(source, new object[0]);
+            var path = binding.Path.Path;
+            return source.ReadPropertyFromPath(path);
         }
     }
 }

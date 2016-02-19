@@ -37,7 +37,7 @@
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="A password here: "/>
                 <PasswordBox x:Name="PasswordBox" Width="100" />
-                <Button Content="Give me that password" Command="{mrAdvice:Command {Binding ShowPassword}, Parameter={mrAdvice:PropertyReader {Binding Password, ElementName=PasswordBox}}}" />
+                <Button Content="Give me that password" Command="{mrAdvice:Command {Binding ShowPassword}, Parameter={mrAdvice:PropertyReader Password, Source=PasswordBox}}" />
                 <TextBlock Text="The password is:"/>
                 <TextBlock Text="{Binding EnteredPassword}"/>
             </StackPanel>

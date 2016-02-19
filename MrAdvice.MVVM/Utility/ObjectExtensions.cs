@@ -24,5 +24,19 @@ namespace ArxOne.MrAdvice.Utility
                 return (a == null) == (b == null);
             return a.Equals(b);
         }
+
+        /// <summary>
+        /// Reads the property.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        /// <param name="propertyPath">The property path.</param>
+        /// <returns></returns>
+        public static object ReadPropertyFromPath(this object source, string propertyPath)
+        {
+            var property = source.GetType().GetProperty(propertyPath);
+            if (property == null)
+                return null;
+            return property.GetValue(source, new object[0]);
+        }
     }
 }

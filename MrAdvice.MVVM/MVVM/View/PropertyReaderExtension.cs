@@ -32,6 +32,14 @@ namespace ArxOne.MrAdvice.MVVM.View
         public object Property { get; set; }
 
         /// <summary>
+        /// Gets or sets the source.
+        /// </summary>
+        /// <value>
+        /// The source.
+        /// </value>
+        public object Source { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="PropertyReaderExtension" /> class.
         /// </summary>
         /// <param name="property">The property.</param>
@@ -64,9 +72,11 @@ namespace ArxOne.MrAdvice.MVVM.View
              {
                  var property = Property;
                  var bindingParameter = property as Binding;
-                // because we bind to a method, this allows us to have a syntax control in XAML editor
-                if (bindingParameter != null)
+                 // because we bind to a method, this allows us to have a syntax control in XAML editor
+                 if (bindingParameter != null)
                      property = GetTargetFrameworkElement(targetObject).ReadFromBinding(bindingParameter);
+                 else if (Source != null && Property is string)
+                     property = Source.ReadPropertyFromPath((string)Property);
                  targetProperty.SetValue(targetObject, property, new object[0]);
              };
 
