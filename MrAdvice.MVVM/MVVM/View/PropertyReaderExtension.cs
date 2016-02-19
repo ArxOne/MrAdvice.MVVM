@@ -75,8 +75,12 @@ namespace ArxOne.MrAdvice.MVVM.View
                  // because we bind to a method, this allows us to have a syntax control in XAML editor
                  if (bindingParameter != null)
                      property = GetTargetFrameworkElement(targetObject).ReadFromBinding(bindingParameter);
-                 else if (Source != null && Property is string)
-                     property = Source.ReadPropertyFromPath((string)Property);
+                 else
+                 {
+                     var source = GetSource(targetObject);
+                     if (source != null && Property is string)
+                         property = Source.ReadPropertyFromPath((string)Property);
+                 }
                  targetProperty.SetValue(targetObject, property, new object[0]);
              };
 
@@ -89,6 +93,20 @@ namespace ArxOne.MrAdvice.MVVM.View
                     commandExtension.Command += delegate { action(); };
             }
 
+            return null;
+        }
+
+        private object GetSource(object targetObject)
+        {
+            if (Source != null)
+                return Source;
+            var d = targetObject as DependencyObject;
+            if (d != null)
+            {
+                var source = PropertyReaderBinding.GetSource(d);
+                if (source != null)
+                    return source;
+            }
             return null;
         }
 
