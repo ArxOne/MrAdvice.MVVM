@@ -10,13 +10,15 @@ namespace ArxOne.MrAdvice.MVVM.View
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Reflection;
+    using System.Threading.Tasks;
     using System.Windows.Input;
+    using Threading;
 
     internal partial class RelayCommand : ICommand
     {
         private readonly object _viewModel;
         private readonly Func<object> _commandParameterGetter;
-        private MethodBase _commandMethod;
+        private MethodInfo _commandMethod;
         private string _canCommandPropertyName;
         private bool _canExecute;
         private PropertyInfo _canExecuteProperty;
@@ -64,7 +66,7 @@ namespace ArxOne.MrAdvice.MVVM.View
                 return;
 
             // a method is bound directly
-            _commandMethod = parameter as MethodBase;
+            _commandMethod = parameter as MethodInfo;
             if (_commandMethod != null)
             {
                 SetCanExecute(_commandMethod.Name);
@@ -95,7 +97,7 @@ namespace ArxOne.MrAdvice.MVVM.View
             }
 
             // check the property initial value
-            GetCanExecute();
+            ReadCanExecute();
 
             var notifyPropertyChanged = _viewModel as INotifyPropertyChanged;
             if (notifyPropertyChanged == null)
@@ -105,7 +107,7 @@ namespace ArxOne.MrAdvice.MVVM.View
             notifyPropertyChanged.PropertyChanged += OnPropertyChanged;
         }
 
-        private void GetCanExecute()
+        private void ReadCanExecute()
         {
             _canExecute = (bool)_canExecuteProperty.GetValue(_viewModel, new object[0]);
         }
@@ -119,7 +121,7 @@ namespace ArxOne.MrAdvice.MVVM.View
         {
             if (e.PropertyName == _canCommandPropertyName)
             {
-                GetCanExecute();
+                ReadCanExecute();
                 var canExecuteChanged = CanExecuteChanged;
                 if (canExecuteChanged != null)
                     canExecuteChanged(this, EventArgs.Empty);
@@ -134,7 +136,22 @@ namespace ArxOne.MrAdvice.MVVM.View
             var parameters = new List<object>();
             if (_commandMethod.GetParameters().Length > 0)
                 parameters.Add(GetParameter(parameter));
-            _commandMethod.Invoke(_viewModel, parameters.ToArray());
+            var result = _commandMethod.Invoke(_viewModel, parameters.ToArray());
+            // once the command returns, if it is a task and still not complete,
+            // we disable the command until the end of task
+            var taskResult = result as Task;
+            if (taskResult != null && !taskResult.IsCompleted && _canExecute) // _canExecute should be always true...
+            {
+                OverrideCanExecute(false);
+                taskResult.ContinueWith(t => OverrideCanExecute(true));
+            }
+        }
+
+        [UISync]
+        private void OverrideCanExecute(bool canExecute)
+        {
+            _canExecute = canExecute;
+            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>

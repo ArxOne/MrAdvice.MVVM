@@ -41,6 +41,10 @@
                 <TextBlock Text="The password is:"/>
                 <TextBlock Text="{Binding EnteredPassword}"/>
             </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Button Content="A long async command (disabled until it ends)" Command="{mrAdvice:Command {Binding LongCommand}}" HorizontalAlignment="Left" />
+                <TextBlock Text="{Binding LongCommandStatus}"/>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Window>

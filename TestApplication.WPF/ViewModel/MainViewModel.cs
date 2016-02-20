@@ -102,5 +102,18 @@ namespace TestApplication.ViewModel
         {
             EnteredPassword = enteredPassword;
         }
+
+        [NotifyPropertyChanged]
+        public string LongCommandStatus { get; set; }
+
+        public async Task LongCommand()
+        {
+            for (int s = 5; s > 0; s--)
+            {
+                LongCommandStatus = $"Hold on... {s}s";
+                await Task.Delay(1000);
+            }
+            LongCommandStatus = "";
+        }
     }
 }
