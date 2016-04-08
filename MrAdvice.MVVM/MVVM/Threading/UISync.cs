@@ -61,7 +61,7 @@ namespace ArxOne.MrAdvice.MVVM.Threading
             });
 #else
             // when application exits, dispatcher may be null, but we nicely ignore (I had no other idea at the moment)
-            Application.Current.GetDispatcher()?.Invoke(action);
+            Application.Current?.GetDispatcher()?.Invoke(action);
 #endif
         }
     }
