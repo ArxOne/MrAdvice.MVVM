@@ -69,8 +69,8 @@
       <HintPath>..\packages\AsyncBridge.Portable.0.2.0\lib\AsyncBridge.Portable.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MrAdvice, Version=1.2.8.0, Culture=neutral, PublicKeyToken=c0e7e6eab6f293d8, processorArchitecture=MSIL">
-      <HintPath>..\packages\MrAdvice.Fody.1.2.8\lib\portable-net40+sl5+wp8+uap10.0\MrAdvice.dll</HintPath>
+    <Reference Include="MrAdvice, Version=1.2.9.0, Culture=neutral, PublicKeyToken=c0e7e6eab6f293d8, processorArchitecture=MSIL">
+      <HintPath>..\packages\MrAdvice.Fody.1.2.9\lib\portable-net40+sl5+wp8+uap10.0\MrAdvice.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="mscorlib" />

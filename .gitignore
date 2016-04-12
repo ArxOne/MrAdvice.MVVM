@@ -193,3 +193,5 @@ MrAdvice.MVVM.WPF/Properties/ProductInfo.cs
 MrAdvice.MVVM.WPF/MrAdvice.MVVM.nuspec
 *.lock.json
 *.nuget.targets
+/MrAdvice.MVVM (no UWP).VC.db
+/MrAdvice.MVVM (no UWP).VC.VC.opendb
