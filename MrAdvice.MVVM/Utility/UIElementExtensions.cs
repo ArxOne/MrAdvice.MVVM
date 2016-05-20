@@ -168,7 +168,7 @@ namespace ArxOne.MrAdvice.Utility
 #if !SILVERLIGHT
                     ?? VisualTreeHelper.GetParent(element).GetVisualSelfAndChildren().OfType<UIElement>().SingleOrDefault(e => e.Uid == binding.ElementName)
 #endif
-                    ?? Window.GetWindow(element).GetVisualSelfAndChildren().OfType<FrameworkElement>().SingleOrDefault(e => e.Name == binding.ElementName)
+                    ?? element.GetVisualSelfAndParents().Last().GetVisualSelfAndChildren().OfType<FrameworkElement>().SingleOrDefault(e => e.Name == binding.ElementName)
                     ;
             }
             if (source == null)
