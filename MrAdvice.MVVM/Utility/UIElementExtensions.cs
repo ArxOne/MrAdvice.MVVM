@@ -161,22 +161,37 @@ namespace ArxOne.MrAdvice.Utility
         {
             object source = element.DataContext;
             if (binding.ElementName != null)
-            {
-                source = element.FindName(binding.ElementName)
-                    // currently stuck to parent... See what we can do otherwise
-                    ?? VisualTreeHelper.GetParent(element).GetVisualSelfAndChildren().OfType<FrameworkElement>().SingleOrDefault(e => e.Name == binding.ElementName)
-#if !SILVERLIGHT
-                    ?? VisualTreeHelper.GetParent(element).GetVisualSelfAndChildren().OfType<UIElement>().SingleOrDefault(e => e.Uid == binding.ElementName)
-#endif
-                    ?? element.GetVisualSelfAndParents().Last().GetVisualSelfAndChildren().OfType<FrameworkElement>().SingleOrDefault(e => e.Name == binding.ElementName)
-                    ;
-            }
+                source = element.FindRelated(binding.ElementName);
             if (source == null)
                 return null;
             var property = source.GetType().GetProperty(binding.Path.Path);
             if (property == null)
                 return null;
             return property.GetValue(source, new object[0]);
+        }
+
+        /// <summary>
+        /// Finds an element relative, given a name.
+        /// </summary>
+        /// <param name="element">The element.</param>
+        /// <param name="name">The name.</param>
+        /// <returns></returns>
+        public static DependencyObject FindRelated(this FrameworkElement element, string name)
+        {
+            var related = element.FindName(name) as DependencyObject ?? SearchRelated(element, name);
+            return related;
+        }
+
+        private static DependencyObject SearchRelated(this FrameworkElement element, string name)
+        {
+            var topMost = element.GetVisualSelfAndParents().Last();
+            // currently stuck to parent... See what we can do otherwise
+            var related = topMost.GetVisualSelfAndChildren().OfType<FrameworkElement>().FirstOrDefault(e => e.Name == name)
+#if !SILVERLIGHT
+                    ?? topMost.GetVisualSelfAndChildren().OfType<UIElement>().FirstOrDefault(e => e.Uid == name)
+#endif
+                ;
+            return related;
         }
     }
 }
