@@ -73,7 +73,7 @@ namespace ArxOne.MrAdvice.MVVM.View
             var targetObject = provideValueTarget.TargetObject;
             var element = targetObject as FrameworkElement;
             if (element == null)
-                return null;
+                return this;
 
             // no need to go further in design mode
 #if WINDOWS_UWP

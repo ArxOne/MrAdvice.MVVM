@@ -50,6 +50,12 @@ namespace TestApplication.ViewModel
             }
         }
 
+        public MainItemViewModel[] Items { get; } =
+            {
+                new MainItemViewModel(),
+                new MainItemViewModel(),
+            };
+
         /// <summary>
         /// This method is called by the navigator once the view-model is initialized.
         /// </summary>
