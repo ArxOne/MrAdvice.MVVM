@@ -45,6 +45,24 @@
                 <Button Content="A long async command (disabled until it ends)" Command="{mrAdvice:Command {Binding LongCommand}}" HorizontalAlignment="Left" />
                 <TextBlock Text="{Binding LongCommandStatus}"/>
             </StackPanel>
+            <DataGrid ItemsSource="{Binding Items}" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="The button...">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Click!" Command="{mrAdvice:Command {Binding AddOne, Mode=OneWay}}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="... The result">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Value}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
         </StackPanel>
     </Grid>
 </Window>
