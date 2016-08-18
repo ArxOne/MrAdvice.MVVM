@@ -195,3 +195,5 @@ MrAdvice.MVVM.WPF/MrAdvice.MVVM.nuspec
 *.nuget.targets
 /MrAdvice.MVVM (no UWP).VC.db
 /MrAdvice.MVVM (no UWP).VC.VC.opendb
+/MrAdvice.MVVM.VC.db
+/MrAdvice.MVVM.VC.VC.opendb
