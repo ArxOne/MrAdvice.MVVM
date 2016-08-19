@@ -24,7 +24,7 @@ namespace ArxOne.MrAdvice.MVVM.Properties
     /// </summary>
     public static class DependencyProperties
     {
-        private static readonly IDictionary<Type, IDictionary<string, SystemDependencyProperty>> RegisteredTypes 
+        private static readonly IDictionary<Type, IDictionary<string, SystemDependencyProperty>> RegisteredTypes
             = new Dictionary<Type, IDictionary<string, SystemDependencyProperty>>();
 
         /// <summary>
@@ -84,20 +84,29 @@ namespace ArxOne.MrAdvice.MVVM.Properties
                 case DependencyPropertyNotification.OnPropertyNameChanged:
                     return GetOnPropertyNameChangedCallback(propertyName, ownerType);
                 default:
-                    throw new ArgumentOutOfRangeException("notification");
+                    throw new ArgumentOutOfRangeException(nameof(notification));
             }
         }
 
         private static PropertyChangedCallback GetOnPropertyNameChangedCallback(string propertyName, Type ownerType)
         {
             PropertyChangedCallback onPropertyChanged;
-            var methodName = string.Format("On{0}Changed", propertyName);
+            var methodName = $"On{propertyName}Changed";
             var method = ownerType.GetMethod(methodName);
             if (method == null)
                 throw new InvalidOperationException("Callback method not found (WTF?)");
             var parameters = method.GetParameters();
             if (parameters.Length == 0)
-                onPropertyChanged = delegate(DependencyObject d, DependencyPropertyChangedEventArgs e) { method.Invoke(d, new object[0]); };
+                onPropertyChanged = delegate (DependencyObject d, DependencyPropertyChangedEventArgs e) { method.Invoke(d, new object[0]); };
+            else if (parameters.Length == 1)
+            {
+                if (parameters[0].ParameterType.IsAssignableFrom(typeof(DependencyPropertyChangedEventArgs)))
+                    onPropertyChanged = delegate (DependencyObject d, DependencyPropertyChangedEventArgs e) { method.Invoke(d, new object[] { e }); };
+                else
+                    onPropertyChanged = delegate (DependencyObject d, DependencyPropertyChangedEventArgs e) { method.Invoke(d, new[] { e.OldValue }); };
+            }
+            else if (parameters.Length == 2)
+                onPropertyChanged = delegate (DependencyObject d, DependencyPropertyChangedEventArgs e) { method.Invoke(d, new[] { e.OldValue, e.NewValue }); };
             else
                 throw new InvalidOperationException("Unhandled method overload");
             return onPropertyChanged;
