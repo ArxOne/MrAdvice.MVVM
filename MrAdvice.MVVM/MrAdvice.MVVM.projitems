@@ -18,6 +18,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)MVVM\Navigation\NavigatorExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MVVM\Properties\AspectPriority.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MVVM\Properties\Attached.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MVVM\Properties\Dependency.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MVVM\Properties\DependencyProperties.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MVVM\Properties\DependencyProperty.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MVVM\Properties\DependencyPropertyNotification.cs" />

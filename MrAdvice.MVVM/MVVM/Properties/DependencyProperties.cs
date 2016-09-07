@@ -51,7 +51,7 @@ namespace ArxOne.MrAdvice.MVVM.Properties
             var dependencyProperties = GetDependencyProperties(propertyInfo);
             var ownerType = propertyInfo.DeclaringType;
             var propertyName = propertyInfo.Name;
-            var defaultPropertyValue = defaultValue ?? propertyInfo.PropertyType.Default();
+            var defaultPropertyValue = defaultValue == SystemDependencyProperty.UnsetValue ? propertyInfo.PropertyType.Default() : defaultValue;
             var onPropertyChanged = GetPropertyChangedCallback(notification, propertyName, ownerType);
             if (propertyInfo.IsStatic())
             {
