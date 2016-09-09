@@ -38,7 +38,7 @@ namespace ArxOne.MrAdvice.MVVM.Properties
         /// <value>
         /// The property changed callback.
         /// </value>
-        public PropertyChangedCallback PropertyChangedCallback { get; set; }
+        public string CallbackName { get; set; }
 
         /// <summary>
         /// Gets or sets the default value for the dependency property.
@@ -55,7 +55,7 @@ namespace ArxOne.MrAdvice.MVVM.Properties
         public void Advise(PropertyInfoAdviceContext context)
         {
             var propertyInfo = context.TargetProperty;
-            propertyInfo.CreateDependencyProperty(DefaultValue, Notification, PropertyChangedCallback);
+            propertyInfo.CreateDependencyProperty(DefaultValue, Notification, CallbackName);
         }
 
         /// <summary>

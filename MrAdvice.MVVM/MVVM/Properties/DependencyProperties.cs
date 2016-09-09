@@ -46,15 +46,15 @@ namespace ArxOne.MrAdvice.MVVM.Properties
         /// <param name="propertyInfo">The property information.</param>
         /// <param name="defaultValue">The default value (null if none).</param>
         /// <param name="notification">The notification type, in order to have a callback.</param>
-        /// <param name="propertyChangedCallback">The callback method, in a more direct way</param>
+        /// <param name="callbackName">Name of the callback.</param>
         public static void CreateDependencyProperty(this PropertyInfo propertyInfo, object defaultValue,
-            DependencyPropertyNotification notification = DependencyPropertyNotification.None, PropertyChangedCallback propertyChangedCallback = null)
+            DependencyPropertyNotification notification = DependencyPropertyNotification.None, string callbackName = null)
         {
             var dependencyProperties = GetDependencyProperties(propertyInfo);
             var ownerType = propertyInfo.DeclaringType;
             var propertyName = propertyInfo.Name;
             var defaultPropertyValue = defaultValue == SystemDependencyProperty.UnsetValue ? propertyInfo.PropertyType.Default() : defaultValue;
-            var onPropertyChanged = GetPropertyChangedCallback(propertyName, ownerType, notification, propertyChangedCallback);
+            var onPropertyChanged = GetPropertyChangedCallback(propertyName, ownerType, notification, callbackName);
             if (propertyInfo.IsStatic())
             {
                 // property type is very specific here, because it comes from the second argument of the generic
@@ -75,26 +75,29 @@ namespace ArxOne.MrAdvice.MVVM.Properties
         /// <param name="propertyName">Name of the property.</param>
         /// <param name="ownerType">Type of the owner.</param>
         /// <param name="notification">The notification.</param>
-        /// <param name="propertyChangedCallback"></param>
+        /// <param name="callbackName">Name of the callback.</param>
         /// <returns></returns>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         /// <exception cref="System.ArgumentOutOfRangeException">notification</exception>
-        private static PropertyChangedCallback GetPropertyChangedCallback(string propertyName, Type ownerType, DependencyPropertyNotification notification, PropertyChangedCallback propertyChangedCallback)
+        private static PropertyChangedCallback GetPropertyChangedCallback(string propertyName, Type ownerType, DependencyPropertyNotification notification, string callbackName)
         {
+            if (callbackName != null && notification == DependencyPropertyNotification.None)
+                notification = DependencyPropertyNotification.OnPropertyNameChanged;
             switch (notification)
             {
                 case DependencyPropertyNotification.None:
-                    return propertyChangedCallback;
+                    return null;
                 case DependencyPropertyNotification.OnPropertyNameChanged:
-                    return GetOnPropertyNameChangedCallback(propertyName, ownerType, propertyChangedCallback);
+                    return GetOnPropertyNameChangedCallback(propertyName, ownerType, callbackName);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(notification));
             }
         }
 
-        private static PropertyChangedCallback GetOnPropertyNameChangedCallback(string propertyName, Type ownerType, PropertyChangedCallback propertyChangedCallback)
+        private static PropertyChangedCallback GetOnPropertyNameChangedCallback(string propertyName, Type ownerType, string callbackName)
         {
             PropertyChangedCallback onPropertyChanged;
-            var methodName = $"On{propertyName}Changed";
+            var methodName = callbackName ?? $"On{propertyName}Changed";
             var method = ownerType.GetMethod(methodName);
             if (method == null)
                 throw new InvalidOperationException("Callback method not found (WTF?)");
@@ -103,7 +106,6 @@ namespace ArxOne.MrAdvice.MVVM.Properties
             {
                 onPropertyChanged = delegate (DependencyObject d, DependencyPropertyChangedEventArgs e)
                 {
-                    propertyChangedCallback?.Invoke(d, e);
                     method.Invoke(d, new object[0]);
                 };
             }
@@ -113,7 +115,6 @@ namespace ArxOne.MrAdvice.MVVM.Properties
                 {
                     onPropertyChanged = delegate (DependencyObject d, DependencyPropertyChangedEventArgs e)
                     {
-                        propertyChangedCallback?.Invoke(d, e);
                         method.Invoke(d, new object[] { e });
                     };
                 }
@@ -121,7 +122,6 @@ namespace ArxOne.MrAdvice.MVVM.Properties
                 {
                     onPropertyChanged = delegate (DependencyObject d, DependencyPropertyChangedEventArgs e)
                     {
-                        propertyChangedCallback?.Invoke(d, e);
                         method.Invoke(d, new[] { e.OldValue });
                     };
                 }
@@ -130,7 +130,6 @@ namespace ArxOne.MrAdvice.MVVM.Properties
             {
                 onPropertyChanged = delegate (DependencyObject d, DependencyPropertyChangedEventArgs e)
                 {
-                    propertyChangedCallback?.Invoke(d, e);
                     method.Invoke(d, new[] { e.OldValue, e.NewValue });
                 };
             }
