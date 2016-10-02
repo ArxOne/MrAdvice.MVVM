@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{94DEE92C-2550-4BE8-80CF-549DA6AA3351}"
 	ProjectSection(SolutionItems) = preProject
@@ -46,8 +46,8 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "MrAdvice.MVVM", "MrAdvice.M
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		MrAdvice.MVVM\MrAdvice.MVVM.projitems*{8387a320-d149-4bb3-8455-dd0d56dcea74}*SharedItemsImports = 4
 		MrAdvice.MVVM\MrAdvice.MVVM.projitems*{3cc33c7b-65e5-47f0-ae8a-1a473d8720e1}*SharedItemsImports = 4
+		MrAdvice.MVVM\MrAdvice.MVVM.projitems*{8387a320-d149-4bb3-8455-dd0d56dcea74}*SharedItemsImports = 4
 		MrAdvice.MVVM\MrAdvice.MVVM.projitems*{998421f4-6ef6-41d5-ace8-81ca4bf6fecb}*SharedItemsImports = 13
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

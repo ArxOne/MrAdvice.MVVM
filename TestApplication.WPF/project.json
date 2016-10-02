@@ -1,0 +1,11 @@
+﻿{
+  "dependencies": {
+    "MrAdvice": "2.*"
+  },
+  "frameworks": {
+    "net45": {}
+  },
+  "runtimes": {
+    "win": {}
+  }
+}

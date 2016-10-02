@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="project.json" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{8065D48C-58F8-46B8-9824-CDE2447A0DAB}</ProjectGuid>
@@ -86,13 +86,5 @@ del $(SolutionDir)\TemporaryGeneratedFile*.cs /s
   <ItemDefinitionGroup>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets">
-    <Import Project="..\packages\MrAdvice.2.0-alpha4\build\MrAdvice.targets" Condition="Exists('..\packages\MrAdvice.2.0-alpha4\build\MrAdvice.targets')" />
-  </ImportGroup>
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\MrAdvice.2.0-alpha4\build\MrAdvice.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MrAdvice.2.0-alpha4\build\MrAdvice.targets'))" />
-  </Target>
+  <ImportGroup Label="ExtensionTargets" />
 </Project>

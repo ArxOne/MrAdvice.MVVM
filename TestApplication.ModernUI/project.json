@@ -1,0 +1,12 @@
+﻿{
+  "dependencies": {
+    "ModernUI.WPF": "1.0.9",
+    "MrAdvice": "2.0.0-alpha4"
+  },
+  "frameworks": {
+    "net452": {}
+  },
+  "runtimes": {
+    "win": {}
+  }
+}
