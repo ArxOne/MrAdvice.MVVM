@@ -122,7 +122,6 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="FodyWeavers.xml" />
     <Content Include="Properties\MrAdvice.MVVM.rd.xml" />
   </ItemGroup>
   <ItemGroup>
