@@ -6,7 +6,7 @@
 <package>
   <metadata>
     <id>MrAdvice.MVVM</id>
-    <version><#=Version#>-dnlib1</version>
+    <version><#=Version#>-dnlib2</version>
     <title><#=Title#></title>
     <authors><#=Company#></authors>
     <owners><#=Company#></owners>
@@ -20,7 +20,7 @@
     <copyright>Copyright 2015</copyright>
     <tags>mvvm wpf dependencyproperty notifypropertychanged navigator threading</tags>
     <dependencies>
-      <dependency id="MrAdvice.Fody" />
+      <dependency id="MrAdvice" />
       <dependency id="CommonServiceLocator" />
     </dependencies>
     <developmentDependency>false</developmentDependency>
