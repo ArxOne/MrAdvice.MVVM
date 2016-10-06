@@ -18,9 +18,6 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="project.json" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{8065D48C-58F8-46B8-9824-CDE2447A0DAB}</ProjectGuid>
     <Keyword>MakeFileProj</Keyword>
