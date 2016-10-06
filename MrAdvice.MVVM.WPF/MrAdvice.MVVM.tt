@@ -6,7 +6,7 @@
 <package>
   <metadata>
     <id>MrAdvice.MVVM</id>
-    <version><#=Version#>-dnlib</version>
+    <version><#=Version#>-dnlib1</version>
     <title><#=Title#></title>
     <authors><#=Company#></authors>
     <owners><#=Company#></owners>

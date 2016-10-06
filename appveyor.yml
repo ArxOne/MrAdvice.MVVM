@@ -3,6 +3,7 @@
 branches:
   only:
     - master
+    - mr-advice-2
     - uwp
 
 version: '{branch}-{build}'
