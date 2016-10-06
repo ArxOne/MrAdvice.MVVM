@@ -1,6 +1,6 @@
 ﻿{
   "dependencies": {
-    "MrAdvice": "2.0.0-alpha4"
+    "MrAdvice": "2.0.0"
   },
   "frameworks": {
     "net40": {}

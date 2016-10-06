@@ -20,7 +20,8 @@ namespace ArxOne.MrAdvice.MVVM.View
         private readonly Func<object> _commandParameterGetter;
         private MethodInfo _commandMethod;
         private string _canCommandPropertyName;
-        private bool _canExecute;
+        private bool _canExecuteCommand;
+        private bool? _canExecuteOverride;
         private PropertyInfo _canExecuteProperty;
 
 #pragma warning disable 0067
@@ -92,7 +93,7 @@ namespace ArxOne.MrAdvice.MVVM.View
         {
             if (_canExecuteProperty == null)
             {
-                _canExecute = true;
+                _canExecuteCommand = true;
                 return;
             }
 
@@ -109,7 +110,7 @@ namespace ArxOne.MrAdvice.MVVM.View
 
         private void ReadCanExecute()
         {
-            _canExecute = (bool)_canExecuteProperty.GetValue(_viewModel, new object[0]);
+            _canExecuteCommand = (bool)_canExecuteProperty.GetValue(_viewModel, new object[0]);
         }
 
         /// <summary>
@@ -128,7 +129,7 @@ namespace ArxOne.MrAdvice.MVVM.View
             }
         }
 
-        public bool CanExecute(object parameter) => _canExecute;
+        public bool CanExecute(object parameter) => _canExecuteOverride ?? _canExecuteCommand;
 
         public void Execute(object parameter)
         {
@@ -140,17 +141,17 @@ namespace ArxOne.MrAdvice.MVVM.View
             // once the command returns, if it is a task and still not complete,
             // we disable the command until the end of task
             var taskResult = result as Task;
-            if (taskResult != null && !taskResult.IsCompleted && _canExecute) // _canExecute should be always true...
+            if (taskResult != null && !taskResult.IsCompleted)
             {
                 OverrideCanExecute(false);
-                taskResult.ContinueWith(t => OverrideCanExecute(true));
+                taskResult.ContinueWith(t => OverrideCanExecute(null));
             }
         }
 
         [UISync]
-        private void OverrideCanExecute(bool canExecute)
+        private void OverrideCanExecute(bool? canExecute)
         {
-            _canExecute = canExecute;
+            _canExecuteOverride = canExecute;
             CanExecuteChanged?.Invoke(this, EventArgs.Empty);
         }
 

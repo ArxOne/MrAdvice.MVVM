@@ -56,7 +56,7 @@ namespace ArxOne.MrAdvice.MVVM.Properties
         public void Advise(PropertyInfoAdviceContext context)
         {
             var propertyInfo = context.TargetProperty;
-            propertyInfo.CreateDependencyProperty(DefaultValue, Notification);
+            propertyInfo.CreateDependencyProperty(DefaultValue, Notification, null);
             if (propertyInfo.GetValue(null, NoParameter) == null)
                 propertyInfo.SetValue(null, Activator.CreateInstance(propertyInfo.PropertyType), NoParameter);
         }
