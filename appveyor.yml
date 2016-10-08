@@ -1,4 +1,5 @@
 # Mr. Advice MVVM appveyor.yml script
+# build!
 
 branches:
   only:
