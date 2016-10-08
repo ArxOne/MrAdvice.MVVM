@@ -5,9 +5,9 @@
     "MrAdvice": "2.*"
   },
   "frameworks": {
-    "net45": {}
+    "net45": { }
   },
   "runtimes": {
-    "win": {}
+    "win": { }
   }
 }
