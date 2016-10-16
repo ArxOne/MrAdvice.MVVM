@@ -69,6 +69,7 @@
     </Reference>
     <Reference Include="MrAdvice, Version=2.0.0.0, Culture=neutral, PublicKeyToken=c0e7e6eab6f293d8, processorArchitecture=MSIL">
       <HintPath>..\packages\MrAdvice.2.0.13\lib\portable-net40+sl5+wp8+uap10.0\MrAdvice.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
     <Reference Include="mscorlib" />
