@@ -74,7 +74,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="MrAdvice, Version=2.0.0.0, Culture=neutral, PublicKeyToken=c0e7e6eab6f293d8, processorArchitecture=MSIL">
-      <HintPath>..\packages\MrAdvice.2.0.12\lib\portable-net40+sl5+wp8+uap10.0\MrAdvice.dll</HintPath>
+      <HintPath>..\packages\MrAdvice.2.0.13\lib\portable-net40+sl5+wp8+uap10.0\MrAdvice.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="mscorlib" />
@@ -147,11 +147,11 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Import Project="..\packages\MrAdvice.2.0.12\build\MrAdvice.targets" Condition="Exists('..\packages\MrAdvice.2.0.12\build\MrAdvice.targets')" />
+  <Import Project="..\packages\MrAdvice.2.0.13\build\MrAdvice.targets" Condition="Exists('..\packages\MrAdvice.2.0.13\build\MrAdvice.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\MrAdvice.2.0.12\build\MrAdvice.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MrAdvice.2.0.12\build\MrAdvice.targets'))" />
+    <Error Condition="!Exists('..\packages\MrAdvice.2.0.13\build\MrAdvice.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MrAdvice.2.0.13\build\MrAdvice.targets'))" />
   </Target>
 </Project>

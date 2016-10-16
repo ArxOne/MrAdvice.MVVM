@@ -1,7 +1,7 @@
 ﻿{
   "dependencies": {
     "ModernUI.WPF": "1.0.9",
-    "MrAdvice": "2.0.12"
+    "MrAdvice": "2.0.13"
   },
   "frameworks": {
     "net452": {}
