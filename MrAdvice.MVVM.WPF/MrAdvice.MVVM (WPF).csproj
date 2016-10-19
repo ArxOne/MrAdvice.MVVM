@@ -70,16 +70,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="MrAdvice.MVVM.nuspec">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MrAdvice.MVVM.tt</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="MrAdvice.MVVM.nuspec">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MrAdvice.MVVM.tt</DependentUpon>
+    </None>
     <None Include="project.json" />
     <None Include="Properties\ProductInfoValues.tt" />
     <None Include="Properties\ProductInfo.tt">

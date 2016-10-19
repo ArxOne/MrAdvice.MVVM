@@ -30,13 +30,24 @@ namespace ArxOne.MrAdvice.MVVM.View
         /// </value>
         public object Name { get; set; }
 
+        private object _parameter;
+        private bool _parameterSet;
+
         /// <summary>
         /// Gets or sets the parameter.
         /// </summary>
         /// <value>
         /// The parameter.
         /// </value>
-        public object Parameter { get; set; }
+        public object Parameter
+        {
+            get { return _parameter; }
+            set
+            {
+                _parameter = value;
+                _parameterSet = true;
+            }
+        }
 
         internal FrameworkElement Element { get; private set; }
 
@@ -98,7 +109,7 @@ namespace ArxOne.MrAdvice.MVVM.View
                 if (bindingParameter != null)
                     name = viewModel.GetType().GetMember(bindingParameter.Path.Path).FirstOrDefault();
 
-                var command = new RelayCommand(viewModel, name, () => Parameter);
+                var command = new RelayCommand(viewModel, name, _parameterSet ? () => Parameter : (Func<object>)null);
                 command.Command += (sender, e) => Command?.Invoke(sender, e);
                 // TODO: the SetCommand extension method could be much better, especially use directly dependency property
                 // kept here for compatibility, but should be removed
