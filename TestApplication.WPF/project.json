@@ -1,6 +1,6 @@
 ﻿{
   "dependencies": {
-    "MrAdvice": "2.0.13"
+    "MrAdvice": "2.1.0"
   },
   "frameworks": {
     "net45": {}
