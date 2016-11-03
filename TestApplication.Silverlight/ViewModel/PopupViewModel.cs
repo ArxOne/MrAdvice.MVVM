@@ -9,6 +9,7 @@ namespace TestApplication.Silverlight.ViewModel
 {
     using System.Windows;
     using ArxOne.MrAdvice.MVVM.Navigation;
+    using ArxOne.MrAdvice.MVVM.ViewModel;
     using ArxOne.MrAdvice.Utility;
 
     public class PopupViewModel
@@ -17,12 +18,14 @@ namespace TestApplication.Silverlight.ViewModel
 
         public string Answer;
 
+        [Command]
         public void FortyTwo()
         {
             Answer = "42";
             Navigator.Exit(true);
         }
 
+        [Command]
         public void OutThere()
         {
             Answer = "The truth is out there";

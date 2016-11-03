@@ -9,6 +9,7 @@ namespace ArxOne.MrAdvice.MVVM.Threading
 {
     using System;
     using System.Reflection;
+    using System.Threading.Tasks;
 #if WINDOWS_UWP
     using Windows.UI.Xaml;
     using Windows.UI.Core;
@@ -22,7 +23,7 @@ namespace ArxOne.MrAdvice.MVVM.Threading
     /// Allows to invoke a method asynchronously (here, in a background thread)
     /// </summary>
     [AttributeUsage(AttributeTargets.Method)]
-    public class UISync : Attribute, IMethodAdvice, IMethodInfoAdvice
+    public class UISync : Attribute, IMethodAsyncAdvice, IMethodInfoAdvice
     {
         /// <summary>
         /// Invoked once per method, when assembly is loaded
@@ -31,11 +32,9 @@ namespace ArxOne.MrAdvice.MVVM.Threading
         /// <exception cref="InvalidOperationException">Impossible to run asynchronously a non-void method (you MoFo!)</exception>
         public void Advise(MethodInfoAdviceContext context)
         {
-            var methodInfo = context.TargetMethod as MethodInfo;
-            if (methodInfo == null)
-                return;
-            if (methodInfo.ReturnType != typeof(void))
-                throw new InvalidOperationException("Impossible to run asynchronously a non-void method (you MoFo!)");
+            var targetMethod = context.TargetMethod as MethodInfo;
+            if (targetMethod != null && targetMethod.ReturnType != typeof(void) && !typeof(Task).IsAssignableFrom(targetMethod.ReturnType))
+                throw new InvalidOperationException("Impossible to run asynchronously a non-void or task method");
         }
 
         /// <summary>
@@ -43,25 +42,27 @@ namespace ArxOne.MrAdvice.MVVM.Threading
         /// Usually, advice must invoke context.Proceed()
         /// </summary>
         /// <param name="context">The method advice context.</param>
-        public void Advise(MethodAdviceContext context)
+        public Task Advise(MethodAsyncAdviceContext context)
         {
-            Invoke(context.Proceed);
+            return Invoke(context.ProceedAsync);
         }
 
         /// <summary>
         /// Invokes the specified action.
         /// </summary>
         /// <param name="action">The action.</param>
-        public static void Invoke(Action action)
+        public static async Task Invoke(Func<Task> action)
         {
 #if WINDOWS_UWP
-            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, delegate
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async delegate
             {
-                action();
+                await action();
             });
+#elif SILVERLIGHT
+            Application.Current?.GetDispatcher()?.Invoke(async delegate { await action(); });
 #else
             // when application exits, dispatcher may be null, but we nicely ignore (I had no other idea at the moment)
-            Application.Current?.GetDispatcher()?.Invoke(action);
+            await Application.Current?.GetDispatcher()?.Invoke(async delegate { await action(); });
 #endif
         }
     }
