@@ -24,7 +24,8 @@
                 <Run Text="This is an automatic counter, updated in background "/>
                 <Run Text="{Binding AutomaticCounter, Mode=OneWay}"/>
             </TextBlock>
-            <Button Content="Open a popup" Command="{mrAdvice:Command {Binding OpenPopup}}" HorizontalAlignment="Left" />
+            <Button Content="Open a popup (Ctrl+O)" Command="{mrAdvice:Command {Binding OpenPopup}, Key=O, Modifiers=Control}" 
+                    HorizontalAlignment="Left" />
             <TextBlock>
                 <Run Text="The popup said "/>
                 <Run Text="{Binding PopupSaid, Mode=OneWay}"/>

@@ -14,6 +14,7 @@ namespace ArxOne.MrAdvice.MVVM.View
     using Utility;
     using System.Windows;
     using System.Windows.Data;
+    using System.Windows.Input;
     using System.Windows.Markup;
 
     /// <summary>
@@ -50,6 +51,24 @@ namespace ArxOne.MrAdvice.MVVM.View
         }
 
         internal FrameworkElement Element { get; private set; }
+
+#if !SILVERLIGHT
+        /// <summary>
+        /// Gets or sets the key.
+        /// </summary>
+        /// <value>
+        /// The key.
+        /// </value>
+        public Key Key { get; set; }
+
+        /// <summary>
+        /// Gets or sets the modifiers.
+        /// </summary>
+        /// <value>
+        /// The modifiers.
+        /// </value>
+        public ModifierKeys Modifiers { get; set; }
+#endif
 
         /// <summary>
         /// Occurs when [command].
@@ -119,6 +138,20 @@ namespace ArxOne.MrAdvice.MVVM.View
                     if (targetDependencyProperty != null)
                         element.SetValue(targetDependencyProperty, command);
                 }
+
+#if !SILVERLIGHT
+                // keyboard shortcut
+                if (Key != Key.None)
+                {
+                    var keyBinding = new KeyBinding(command, Key, Modifiers);
+                    var window = Window.GetWindow(element);
+                    if (window != null)
+                    {
+                        window.InputBindings.Add(keyBinding);
+                        element.Unloaded += delegate { window.InputBindings.Remove(keyBinding); };
+                    }
+                }
+#endif
             };
 
             return null;
