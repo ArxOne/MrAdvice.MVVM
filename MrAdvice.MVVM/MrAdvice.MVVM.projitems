@@ -31,7 +31,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)MVVM\ViewModel\INotifyDataErrorViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MVVM\ViewModel\INotifyPropertyChangedViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MVVM\ViewModel\ViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MVVM\View\Collect.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MVVM\View\CommandExtension.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MVVM\View\ItemCollectionType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MVVM\View\Navigator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MVVM\View\PropertyReaderExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MVVM\View\RelayCommand.cs" />

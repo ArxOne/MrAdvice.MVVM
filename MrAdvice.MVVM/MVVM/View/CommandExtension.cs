@@ -144,11 +144,11 @@ namespace ArxOne.MrAdvice.MVVM.View
                 if (Key != Key.None)
                 {
                     var keyBinding = new KeyBinding(command, Key, Modifiers);
-                    var window = Window.GetWindow(element);
-                    if (window != null)
+                    var collectingItem = element.FindCollectingItem(ItemCollectionType.KeyBindings);
+                    if (collectingItem != null)
                     {
-                        window.InputBindings.Add(keyBinding);
-                        element.Unloaded += delegate { window.InputBindings.Remove(keyBinding); };
+                        collectingItem.InputBindings.Add(keyBinding);
+                        element.Unloaded += delegate { collectingItem.InputBindings.Remove(keyBinding); };
                     }
                 }
 #endif
