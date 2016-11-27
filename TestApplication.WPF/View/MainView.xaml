@@ -8,6 +8,9 @@
         xmlns:viewModel="clr-namespace:TestApplication.ViewModel"
         mc:Ignorable="d"
         Title="MainView" Height="350" Width="525" ShowInTaskbar="True" d:DataContext="{d:DesignInstance viewModel:MainViewModel}">
+    <Window.InputBindings>
+        <KeyBinding Key="Escape" Command="{mrAdvice:Command {Binding Exit}}" />
+    </Window.InputBindings>
     <Grid Margin="8">
         <StackPanel Orientation="Vertical">
             <!-- DEMO: binding command to view-model method -->
