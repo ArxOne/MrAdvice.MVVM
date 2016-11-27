@@ -166,6 +166,7 @@ namespace ArxOne.MrAdvice.MVVM.View
             };
         }
 
+#if !SILVERLIGHT
         /// <summary>
         /// Binds the command to <see cref="InputBinding"/>.
         /// </summary>
@@ -192,7 +193,6 @@ namespace ArxOne.MrAdvice.MVVM.View
             };
         }
 
-#if !SILVERLIGHT
         /// <summary>
         /// Gets the parent for given <see cref="InputBinding"/>.
         /// Currently this method is very poor, and works only for <see cref="Window"/>
