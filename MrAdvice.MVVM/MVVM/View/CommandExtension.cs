@@ -108,27 +108,13 @@ namespace ArxOne.MrAdvice.MVVM.View
             var inputBinding = targetObject as InputBinding;
             if (inputBinding != null)
             {
-                var rootObjectProvider = (IRootObjectProvider)serviceProvider.GetService(typeof(IRootObjectProvider));
-                var root = (FrameworkElement)rootObjectProvider.RootObject;
-                // once it is bound
-                root.DataContextChanged += delegate
-                {
-                    // find owner
-                    var owner = GetOwner(root, inputBinding);
-                    if (owner == null)
-                        return;
-                    var ownerViewModel = owner.DataContext;
-                    if (ownerViewModel != null)
-                    {
-                        // and set command
-                        var command = GetCommand(ownerViewModel);
-                        inputBinding.Command = command;
-                    }
-                };
+                BindToInputBinding(inputBinding, serviceProvider);
                 return null;
             }
 #endif
 
+            // I had a good reason to write this, unfortunately, when writing this comment,
+            // I don't remember it
             var element = targetObject as FrameworkElement;
             if (element == null)
                 return this;
@@ -142,6 +128,18 @@ namespace ArxOne.MrAdvice.MVVM.View
                 return null;
 #endif
 
+            BindToFrameworkElement(element, serviceProvider);
+            return null;
+        }
+
+        /// <summary>
+        /// Binds the command to <see cref="FrameworkElement"/>.
+        /// </summary>
+        /// <param name="element">The element.</param>
+        /// <param name="serviceProvider">The service provider.</param>
+        private void BindToFrameworkElement(FrameworkElement element, IServiceProvider serviceProvider)
+        {
+            var provideValueTarget = (IProvideValueTarget)serviceProvider.GetService(typeof(IProvideValueTarget));
             Element = element;
             var targetProperty = provideValueTarget.TargetProperty;
             element.DataContextChanged += delegate
@@ -166,20 +164,45 @@ namespace ArxOne.MrAdvice.MVVM.View
                 }
 #endif
             };
-            return null;
+        }
+
+        /// <summary>
+        /// Binds the command to <see cref="InputBinding"/>.
+        /// </summary>
+        /// <param name="inputBinding">The input binding.</param>
+        /// <param name="serviceProvider">The service provider.</param>
+        private void BindToInputBinding(InputBinding inputBinding, IServiceProvider serviceProvider)
+        {
+            var rootObjectProvider = (IRootObjectProvider)serviceProvider.GetService(typeof(IRootObjectProvider));
+            var root = (FrameworkElement)rootObjectProvider.RootObject;
+            // once it is bound
+            root.DataContextChanged += delegate
+            {
+                // find owner
+                var owner = GetParent(root, inputBinding);
+                if (owner == null)
+                    return;
+                var ownerViewModel = owner.DataContext;
+                if (ownerViewModel != null)
+                {
+                    // and set command
+                    var command = CreateCommand(ownerViewModel);
+                    inputBinding.Command = command;
+                }
+            };
         }
 
 #if !SILVERLIGHT
         /// <summary>
-        /// Gets the owner for given <see cref="InputBinding"/>.
+        /// Gets the parent for given <see cref="InputBinding"/>.
         /// Currently this method is very poor, and works only for <see cref="Window"/>
         /// </summary>
-        /// <param name="root">The root.</param>
+        /// <param name="ascendant">An ascendant.</param>
         /// <param name="inputBinding">The input binding.</param>
         /// <returns></returns>
-        private static FrameworkElement GetOwner(DependencyObject root, InputBinding inputBinding)
+        private static FrameworkElement GetParent(DependencyObject ascendant, InputBinding inputBinding)
         {
-            var descendants = root.GetVisualSelfAndChildren().OfType<FrameworkElement>();
+            var descendants = ascendant.GetVisualSelfAndChildren().OfType<FrameworkElement>();
             var owner = descendants.FirstOrDefault(o => o.InputBindings.Contains(inputBinding));
             return owner;
         }
@@ -188,20 +211,20 @@ namespace ArxOne.MrAdvice.MVVM.View
         /// <summary>
         /// Sets the command to target element and property.
         /// </summary>
-        /// <param name="element">The element.</param>
+        /// <param name="targetElement">The element.</param>
         /// <param name="viewModel">The view model.</param>
         /// <param name="targetProperty">The target property.</param>
         /// <returns></returns>
-        private RelayCommand SetCommand(UIElement element, object viewModel, object targetProperty)
+        private RelayCommand SetCommand(UIElement targetElement, object viewModel, object targetProperty)
         {
-            var command = GetCommand(viewModel);
+            var command = CreateCommand(viewModel);
             // TODO: the SetCommand extension method could be much better, especially use directly dependency property
             // kept here for compatibility, but should be removed
-            if (!element.SetCommand(targetProperty, command, Parameter))
+            if (!targetElement.SetCommand(targetProperty, command, Parameter))
             {
                 var targetDependencyProperty = targetProperty as DependencyProperty;
                 if (targetDependencyProperty != null)
-                    element.SetValue(targetDependencyProperty, command);
+                    targetElement.SetValue(targetDependencyProperty, command);
             }
             return command;
         }
@@ -211,7 +234,7 @@ namespace ArxOne.MrAdvice.MVVM.View
         /// </summary>
         /// <param name="viewModel">The view model.</param>
         /// <returns></returns>
-        private RelayCommand GetCommand(object viewModel)
+        private RelayCommand CreateCommand(object viewModel)
         {
             var name = Name;
             var bindingParameter = name as Binding;
