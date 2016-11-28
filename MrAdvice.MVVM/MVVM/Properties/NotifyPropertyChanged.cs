@@ -28,6 +28,8 @@ namespace ArxOne.MrAdvice.MVVM.Properties
         // this field is related to each marked property
         private bool _validated;
 
+        private static readonly ValidationResult[] NoValidationResult = new ValidationResult[0];
+
         /// <summary>
         /// Implements advice logic.
         /// Usually, advice must invoke context.Proceed()
@@ -47,6 +49,7 @@ namespace ArxOne.MrAdvice.MVVM.Properties
                 bool validated = false;
                 var newValue = context.Value;
                 var oldValue = context.TargetProperty.GetValue(context.Target, context.Index.ToArray());
+                ValidationException validationException = null;
 
                 try
                 {
@@ -55,9 +58,21 @@ namespace ArxOne.MrAdvice.MVVM.Properties
                 }
                 catch (ValidationException e)
                 {
-                    var notifyDataErrorInfoViewModel = context.Target as INotifyDataErrorViewModel;
-                    notifyDataErrorInfoViewModel?.SetErrors(context.TargetProperty.Name, new[] { e.ValidationResult });
-                    validated = true;
+                    validationException = e;
+                }
+
+                // handle ValidationException, if any
+                var notifyDataErrorInfoViewModel = context.Target as INotifyDataErrorViewModel;
+                if (notifyDataErrorInfoViewModel != null)
+                {
+                    // in all cases, set or clear errors
+                    if (validationException != null)
+                    {
+                        validated = true; // no need to carry on validation. Exceptions are priority
+                        notifyDataErrorInfoViewModel.SetErrors(context.TargetProperty.Name, new[] { validationException.ValidationResult });
+                    }
+                    else // no exception
+                        notifyDataErrorInfoViewModel.SetErrors(context.TargetProperty.Name, NoValidationResult);
                 }
 
                 // then, notify, if it has changed
