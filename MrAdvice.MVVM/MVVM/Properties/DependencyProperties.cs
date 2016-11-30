@@ -10,6 +10,8 @@ namespace ArxOne.MrAdvice.MVVM.Properties
     using System;
     using System.Collections.Generic;
     using System.Reflection;
+    using System.Windows.Data;
+    using System.Windows.Documents;
     using Utility;
 #if WINDOWS_UWP
     using Windows.UI.Xaml;
@@ -47,8 +49,11 @@ namespace ArxOne.MrAdvice.MVVM.Properties
         /// <param name="defaultValue">The default value (null if none).</param>
         /// <param name="notification">The notification type, in order to have a callback.</param>
         /// <param name="callbackName">Name of the callback.</param>
+        /// <param name="bindsTwoWayByDefault">if set to <c>true</c> [binds two way by default].</param>
+        /// <param name="defaultUpdateSourceTrigger">The default update source trigger.</param>
         public static void CreateDependencyProperty(this PropertyInfo propertyInfo, object defaultValue,
-            DependencyPropertyNotification notification = DependencyPropertyNotification.None, string callbackName = null)
+            DependencyPropertyNotification notification = DependencyPropertyNotification.None, string callbackName = null,
+            bool bindsTwoWayByDefault = false, UpdateSourceTrigger defaultUpdateSourceTrigger = UpdateSourceTrigger.Default)
         {
             var dependencyProperties = GetDependencyProperties(propertyInfo);
             var ownerType = propertyInfo.DeclaringType;
@@ -60,13 +65,29 @@ namespace ArxOne.MrAdvice.MVVM.Properties
                 // property type is very specific here, because it comes from the second argument of the generic
                 var propertyType = propertyInfo.PropertyType.GetGenericArguments()[1];
                 dependencyProperties[propertyName] = SystemDependencyProperty.RegisterAttached(propertyName, propertyType, ownerType,
-                    new PropertyMetadata(defaultPropertyValue ?? propertyType.Default(), onPropertyChanged));
+                    CreatePropertyMetadata(defaultPropertyValue ?? propertyType.Default(), onPropertyChanged, bindsTwoWayByDefault, defaultUpdateSourceTrigger));
             }
             else
             {
                 dependencyProperties[propertyName] = SystemDependencyProperty.Register(propertyName, propertyInfo.PropertyType, ownerType,
-                    new PropertyMetadata(defaultPropertyValue ?? propertyInfo.PropertyType.Default(), onPropertyChanged));
+                    CreatePropertyMetadata(defaultPropertyValue ?? propertyInfo.PropertyType.Default(), onPropertyChanged, bindsTwoWayByDefault, defaultUpdateSourceTrigger));
             }
+        }
+
+        private static PropertyMetadata CreatePropertyMetadata(object defaultValue, PropertyChangedCallback onPropertyChangedCallback,
+            bool bindsTwoWayByDefault, UpdateSourceTrigger updateSourceTrigger)
+        {
+#if !SILVERLIGHT
+            if (bindsTwoWayByDefault || updateSourceTrigger != UpdateSourceTrigger.Default)
+            {
+                var propertyMetadata = new FrameworkPropertyMetadata(defaultValue, onPropertyChangedCallback);
+                propertyMetadata.BindsTwoWayByDefault = bindsTwoWayByDefault;
+                if (updateSourceTrigger != UpdateSourceTrigger.Default)
+                    propertyMetadata.DefaultUpdateSourceTrigger = updateSourceTrigger;
+                return propertyMetadata;
+            }
+#endif
+            return new PropertyMetadata(defaultValue, onPropertyChangedCallback);
         }
 
         /// <summary>
