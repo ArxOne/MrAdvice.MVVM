@@ -41,6 +41,14 @@ namespace ArxOne.MrAdvice.MVVM.Properties
         public DependencyPropertyNotification Notification { get; set; }
 
         /// <summary>
+        /// Gets or sets the property changed callback.
+        /// </summary>
+        /// <value>
+        /// The property changed callback.
+        /// </value>
+        public string CallbackName { get; set; }
+
+        /// <summary>
         /// The CurrentProperty is used by Property
         /// The syntax for using all of this is elegant, much more elegant than the implementation
         /// </summary>
@@ -56,7 +64,7 @@ namespace ArxOne.MrAdvice.MVVM.Properties
         public void Advise(PropertyInfoAdviceContext context)
         {
             var propertyInfo = context.TargetProperty;
-            propertyInfo.CreateDependencyProperty(DefaultValue, Notification, null);
+            propertyInfo.CreateDependencyProperty(DefaultValue, Notification, CallbackName);
             if (propertyInfo.GetValue(null, NoParameter) == null)
                 propertyInfo.SetValue(null, Activator.CreateInstance(propertyInfo.PropertyType), NoParameter);
         }
