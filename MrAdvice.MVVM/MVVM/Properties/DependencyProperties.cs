@@ -1,8 +1,10 @@
 ﻿#region Mr. Advice MVVM
+
 // // Mr. Advice MVVM
 // // A simple MVVM package using Mr. Advice aspect weaver
 // // https://github.com/ArxOne/MrAdvice.MVVM
 // // Released under MIT license http://opensource.org/licenses/mit-license.php
+
 #endregion
 
 namespace ArxOne.MrAdvice.MVVM.Properties
@@ -19,6 +21,7 @@ namespace ArxOne.MrAdvice.MVVM.Properties
 #else
     using System.Windows;
     using SystemDependencyProperty = System.Windows.DependencyProperty;
+
 #endif
 
     /// <summary>
@@ -123,39 +126,58 @@ namespace ArxOne.MrAdvice.MVVM.Properties
             if (method == null)
                 throw new InvalidOperationException("Callback method not found (WTF?)");
             var parameters = method.GetParameters();
-            if (parameters.Length == 0)
+            if (method.IsStatic)
             {
-                onPropertyChanged = delegate (DependencyObject d, DependencyPropertyChangedEventArgs e)
+                if (parameters.Length == 0)
                 {
-                    method.Invoke(d, new object[0]);
-                };
-            }
-            else if (parameters.Length == 1)
-            {
-                if (parameters[0].ParameterType.IsAssignableFrom(typeof(DependencyPropertyChangedEventArgs)))
+                    onPropertyChanged = delegate(DependencyObject d, DependencyPropertyChangedEventArgs e) { method.Invoke(null, new object[0]); };
+                }
+                else if (parameters.Length == 1)
                 {
-                    onPropertyChanged = delegate (DependencyObject d, DependencyPropertyChangedEventArgs e)
+                    onPropertyChanged = delegate(DependencyObject d, DependencyPropertyChangedEventArgs e) { method.Invoke(null, new object[] {d}); };
+                }
+                else if (parameters.Length == 2)
+                {
+                    if (parameters[1].ParameterType.IsAssignableFrom(typeof(DependencyPropertyChangedEventArgs)))
                     {
-                        method.Invoke(d, new object[] { e });
-                    };
+                        onPropertyChanged = delegate(DependencyObject d, DependencyPropertyChangedEventArgs e) { method.Invoke(null, new object[] {d, e}); };
+                    }
+                    else
+                    {
+                        onPropertyChanged = delegate(DependencyObject d, DependencyPropertyChangedEventArgs e) { method.Invoke(null, new[] {d, e.OldValue}); };
+                    }
+                }
+                else if (parameters.Length == 3)
+                {
+                    onPropertyChanged = delegate(DependencyObject d, DependencyPropertyChangedEventArgs e) { method.Invoke(null, new[] {d, e.OldValue, e.NewValue}); };
                 }
                 else
-                {
-                    onPropertyChanged = delegate (DependencyObject d, DependencyPropertyChangedEventArgs e)
-                    {
-                        method.Invoke(d, new[] { e.OldValue });
-                    };
-                }
-            }
-            else if (parameters.Length == 2)
-            {
-                onPropertyChanged = delegate (DependencyObject d, DependencyPropertyChangedEventArgs e)
-                {
-                    method.Invoke(d, new[] { e.OldValue, e.NewValue });
-                };
+                    throw new InvalidOperationException("Unhandled method overload");
             }
             else
-                throw new InvalidOperationException("Unhandled method overload");
+            {
+                if (parameters.Length == 0)
+                {
+                    onPropertyChanged = delegate(DependencyObject d, DependencyPropertyChangedEventArgs e) { method.Invoke(d, new object[0]); };
+                }
+                else if (parameters.Length == 1)
+                {
+                    if (parameters[0].ParameterType.IsAssignableFrom(typeof(DependencyPropertyChangedEventArgs)))
+                    {
+                        onPropertyChanged = delegate(DependencyObject d, DependencyPropertyChangedEventArgs e) { method.Invoke(d, new object[] {e}); };
+                    }
+                    else
+                    {
+                        onPropertyChanged = delegate(DependencyObject d, DependencyPropertyChangedEventArgs e) { method.Invoke(d, new[] {e.OldValue}); };
+                    }
+                }
+                else if (parameters.Length == 2)
+                {
+                    onPropertyChanged = delegate(DependencyObject d, DependencyPropertyChangedEventArgs e) { method.Invoke(d, new[] {e.OldValue, e.NewValue}); };
+                }
+                else
+                    throw new InvalidOperationException("Unhandled method overload");
+            }
             return onPropertyChanged;
         }
 
