@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="Windows-1252" ?>
 <#@ template debug="false" hostspecific="true" language="C#" #>
 <#@ output extension=".nuspec" #>
 <#@ import namespace="System.Reflection" #>
@@ -20,7 +20,7 @@
     <copyright>Copyright 2015</copyright>
     <tags>mvvm wpf dependencyproperty notifypropertychanged navigator threading</tags>
     <dependencies>
-      <dependency id="MrAdvice" />
+      <dependency id="MrAdvice" version="2.0.0" />
       <dependency id="CommonServiceLocator" />
     </dependencies>
     <developmentDependency>false</developmentDependency>
