@@ -2,7 +2,7 @@
   "dependencies": {
     "Clarius.TransformOnBuild": "1.1.12",
     "CommonServiceLocator": "1.3.0",
-    "MrAdvice": "2.5.1"
+    "MrAdvice": "2.5.3"
   },
   "frameworks": {
     "net45": {}
