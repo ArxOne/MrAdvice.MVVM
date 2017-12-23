@@ -53,7 +53,7 @@ namespace ArxOne.MrAdvice.MVVM.View
         {
             var lastParent = element;
             // Window is explicitly concatenated because it is not part of visual tree
-            foreach (var parent in element.GetVisualSelfAndParents().Concat(new DependencyObject[] { Window.GetWindow(element) }).OfType<UIElement>())
+            foreach (var parent in element.GetVisualSelfAndAncestors().Concat(new DependencyObject[] { Window.GetWindow(element) }).OfType<UIElement>())
             {
                 if (GetItemType(parent).HasFlag(itemType))
                     return element;

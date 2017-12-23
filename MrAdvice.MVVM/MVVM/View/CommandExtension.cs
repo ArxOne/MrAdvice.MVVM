@@ -202,11 +202,11 @@ namespace ArxOne.MrAdvice.MVVM.View
         /// <returns></returns>
         private static FrameworkElement GetParent(DependencyObject ascendant, InputBinding inputBinding)
         {
-            var descendants = ascendant.GetVisualSelfAndChildren().OfType<FrameworkElement>();
+            var descendants = ascendant.GetVisualSelfAndDescendants().OfType<FrameworkElement>();
             var owner = descendants.FirstOrDefault(o => o.InputBindings.Contains(inputBinding));
             return owner;
         }
-#endif 
+#endif
 
         /// <summary>
         /// Sets the command to target element and property.

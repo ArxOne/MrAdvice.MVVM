@@ -33,7 +33,7 @@ namespace ArxOne.MrAdvice.Utility
         /// </summary>
         /// <param name="dependencyObject">The dependency object.</param>
         /// <returns></returns>
-        public static IEnumerable<DependencyObject> GetVisualSelfAndParents(this DependencyObject dependencyObject)
+        public static IEnumerable<DependencyObject> GetVisualSelfAndAncestors(this DependencyObject dependencyObject)
         {
             while (dependencyObject != null)
             {
@@ -48,7 +48,7 @@ namespace ArxOne.MrAdvice.Utility
         /// </summary>
         /// <param name="dependencyObject">The dependency object.</param>
         /// <returns></returns>
-        public static IEnumerable<DependencyObject> GetLogicalSelfAndParents(this DependencyObject dependencyObject)
+        public static IEnumerable<DependencyObject> GetLogicalSelfAndAncestors(this DependencyObject dependencyObject)
         {
             while (dependencyObject != null)
             {
@@ -62,16 +62,19 @@ namespace ArxOne.MrAdvice.Utility
         /// Gets the visual self and children.
         /// </summary>
         /// <param name="dependencyObject">The dependency object.</param>
+        /// <param name="digDown">A method to tell whether the dig must carry on.</param>
         /// <returns></returns>
-        public static IEnumerable<DependencyObject> GetVisualSelfAndChildren(this DependencyObject dependencyObject)
+        public static IEnumerable<DependencyObject> GetVisualSelfAndDescendants(this DependencyObject dependencyObject, Predicate<DependencyObject> digDown = null)
         {
             yield return dependencyObject;
 
+            if (digDown != null && !digDown(dependencyObject))
+                yield break;
+
             var contentPresenter = dependencyObject as ContentPresenter;
-            var content = contentPresenter?.Content as DependencyObject;
-            if (content != null)
+            if (contentPresenter?.Content is DependencyObject content)
             {
-                foreach (var contentChild in GetVisualSelfAndChildren(content))
+                foreach (var contentChild in GetVisualSelfAndDescendants(content, digDown))
                     yield return contentChild;
             }
 
@@ -79,7 +82,7 @@ namespace ArxOne.MrAdvice.Utility
             for (int index = 0; index < count; index++)
             {
                 var child = VisualTreeHelper.GetChild(dependencyObject, index);
-                foreach (var visualSelfChild in GetVisualSelfAndChildren(child))
+                foreach (var visualSelfChild in GetVisualSelfAndDescendants(child, digDown))
                     yield return visualSelfChild;
             }
         }
@@ -121,8 +124,7 @@ namespace ArxOne.MrAdvice.Utility
         {
             string propertyName = null;
 #if !SILVERLIGHT && !WINDOWS_UWP
-            var dependencyProperty = targetProperty as DependencyProperty;
-            if (dependencyProperty != null)
+            if (targetProperty is DependencyProperty dependencyProperty)
                 propertyName = dependencyProperty.Name;
 #endif
             var propertyInfo = targetProperty as PropertyInfo;
@@ -184,11 +186,11 @@ namespace ArxOne.MrAdvice.Utility
 
         private static DependencyObject SearchRelated(this FrameworkElement element, string name)
         {
-            var topMost = element.GetVisualSelfAndParents().Last();
+            var topMost = element.GetVisualSelfAndAncestors().Last();
             // currently stuck to parent... See what we can do otherwise
-            var related = topMost.GetVisualSelfAndChildren().OfType<FrameworkElement>().FirstOrDefault(e => e.Name == name)
+            var related = topMost.GetVisualSelfAndDescendants().OfType<FrameworkElement>().FirstOrDefault(e => e.Name == name)
 #if !SILVERLIGHT
-                    ?? topMost.GetVisualSelfAndChildren().OfType<UIElement>().FirstOrDefault(e => e.Uid == name)
+                    ?? topMost.GetVisualSelfAndDescendants().OfType<UIElement>().FirstOrDefault(e => e.Uid == name)
 #endif
                 ;
             return related;

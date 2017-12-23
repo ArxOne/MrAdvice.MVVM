@@ -41,7 +41,7 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
             if (_features.HasFlag(FrameworkFeatures.UsesContentFrame))
             {
                 if (_modernUIContentControl == null)
-                    _modernUIContentControl = Application.Current.MainWindow.GetVisualSelfAndChildren().OfType<ContentControl>().Single(c => c.Name == "ContentFrame");
+                    _modernUIContentControl = Application.Current.MainWindow.GetVisualSelfAndDescendants().OfType<ContentControl>().Single(c => c.Name == "ContentFrame");
 
                 _modernUIContentControl.Content = view;
                 return viewModel;
@@ -144,21 +144,21 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
             IsWatched[view] = true;
 
             view.ApplyTemplate();
-            var contentFrame = view.GetVisualSelfAndChildren().OfType<ContentControl>().Single(c => c.Name == "ContentFrame");
+            var contentFrame = view.GetVisualSelfAndDescendants().OfType<ContentControl>().Single(c => c.Name == "ContentFrame");
             ContentControl.ContentProperty.RegisterChangeCallback(contentFrame, "Content", OnContentChanged);
         }
 
         private void HandleModernUIContentNavigation(FrameworkElement parentView)
         {
             parentView.ApplyTemplate();
-            foreach (var view in parentView.GetVisualSelfAndChildren().OfType<FrameworkElement>())
+            foreach (var view in parentView.GetVisualSelfAndDescendants().OfType<FrameworkElement>())
             {
                 if (!IsModernUIContent(view) || IsWatched[view])
                     continue;
                 IsWatched[view] = true;
 
                 view.ApplyTemplate();
-                var contentFrame = view.GetVisualSelfAndChildren().OfType<Control>().Single(c => c.GetType().Name == "ModernFrame");
+                var contentFrame = view.GetVisualSelfAndDescendants().OfType<Control>().Single(c => c.GetType().Name == "ModernFrame");
                 ContentControl.ContentProperty.RegisterChangeCallback(contentFrame, "Content", OnContentChanged);
             }
         }
