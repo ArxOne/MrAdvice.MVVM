@@ -33,6 +33,17 @@ namespace ArxOne.MrAdvice.Utility
         /// </summary>
         /// <param name="dependencyObject">The dependency object.</param>
         /// <returns></returns>
+        [Obsolete("Use GetVisualSelfAndAncestors instead")]
+        public static IEnumerable<DependencyObject> GetVisualSelfAndParents(this DependencyObject dependencyObject)
+        {
+            return GetVisualSelfAndAncestors(dependencyObject);
+        }
+
+        /// <summary>
+        /// Gets the object and parents from visual tree.
+        /// </summary>
+        /// <param name="dependencyObject">The dependency object.</param>
+        /// <returns></returns>
         public static IEnumerable<DependencyObject> GetVisualSelfAndAncestors(this DependencyObject dependencyObject)
         {
             while (dependencyObject != null)
@@ -43,6 +54,17 @@ namespace ArxOne.MrAdvice.Utility
         }
 
 #if !SILVERLIGHT && !WINDOWS_UWP
+        /// <summary>
+        /// Gets the object and parents from logical tree.
+        /// </summary>
+        /// <param name="dependencyObject">The dependency object.</param>
+        /// <returns></returns>
+        [Obsolete("Use GetLogicalSelfAndAncestors instead")]
+        public static IEnumerable<DependencyObject> GetLogicalSelfAndParents(this DependencyObject dependencyObject)
+        {
+            return GetLogicalSelfAndAncestors(dependencyObject);
+        }
+
         /// <summary>
         /// Gets the object and parents from logical tree.
         /// </summary>
@@ -60,6 +82,17 @@ namespace ArxOne.MrAdvice.Utility
 
         /// <summary>
         /// Gets the visual self and children.
+        /// </summary>
+        /// <param name="dependencyObject">The dependency object.</param>
+        /// <returns></returns>
+        [Obsolete("Use GetVisualSelfAndChildren instead")]
+        public static IEnumerable<DependencyObject> GetVisualSelfAndChildren(this DependencyObject dependencyObject)
+        {
+            return GetVisualSelfAndDescendants(dependencyObject);
+        }
+
+        /// <summary>
+        /// Gets the visual self and descendants.
         /// </summary>
         /// <param name="dependencyObject">The dependency object.</param>
         /// <param name="digDown">A method to tell whether the dig must carry on.</param>
