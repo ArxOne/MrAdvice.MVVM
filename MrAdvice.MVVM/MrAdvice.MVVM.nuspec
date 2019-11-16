@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="Windows-1252" ?>
+<package>
+  <metadata>
+    <id>MrAdvice.MVVM</id>
+    <version>2.6</version>
+    <title>Mr. Advice MVVM</title>
+    <authors>Arx One</authors>
+    <owners>Arx One</owners>
+    <licenseUrl>http://opensource.org/licenses/mit-license.php</licenseUrl>
+    <projectUrl>https://github.com/ArxOne/MrAdvice.MVVM</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/ArxOne/MrAdvice.MVVM/master/Icon/MrAdvice.MVVM.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <summary>MVVM library</summary>
+    <description>MrAdvice.MVVM is a lightweight MVVM library. It implements NotifyPropertyChanged, DependencyProperty (dependency and attached), A command binder and some threading management.</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright 2015</copyright>
+    <tags>mvvm wpf dependencyproperty notifypropertychanged navigator threading</tags>
+    <dependencies>
+      <dependency id="MrAdvice" version="2.0.0" />
+      <dependency id="CommonServiceLocator" version="1.3.0" />
+    </dependencies>
+    <developmentDependency>false</developmentDependency>
+  </metadata>
+  <files>
+    <file src="bin\$ConfigurationName$\MrAdvice.MVVM.dll" target="lib\net45"/>
+    <file src="bin\$ConfigurationName$\MrAdvice.MVVM.xml" target="lib\net45"/>
+    <file src="bin\$ConfigurationName$\MrAdvice.MVVM.pdb" target="lib\net45"/>
+    <!--<file src="..\MrAdvice.MVVM.UWP\bin\$ConfigurationName$\MrAdvice.MVVM.dll" target="lib\uap10.0"/>
+    <file src="..\MrAdvice.MVVM.UWP\bin\$ConfigurationName$\MrAdvice.MVVM.xml" target="lib\uap10.0"/>
+    <file src="..\MrAdvice.MVVM.UWP\bin\$ConfigurationName$\MrAdvice.MVVM.pdb" target="lib\uap10.0"/>-->
+    <file src="**\*.cs" target="src"/>
+    <file src="..\MrAdvice.MVVM.UWP\**\*.cs" target="src"/>
+  </files>
+</package>

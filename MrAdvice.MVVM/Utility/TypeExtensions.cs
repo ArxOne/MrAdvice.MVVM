@@ -39,16 +39,5 @@ namespace ArxOne.MrAdvice.Utility
                 return null;
             return Activator.CreateInstance(type);
         }
-
-        /// <summary>
-        /// Gets the self and ancestors.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns></returns>
-        public static IEnumerable<Type> GetSelfAndAncestors(this Type type)
-        {
-            for (; type != null; type = type.TypeInfo().BaseType)
-                yield return type;
-        }
     }
 }

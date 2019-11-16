@@ -112,9 +112,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MrAdvice.MVVM.WPF\MrAdvice.MVVM %28WPF%29.csproj">
-      <Project>{3cc33c7b-65e5-47f0-ae8a-1a473d8720e1}</Project>
-      <Name>MrAdvice.MVVM %28WPF%29</Name>
+    <ProjectReference Include="..\MrAdvice.MVVM\MrAdvice.MVVM.csproj">
+      <Project>{86c5926e-9df1-4a59-9b54-85a06a18a912}</Project>
+      <Name>MrAdvice.MVVM</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

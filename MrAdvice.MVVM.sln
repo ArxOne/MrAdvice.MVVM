@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29509.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{94DEE92C-2550-4BE8-80CF-549DA6AA3351}"
 	ProjectSection(SolutionItems) = preProject
@@ -21,26 +21,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{8148DEFF
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApplication.WPF", "TestApplication.WPF\TestApplication.WPF.csproj", "{8CA64803-9E81-4BEA-946A-549E21D339FD}"
-	ProjectSection(ProjectDependencies) = postProject
-		{3CC33C7B-65E5-47F0-AE8A-1A473D8720E1} = {3CC33C7B-65E5-47F0-AE8A-1A473D8720E1}
-	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Nuget", "Nuget\Nuget.vcxproj", "{8065D48C-58F8-46B8-9824-CDE2447A0DAB}"
-	ProjectSection(ProjectDependencies) = postProject
-		{3CC33C7B-65E5-47F0-AE8A-1A473D8720E1} = {3CC33C7B-65E5-47F0-AE8A-1A473D8720E1}
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApplication.ModernUI", "TestApplication.ModernUI\TestApplication.ModernUI.csproj", "{04FCF617-E9C8-44A9-9072-AEA90367ADD9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MrAdvice.MVVM (WPF)", "MrAdvice.MVVM.WPF\MrAdvice.MVVM (WPF).csproj", "{3CC33C7B-65E5-47F0-AE8A-1A473D8720E1}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "MrAdvice.MVVM", "MrAdvice.MVVM\MrAdvice.MVVM.shproj", "{998421F4-6EF6-41D5-ACE8-81CA4BF6FECB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MrAdvice.MVVM", "MrAdvice.MVVM\MrAdvice.MVVM.csproj", "{86C5926E-9DF1-4A59-9B54-85A06A18A912}"
 EndProject
 Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		MrAdvice.MVVM\MrAdvice.MVVM.projitems*{3cc33c7b-65e5-47f0-ae8a-1a473d8720e1}*SharedItemsImports = 4
-		MrAdvice.MVVM\MrAdvice.MVVM.projitems*{998421f4-6ef6-41d5-ace8-81ca4bf6fecb}*SharedItemsImports = 13
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|ARM = Debug|ARM
@@ -97,24 +85,27 @@ Global
 		{04FCF617-E9C8-44A9-9072-AEA90367ADD9}.Release|x64.Build.0 = Release|Any CPU
 		{04FCF617-E9C8-44A9-9072-AEA90367ADD9}.Release|x86.ActiveCfg = Release|Any CPU
 		{04FCF617-E9C8-44A9-9072-AEA90367ADD9}.Release|x86.Build.0 = Release|Any CPU
-		{3CC33C7B-65E5-47F0-AE8A-1A473D8720E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3CC33C7B-65E5-47F0-AE8A-1A473D8720E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3CC33C7B-65E5-47F0-AE8A-1A473D8720E1}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{3CC33C7B-65E5-47F0-AE8A-1A473D8720E1}.Debug|ARM.Build.0 = Debug|Any CPU
-		{3CC33C7B-65E5-47F0-AE8A-1A473D8720E1}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{3CC33C7B-65E5-47F0-AE8A-1A473D8720E1}.Debug|x64.Build.0 = Debug|Any CPU
-		{3CC33C7B-65E5-47F0-AE8A-1A473D8720E1}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{3CC33C7B-65E5-47F0-AE8A-1A473D8720E1}.Debug|x86.Build.0 = Debug|Any CPU
-		{3CC33C7B-65E5-47F0-AE8A-1A473D8720E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3CC33C7B-65E5-47F0-AE8A-1A473D8720E1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3CC33C7B-65E5-47F0-AE8A-1A473D8720E1}.Release|ARM.ActiveCfg = Release|Any CPU
-		{3CC33C7B-65E5-47F0-AE8A-1A473D8720E1}.Release|ARM.Build.0 = Release|Any CPU
-		{3CC33C7B-65E5-47F0-AE8A-1A473D8720E1}.Release|x64.ActiveCfg = Release|Any CPU
-		{3CC33C7B-65E5-47F0-AE8A-1A473D8720E1}.Release|x64.Build.0 = Release|Any CPU
-		{3CC33C7B-65E5-47F0-AE8A-1A473D8720E1}.Release|x86.ActiveCfg = Release|Any CPU
-		{3CC33C7B-65E5-47F0-AE8A-1A473D8720E1}.Release|x86.Build.0 = Release|Any CPU
+		{86C5926E-9DF1-4A59-9B54-85A06A18A912}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86C5926E-9DF1-4A59-9B54-85A06A18A912}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86C5926E-9DF1-4A59-9B54-85A06A18A912}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{86C5926E-9DF1-4A59-9B54-85A06A18A912}.Debug|ARM.Build.0 = Debug|Any CPU
+		{86C5926E-9DF1-4A59-9B54-85A06A18A912}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{86C5926E-9DF1-4A59-9B54-85A06A18A912}.Debug|x64.Build.0 = Debug|Any CPU
+		{86C5926E-9DF1-4A59-9B54-85A06A18A912}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{86C5926E-9DF1-4A59-9B54-85A06A18A912}.Debug|x86.Build.0 = Debug|Any CPU
+		{86C5926E-9DF1-4A59-9B54-85A06A18A912}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86C5926E-9DF1-4A59-9B54-85A06A18A912}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86C5926E-9DF1-4A59-9B54-85A06A18A912}.Release|ARM.ActiveCfg = Release|Any CPU
+		{86C5926E-9DF1-4A59-9B54-85A06A18A912}.Release|ARM.Build.0 = Release|Any CPU
+		{86C5926E-9DF1-4A59-9B54-85A06A18A912}.Release|x64.ActiveCfg = Release|Any CPU
+		{86C5926E-9DF1-4A59-9B54-85A06A18A912}.Release|x64.Build.0 = Release|Any CPU
+		{86C5926E-9DF1-4A59-9B54-85A06A18A912}.Release|x86.ActiveCfg = Release|Any CPU
+		{86C5926E-9DF1-4A59-9B54-85A06A18A912}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BB894FD6-CC98-42B4-8921-0B0C5AF41555}
 	EndGlobalSection
 EndGlobal

@@ -21,4 +21,3 @@ using ArxOne.MrAdvice.Properties;
 [assembly: NeutralResourcesLanguage("en")]
 
 [assembly: AssemblyVersion("<#=Version#>")]
-
