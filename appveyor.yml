@@ -3,17 +3,16 @@
 branches:
   only:
     - master
-    - mr-advice-2
-    - uwp
+    - project-cleanup
 
 version: '{branch}-{build}'
 
-os: Visual Studio 2017
+os: Visual Studio 2019
 #install:
 #  - set PATH=C:\Program Files (x86)\MSBuild\14.0\Bin;%PATH%
 
 before_build:
-  nuget restore "MrAdvice.MVVM (no UWP).sln"
+  nuget restore "MrAdvice.MVVM.sln"
 
 #nuget:
 #  account_feed: true
@@ -25,7 +24,7 @@ platform: Any CPU
 
 build:
   parallel: true
-  project: 'MrAdvice.MVVM (no UWP).sln'
+  project: 'MrAdvice.MVVM.sln'
 #  publish_nuget: true
 #  publish_nuget_symbols: true
 
