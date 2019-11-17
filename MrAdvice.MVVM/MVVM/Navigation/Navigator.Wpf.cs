@@ -113,8 +113,7 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
             if (_views.Count == 1)
             {
                 // for windows, we invoke their close method, wich then invokes the Shutdown()
-                var window = view as Window;
-                if (window != null)
+                if (view is Window window)
                     window.Close();
                 else // other it is a direct shutdown
                     Shutdown();
@@ -199,8 +198,7 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
         private async void OnContentChanged(DependencyObject d)
         {
             var contentControl = (ContentControl)d;
-            var content = contentControl.Content as FrameworkElement;
-            if (content == null)
+            if (!(contentControl.Content is FrameworkElement content))
                 return;
             HandleModernUIContentNavigation(content);
             var viewType = content.GetType();

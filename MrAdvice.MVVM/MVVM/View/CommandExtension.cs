@@ -101,8 +101,7 @@ namespace ArxOne.MrAdvice.MVVM.View
             var targetObject = provideValueTarget.TargetObject;
 
             // InputBinding have a special case
-            var inputBinding = targetObject as InputBinding;
-            if (inputBinding != null)
+            if (targetObject is InputBinding inputBinding)
             {
                 BindToInputBinding(inputBinding, serviceProvider);
                 return null;
@@ -110,8 +109,7 @@ namespace ArxOne.MrAdvice.MVVM.View
 
             // I had a good reason to write this, unfortunately, when writing this comment,
             // I don't remember it
-            var element = targetObject as FrameworkElement;
-            if (element == null)
+            if (!(targetObject is FrameworkElement element))
                 return this;
 
             // no need to go further in design mode
@@ -208,8 +206,7 @@ namespace ArxOne.MrAdvice.MVVM.View
             // kept here for compatibility, but should be removed
             if (!targetElement.SetCommand(targetProperty, command, Parameter))
             {
-                var targetDependencyProperty = targetProperty as DependencyProperty;
-                if (targetDependencyProperty != null)
+                if (targetProperty is DependencyProperty targetDependencyProperty)
                     targetElement.SetValue(targetDependencyProperty, command);
             }
             return command;
@@ -223,9 +220,8 @@ namespace ArxOne.MrAdvice.MVVM.View
         private RelayCommand CreateCommand(object viewModel)
         {
             var name = Name;
-            var bindingParameter = name as Binding;
             // because we bind to a method, this allows us to have a syntax control in XAML editor
-            if (bindingParameter != null)
+            if (name is Binding bindingParameter)
                 name = viewModel.GetType().GetMember(bindingParameter.Path.Path).FirstOrDefault();
 
             var command = new RelayCommand(viewModel, name, _parameterSet ? () => Parameter : (Func<object>)null);

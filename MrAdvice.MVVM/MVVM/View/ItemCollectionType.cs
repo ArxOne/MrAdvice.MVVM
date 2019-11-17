@@ -16,7 +16,7 @@ namespace ArxOne.MrAdvice.MVVM.View
     public enum ItemCollectionType
     {
         /// <summary>
-        /// The key bindings are collectedd here
+        /// The key bindings are collected here
         /// </summary>
         KeyBindings = 0x01,
     }

@@ -62,8 +62,7 @@ namespace ArxOne.MrAdvice.MVVM.Properties
                 }
 
                 // handle ValidationException, if any
-                var notifyDataErrorInfoViewModel = context.Target as INotifyDataErrorViewModel;
-                if (notifyDataErrorInfoViewModel != null)
+                if (context.Target is INotifyDataErrorViewModel notifyDataErrorInfoViewModel)
                 {
                     // in all cases, set or clear errors
                     if (validationException != null)
@@ -78,8 +77,7 @@ namespace ArxOne.MrAdvice.MVVM.Properties
                 // then, notify, if it has changed
                 if (!oldValue.SafeEquals(newValue))
                 {
-                    var viewModel = context.Target as INotifyPropertyChangedViewModel;
-                    if (viewModel == null)
+                    if (!(context.Target is INotifyPropertyChangedViewModel viewModel))
                         throw new InvalidOperationException("ViewModel must implement INotifyPropertyChangedViewModel");
                     viewModel.OnPropertyChanged(context.TargetProperty, this);
                 }
@@ -99,8 +97,7 @@ namespace ArxOne.MrAdvice.MVVM.Properties
         private void Validate(PropertyAdviceContext context, object value)
         {
             _validated = true;
-            var notifyDataErrorInfoViewModel = context.Target as INotifyDataErrorViewModel;
-            if (notifyDataErrorInfoViewModel != null)
+            if (context.Target is INotifyDataErrorViewModel notifyDataErrorInfoViewModel)
                 Validate(notifyDataErrorInfoViewModel, context.Target, context.TargetProperty, value);
         }
 

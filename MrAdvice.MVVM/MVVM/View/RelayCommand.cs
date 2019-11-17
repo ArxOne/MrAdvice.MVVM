@@ -100,8 +100,7 @@ namespace ArxOne.MrAdvice.MVVM.View
             // check the property initial value
             ReadCanExecute();
 
-            var notifyPropertyChanged = _viewModel as INotifyPropertyChanged;
-            if (notifyPropertyChanged == null)
+            if (!(_viewModel is INotifyPropertyChanged notifyPropertyChanged))
                 return;
 
             // and stay tuned
@@ -140,8 +139,7 @@ namespace ArxOne.MrAdvice.MVVM.View
             var result = _commandMethod.Invoke(_viewModel, parameters.ToArray());
             // once the command returns, if it is a task and still not complete,
             // we disable the command until the end of task
-            var taskResult = result as Task;
-            if (taskResult != null && !taskResult.IsCompleted)
+            if (result is Task taskResult && !taskResult.IsCompleted)
             {
                 OverrideCanExecute(false);
                 taskResult.ContinueWith(t => OverrideCanExecute(null));
