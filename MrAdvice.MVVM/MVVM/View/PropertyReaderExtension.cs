@@ -56,27 +56,27 @@ namespace ArxOne.MrAdvice.MVVM.View
                 return null;
 
             var targetProperty = (PropertyInfo)provideValueTarget.TargetProperty;
-            Action action = delegate
-             {
-                 var property = Property;
-                 // because we bind to a method, this allows us to have a syntax control in XAML editor
-                if (property is Binding bindingParameter)
-                     property = GetTargetFrameworkElement(targetObject).ReadFromBinding(bindingParameter);
-                 targetProperty.SetValue(targetObject, property, new object[0]);
-             };
+
+            void SetTarget()
+            {
+                var property = Property;
+                // because we bind to a method, this allows us to have a syntax control in XAML editor
+                if (property is Binding bindingParameter) property = GetTargetFrameworkElement(targetObject).ReadFromBinding(bindingParameter);
+                targetProperty.SetValue(targetObject, property, new object[0]);
+            }
 
             if (element != null)
-                element.DataContextChanged += delegate { action(); };
+                element.DataContextChanged += delegate { SetTarget(); };
             else
             {
                 if (targetObject is CommandExtension commandExtension)
-                    commandExtension.Command += delegate { action(); };
+                    commandExtension.Command += delegate { SetTarget(); };
             }
 
             return null;
         }
 
-        private FrameworkElement GetTargetFrameworkElement(object targetObject)
+        private static FrameworkElement GetTargetFrameworkElement(object targetObject)
         {
             if (targetObject is FrameworkElement element)
                 return element;
