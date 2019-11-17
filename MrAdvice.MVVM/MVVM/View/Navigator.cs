@@ -7,13 +7,8 @@
 
 namespace ArxOne.MrAdvice.MVVM.View
 {
-#if WINDOWS_UWP
-    using Windows.UI.Xaml;
-    using DependencyProperty = Windows.UI.Xaml.DependencyProperty;
-#else
     using System.Windows;
     using DependencyProperty = System.Windows.DependencyProperty;
-#endif
 
     /// <summary>
     /// Static navigator extensions

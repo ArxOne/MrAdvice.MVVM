@@ -11,15 +11,9 @@ namespace ArxOne.MrAdvice.Utility
 {
     using System;
     using System.Collections.Generic;
-#if WINDOWS_UWP
-    using Windows.UI.Xaml;
-    using Windows.UI.Xaml.Data;
-    using DependencyProperty = Windows.UI.Xaml.DependencyProperty;
-#else
     using System.Windows;
     using System.Windows.Data;
     using DependencyProperty = System.Windows.DependencyProperty;
-#endif
 
     /// <summary>
     /// Simple wrapper to watch dependency property

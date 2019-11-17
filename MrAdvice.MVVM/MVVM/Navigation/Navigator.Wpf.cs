@@ -36,7 +36,7 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
         /// <param name="view">The view.</param>
         /// <param name="viewModel">The view model.</param>
         /// <returns></returns>
-        private async Task<ViewModel> ShowDialog(UIElement view, ViewModel viewModel)
+        private ViewModel ShowDialog(UIElement view, ViewModel viewModel)
         {
             if (_features.HasFlag(FrameworkFeatures.UsesContentFrame))
             {
@@ -54,7 +54,7 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
             window.Closed += delegate { _views.Pop(); };
             _views.Push(window);
             var ok = window.ShowDialog();
-            return ok ?? (false) ? viewModel : null;
+            return ok ?? false ? viewModel : null;
         }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
         /// <param name="view">The view.</param>
         /// <param name="viewModel">The view model.</param>
         /// <returns></returns>
-        private async Task<ViewModel> ShowMain(UIElement view, ViewModel viewModel)
+        private ViewModel ShowMain(UIElement view, ViewModel viewModel)
         {
             var window = view as Window;
             // This is a very dirty hack. I'm not proud of it.

@@ -41,9 +41,7 @@ namespace ArxOne.MrAdvice.MVVM.Threading
         /// <summary>
         /// The threads
         /// </summary>
-#if !SILVERLIGHT && !WINDOWS_UWP
         [NonSerialized]
-#endif
         // ReSharper disable once UnassignedField.Global
         public IntroducedField<IDictionary<MethodBase, BackgroundWorker>> Threads;
 

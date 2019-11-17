@@ -15,17 +15,10 @@ namespace ArxOne.MrAdvice.Utility
     /// </summary>
     internal static class TypeExtensions
     {
-#if WINDOWS_UWP
-        public static TypeInfo TypeInfo(this Type type)
-        {
-            return type.GetTypeInfo();
-        }
-#else
         public static Type TypeInfo(this Type type)
         {
             return type;
         }
-#endif
 
         /// <summary>
         /// Creates a default instance.

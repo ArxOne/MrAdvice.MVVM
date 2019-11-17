@@ -1,7 +1,7 @@
 ﻿<Window x:Class="TestApplication.View.MainView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:mrAdvice="urn:MrAdvice/View" 
+        xmlns:mrAdvice="urn:MrAdvice/View"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:testApplication="clr-namespace:TestApplication"
@@ -27,7 +27,7 @@
                 <Run Text="This is an automatic counter, updated in background "/>
                 <Run Text="{Binding AutomaticCounter, Mode=OneWay}"/>
             </TextBlock>
-            <Button Content="Open a popup (Ctrl+O)" Command="{mrAdvice:Command {Binding OpenPopup}, Key=O, Modifiers=Control}" 
+            <Button Content="Open a popup (Ctrl+O)" Command="{mrAdvice:Command {Binding OpenPopup}, Key=O, Modifiers=Control}"
                     HorizontalAlignment="Left" />
             <TextBlock>
                 <Run Text="The popup said "/>

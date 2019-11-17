@@ -12,15 +12,9 @@ namespace ArxOne.MrAdvice.Utility
     using System.Linq;
     using System.Reflection;
     using System.Windows.Data;
-#if WINDOWS_UWP
-    using Windows.UI.Xaml;
-    using Windows.UI.Xaml.Media;
-    using Windows.UI.Xaml.Controls;
-#else
     using System.Windows;
     using System.Windows.Media;
     using System.Windows.Controls;
-#endif
     using System.Windows.Input;
 
     /// <summary>
@@ -53,7 +47,6 @@ namespace ArxOne.MrAdvice.Utility
             }
         }
 
-#if !SILVERLIGHT && !WINDOWS_UWP
         /// <summary>
         /// Gets the object and parents from logical tree.
         /// </summary>
@@ -78,7 +71,6 @@ namespace ArxOne.MrAdvice.Utility
                 dependencyObject = LogicalTreeHelper.GetParent(dependencyObject);
             }
         }
-#endif
 
         /// <summary>
         /// Gets the visual self and children.
@@ -156,10 +148,8 @@ namespace ArxOne.MrAdvice.Utility
         private static bool SetCommandAndParameter(this UIElement uiElement, object targetProperty, Func<ICommand> commandSetter, Func<object> commandParameterSetter)
         {
             string propertyName = null;
-#if !SILVERLIGHT && !WINDOWS_UWP
             if (targetProperty is DependencyProperty dependencyProperty)
                 propertyName = dependencyProperty.Name;
-#endif
             var propertyInfo = targetProperty as PropertyInfo;
             if (propertyInfo != null)
                 propertyName = propertyInfo.Name;
@@ -222,9 +212,7 @@ namespace ArxOne.MrAdvice.Utility
             var topMost = element.GetVisualSelfAndAncestors().Last();
             // currently stuck to parent... See what we can do otherwise
             var related = topMost.GetVisualSelfAndDescendants().OfType<FrameworkElement>().FirstOrDefault(e => e.Name == name)
-#if !SILVERLIGHT
                     ?? topMost.GetVisualSelfAndDescendants().OfType<UIElement>().FirstOrDefault(e => e.Uid == name)
-#endif
                 ;
             return related;
         }

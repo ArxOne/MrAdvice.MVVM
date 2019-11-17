@@ -53,7 +53,9 @@ namespace ArxOne.MrAdvice.MVVM.ViewModel
         /// <summary>
         /// Loads data related to this view-model.
         /// </summary>
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
         public virtual async Task Load()
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
         { }
 
         private readonly IDictionary<string, object[]> _errors = new Dictionary<string, object[]>();

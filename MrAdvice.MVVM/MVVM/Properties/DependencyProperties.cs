@@ -15,14 +15,8 @@ namespace ArxOne.MrAdvice.MVVM.Properties
     using System.Windows.Data;
     using System.Windows.Documents;
     using Utility;
-#if WINDOWS_UWP
-    using Windows.UI.Xaml;
-    using SystemDependencyProperty = Windows.UI.Xaml.DependencyProperty;
-#else
     using System.Windows;
     using SystemDependencyProperty = System.Windows.DependencyProperty;
-
-#endif
 
     /// <summary>
     /// This class holds all auto DependencyProperties, grouped by control type
@@ -80,7 +74,6 @@ namespace ArxOne.MrAdvice.MVVM.Properties
         private static PropertyMetadata CreatePropertyMetadata(object defaultValue, PropertyChangedCallback onPropertyChangedCallback,
             bool bindsTwoWayByDefault, UpdateSourceTrigger updateSourceTrigger)
         {
-#if !SILVERLIGHT
             if (bindsTwoWayByDefault || updateSourceTrigger != UpdateSourceTrigger.Default)
             {
                 var propertyMetadata = new FrameworkPropertyMetadata(defaultValue, onPropertyChangedCallback);
@@ -89,7 +82,6 @@ namespace ArxOne.MrAdvice.MVVM.Properties
                     propertyMetadata.DefaultUpdateSourceTrigger = updateSourceTrigger;
                 return propertyMetadata;
             }
-#endif
             return new PropertyMetadata(defaultValue, onPropertyChangedCallback);
         }
 

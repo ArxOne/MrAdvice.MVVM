@@ -7,7 +7,6 @@
 
 namespace ArxOne.MrAdvice.MVVM.View
 {
-#if !WINDOWS_UWP
     using System;
     using System.ComponentModel;
     using System.Linq;
@@ -53,7 +52,6 @@ namespace ArxOne.MrAdvice.MVVM.View
 
         internal FrameworkElement Element { get; private set; }
 
-#if !SILVERLIGHT
         /// <summary>
         /// Gets or sets the key.
         /// </summary>
@@ -69,7 +67,6 @@ namespace ArxOne.MrAdvice.MVVM.View
         /// The modifiers.
         /// </value>
         public ModifierKeys Modifiers { get; set; }
-#endif
 
         /// <summary>
         /// Occurs when [command].
@@ -103,7 +100,6 @@ namespace ArxOne.MrAdvice.MVVM.View
             var provideValueTarget = (IProvideValueTarget)serviceProvider.GetService(typeof(IProvideValueTarget));
             var targetObject = provideValueTarget.TargetObject;
 
-#if !SILVERLIGHT
             // InputBinding have a special case
             var inputBinding = targetObject as InputBinding;
             if (inputBinding != null)
@@ -111,7 +107,6 @@ namespace ArxOne.MrAdvice.MVVM.View
                 BindToInputBinding(inputBinding, serviceProvider);
                 return null;
             }
-#endif
 
             // I had a good reason to write this, unfortunately, when writing this comment,
             // I don't remember it
@@ -120,13 +115,8 @@ namespace ArxOne.MrAdvice.MVVM.View
                 return this;
 
             // no need to go further in design mode
-#if WINDOWS_UWP
-            if (Windows.ApplicationModel.DesignMode.DesignModeEnabled)
-                return null;
-#else
             if (DesignerProperties.GetIsInDesignMode(element))
                 return null;
-#endif
 
             BindToFrameworkElement(element, serviceProvider);
             return null;
@@ -150,7 +140,6 @@ namespace ArxOne.MrAdvice.MVVM.View
 
                 var command1 = SetCommand(element, elementViewModel, targetProperty);
 
-#if !SILVERLIGHT
                 // keyboard shortcut
                 if (Key != Key.None)
                 {
@@ -162,11 +151,9 @@ namespace ArxOne.MrAdvice.MVVM.View
                         element.Unloaded += delegate { collectingItem.InputBindings.Remove(keyBinding); };
                     }
                 }
-#endif
             };
         }
 
-#if !SILVERLIGHT
         /// <summary>
         /// Binds the command to <see cref="InputBinding"/>.
         /// </summary>
@@ -206,7 +193,6 @@ namespace ArxOne.MrAdvice.MVVM.View
             var owner = descendants.FirstOrDefault(o => o.InputBindings.Contains(inputBinding));
             return owner;
         }
-#endif
 
         /// <summary>
         /// Sets the command to target element and property.
@@ -247,5 +233,4 @@ namespace ArxOne.MrAdvice.MVVM.View
             return command;
         }
     }
-#endif
 }

@@ -9,11 +9,7 @@ namespace ArxOne.MrAdvice.MVVM.Properties
 {
     using System;
     using System.Windows.Data;
-#if WINDOWS_UWP
-    using Windows.UI.Xaml;
-#else
     using System.Windows;
-#endif
     using Advice;
     using Annotation;
     using Utility;
@@ -49,7 +45,6 @@ namespace ArxOne.MrAdvice.MVVM.Properties
         /// </value>
         public object DefaultValue { get; set; } = System.Windows.DependencyProperty.UnsetValue;
 
-#if !SILVERLIGHT
         /// <summary>
         /// Gets or sets the default binding mode.
         /// </summary>
@@ -66,7 +61,6 @@ namespace ArxOne.MrAdvice.MVVM.Properties
         /// </value>
         public UpdateSourceTrigger DefaultUpdateSourceTrigger { get; set; }
 
-#endif
         /// <summary>
         /// Invoked once per property, when assembly is loaded
         /// </summary>
@@ -74,11 +68,7 @@ namespace ArxOne.MrAdvice.MVVM.Properties
         public void Advise(PropertyInfoAdviceContext context)
         {
             var propertyInfo = context.TargetProperty;
-            propertyInfo.CreateDependencyProperty(DefaultValue, Notification, CallbackName
-#if !SILVERLIGHT
-                , BindsTwoWayByDefault, DefaultUpdateSourceTrigger
-#endif
-                );
+            propertyInfo.CreateDependencyProperty(DefaultValue, Notification, CallbackName, BindsTwoWayByDefault, DefaultUpdateSourceTrigger);
         }
 
         /// <summary>

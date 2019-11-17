@@ -10,11 +10,7 @@ namespace ArxOne.MrAdvice.MVVM.Properties
     using System;
     using Advice;
     using Annotation;
-#if WINDOWS_UWP
-    using SystemDependencyProperty = Windows.UI.Xaml.DependencyProperty;
-#else
     using SystemDependencyProperty = System.Windows.DependencyProperty;
-#endif
 
     /// <summary>
     /// Aspect for attached properties

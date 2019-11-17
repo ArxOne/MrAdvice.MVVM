@@ -10,12 +10,7 @@ namespace ArxOne.MrAdvice.MVVM.Threading
     using System;
     using System.Reflection;
     using System.Threading.Tasks;
-#if WINDOWS_UWP
-    using Windows.UI.Xaml;
-    using Windows.UI.Core;
-#else
     using System.Windows;
-#endif
     using Advice;
     using Utility;
 
@@ -53,17 +48,8 @@ namespace ArxOne.MrAdvice.MVVM.Threading
         /// <param name="action">The action.</param>
         public static async Task Invoke(Func<Task> action)
         {
-#if WINDOWS_UWP
-            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async delegate
-            {
-                await action();
-            });
-#elif SILVERLIGHT
-            Application.Current?.GetDispatcher()?.Invoke(async delegate { await action(); });
-#else
             // when application exits, dispatcher may be null, but we nicely ignore (I had no other idea at the moment)
             await Application.Current?.GetDispatcher()?.Invoke(async delegate { await action(); });
-#endif
         }
     }
 }

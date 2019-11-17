@@ -86,7 +86,6 @@ namespace ArxOne.MrAdvice.Utility
                 ValidatesOnDataErrors = binding.ValidatesOnDataErrors,
                 ValidatesOnExceptions = binding.ValidatesOnExceptions,
                 ValidatesOnNotifyDataErrors = binding.ValidatesOnNotifyDataErrors,
-#if !SILVERLIGHT
                 BindingGroupName = binding.BindingGroupName,
                 AsyncState = binding.AsyncState,
                 IsAsync = binding.IsAsync,
@@ -95,7 +94,6 @@ namespace ArxOne.MrAdvice.Utility
                 NotifyOnTargetUpdated = binding.NotifyOnTargetUpdated,
                 UpdateSourceExceptionFilter = binding.UpdateSourceExceptionFilter,
                 XPath = binding.XPath,
-#endif
             };
             if (binding.Source != null)
                 newBinding.Source = binding.Source;
@@ -103,10 +101,8 @@ namespace ArxOne.MrAdvice.Utility
                 newBinding.RelativeSource = binding.RelativeSource;
             else if (binding.ElementName != null)
                 newBinding.ElementName = binding.ElementName;
-#if !SILVERLIGHT
             foreach (var r in binding.ValidationRules)
                 newBinding.ValidationRules.Add(r);
-#endif
             return newBinding;
         }
 

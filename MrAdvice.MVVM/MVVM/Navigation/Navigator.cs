@@ -15,11 +15,7 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
     using Annotations;
     using Utility;
     using ViewModel;
-#if WINDOWS_UWP
-    using Windows.UI.Xaml;
-#else
     using System.Windows;
-#endif
     using ViewModel = System.Object;
 
     /// <summary>
@@ -63,19 +59,18 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
             var view = (FrameworkElement)await GetOrCreateInstance(viewType, InstanceType.View);
             view.DataContext = viewModel;
             if (_views.Count == 0)
-                return await ShowMain(view, viewModel);
-            return await ShowDialog(view, viewModel);
+                return ShowMain(view, viewModel);
+            return ShowDialog(view, viewModel);
         }
 
         public async Task<object> CreateViewModel(Type viewModelType, Func<object, Task> viewModelInitializer)
         {
-            var viewModel = (ViewModel) await GetOrCreateInstance(viewModelType, InstanceType.ViewModel);
+            var viewModel = await GetOrCreateInstance(viewModelType, InstanceType.ViewModel);
             // initializer comes first
             if (viewModelInitializer != null)
                 await viewModelInitializer(viewModel);
             // load comes second
-            var loadViewModel = viewModel as ILoadViewModel;
-            if (loadViewModel != null)
+            if (viewModel is ILoadViewModel loadViewModel)
                 await loadViewModel.Load();
             return viewModel;
         }
@@ -123,24 +118,18 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
             }
             var instance = Activator.CreateInstance(type);
             var onCreatedInstance = CreatedInstance;
-            if (onCreatedInstance != null)
-                onCreatedInstance.Invoke(this, new CreatedInstanceEventArgs(instance, instanceType));
+            onCreatedInstance?.Invoke(this, new CreatedInstanceEventArgs(instance, instanceType));
             return instance;
         }
 
         private static async Task<object> GetServiceLocatorInstance(Type type)
         {
-#if WINDOWS_UWP
-            return null;
-#else
             // polymorphic approach: if the result is a task, we await for it
             // otherwise, this is straightforward
             var result = ServiceLocatorAccessor.Activate(type);
-            var awaitableResult = result as Task<object>;
-            if (awaitableResult != null)
+            if (result is Task<object> awaitableResult)
                 return await awaitableResult;
             return result;
-#endif
         }
 
         /// <summary>
@@ -202,12 +191,7 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
 
         private static Type FindType(string typeName)
         {
-#if WINDOWS_UWP
-            var assembly = Application.Current.GetType().GetTypeInfo().Assembly;
-            return FindType(assembly, typeName);
-#else
             return AppDomain.CurrentDomain.GetAssemblies().Select(assembly => FindType(assembly, typeName)).FirstOrDefault(viewType => viewType != null);
-#endif
         }
 
         /// <summary>
@@ -217,8 +201,7 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
         /// <returns></returns>
         private Type GetViewTypeFromRegistration(Type viewModelType)
         {
-            Type viewType;
-            _viewByViewModel.TryGetValue(viewModelType, out viewType);
+            _viewByViewModel.TryGetValue(viewModelType, out var viewType);
             return viewType;
         }
 

@@ -9,11 +9,7 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
 {
     using System;
     using System.Threading.Tasks;
-#if WINDOWS_UWP
-    using Windows.UI.Xaml;
-#else
     using System.Windows;
-#endif
 
     /// <summary>
     /// Extensions to INavigator

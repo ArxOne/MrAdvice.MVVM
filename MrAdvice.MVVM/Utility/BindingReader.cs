@@ -47,9 +47,7 @@ namespace ArxOne.MrAdvice.Utility
             {
                 BindingOperations.SetBinding(Instance, PropertyProperty, binding);
                 var value = Instance.Property;
-#if !SILVERLIGHT
                 BindingOperations.ClearBinding(Instance, PropertyProperty);
-#endif
                 return value;
             }
         }

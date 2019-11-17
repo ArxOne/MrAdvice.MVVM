@@ -52,13 +52,9 @@ namespace ArxOne.MrAdvice.MVVM.View
             var element = targetObject as FrameworkElement;
 
             // no need to go further in design mode
-#if WINDOWS_UWP
-            if (Windows.ApplicationModel.DesignMode.DesignModeEnabled)
-                return null;
-#else
             if (element != null && DesignerProperties.GetIsInDesignMode(element))
                 return null;
-#endif
+
             var targetProperty = (PropertyInfo)provideValueTarget.TargetProperty;
             Action action = delegate
              {

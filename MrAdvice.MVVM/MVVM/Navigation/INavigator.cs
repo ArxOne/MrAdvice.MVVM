@@ -16,12 +16,11 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
     /// </summary>
     public interface INavigator
     {
-#if !SILVERLIGHT
         /// <summary>
         /// Occurs when exiting.
         /// </summary>
         event EventHandler Exiting;
-#endif
+
         /// <summary>
         /// Occurs when creating a new instance.
         /// </summary>
@@ -30,7 +29,7 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
         /// <summary>
         /// Occurs when an instance is created.
         /// </summary>
-        event EventHandler<CreatedInstanceEventArgs> CreatedInstance; 
+        event EventHandler<CreatedInstanceEventArgs> CreatedInstance;
 
         /// <summary>
         /// Configures the specified view model type to be used with view type.
