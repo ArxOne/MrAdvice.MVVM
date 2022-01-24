@@ -1,15 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29509.3
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{94DEE92C-2550-4BE8-80CF-549DA6AA3351}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Resources", "Resources", "{D113F085-F153-41AC-8162-E613011E813F}"
 	ProjectSection(SolutionItems) = preProject
 		Icon\MrAdvice.MVVM.png = Icon\MrAdvice.MVVM.png
@@ -21,11 +14,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{8148DEFF
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApplication.WPF", "TestApplication.WPF\TestApplication.WPF.csproj", "{8CA64803-9E81-4BEA-946A-549E21D339FD}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Nuget", "Nuget\Nuget.vcxproj", "{8065D48C-58F8-46B8-9824-CDE2447A0DAB}"
-	ProjectSection(ProjectDependencies) = postProject
-		{86C5926E-9DF1-4A59-9B54-85A06A18A912} = {86C5926E-9DF1-4A59-9B54-85A06A18A912}
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApplication.ModernUI", "TestApplication.ModernUI\TestApplication.ModernUI.csproj", "{04FCF617-E9C8-44A9-9072-AEA90367ADD9}"
 EndProject
@@ -41,9 +29,6 @@ Global
 		{8CA64803-9E81-4BEA-946A-549E21D339FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8CA64803-9E81-4BEA-946A-549E21D339FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8CA64803-9E81-4BEA-946A-549E21D339FD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8065D48C-58F8-46B8-9824-CDE2447A0DAB}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{8065D48C-58F8-46B8-9824-CDE2447A0DAB}.Release|Any CPU.ActiveCfg = Release|Win32
-		{8065D48C-58F8-46B8-9824-CDE2447A0DAB}.Release|Any CPU.Build.0 = Release|Win32
 		{04FCF617-E9C8-44A9-9072-AEA90367ADD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{04FCF617-E9C8-44A9-9072-AEA90367ADD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04FCF617-E9C8-44A9-9072-AEA90367ADD9}.Release|Any CPU.ActiveCfg = Release|Any CPU

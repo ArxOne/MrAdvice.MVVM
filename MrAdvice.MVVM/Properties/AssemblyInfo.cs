@@ -13,6 +13,4 @@ using System.Windows.Markup;
 [assembly: XmlnsDefinition("urn:MrAdvice/View", "ArxOne.MrAdvice.MVVM.View")]
 [assembly: XmlnsPrefix("urn:MrAdvice/View", "mrAdvice")]
 
-[assembly: AssemblyTitle("Mr. Advice MVVM")]
-
 [assembly: CLSCompliant(true)]
