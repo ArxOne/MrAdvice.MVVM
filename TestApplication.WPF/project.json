@@ -3,7 +3,7 @@
     "MrAdvice": "2.9.6-testing2"
   },
   "frameworks": {
-    "net45": {}
+    "net452": {}
   },
   "runtimes": {
     "win": {}
