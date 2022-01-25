@@ -14,6 +14,6 @@
     <SourceRoot Include="C:\Program Files (x86)\Microsoft Visual Studio\Shared\NuGetPackages\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <PkgMrAdvice Condition=" '$(PkgMrAdvice)' == '' ">C:\Users\Pascal\.nuget\packages\mradvice\2.9.6-testing2</PkgMrAdvice>
+    <PkgMrAdvice Condition=" '$(PkgMrAdvice)' == '' ">C:\Users\Pascal\.nuget\packages\mradvice\2.9.6-testing3</PkgMrAdvice>
   </PropertyGroup>
 </Project>
