@@ -5,10 +5,11 @@
 // Released under MIT license http://opensource.org/licenses/mit-license.php
 #endregion
 
+using CommonServiceLocator;
+
 namespace ArxOne.MrAdvice.Utility
 {
     using System;
-    using Microsoft.Practices.ServiceLocation;
 
     /// <summary>
     /// Extensions to ServiceLocator

@@ -14,7 +14,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="MrAdvice" Version="2.9.6-testing3" />
+	  <PackageReference Include="MrAdvice" Version="2.9.6" />
 	</ItemGroup>
 
 	<ItemGroup>

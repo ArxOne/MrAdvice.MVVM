@@ -8,7 +8,7 @@
 		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
 		<AssemblyTitle>Mr. Advice MVVM</AssemblyTitle>
 		<Copyright>Copyright [2015,…[ Arx One</Copyright>
-		<Version>2.6.1-testing2</Version>
+		<Version>2.6.1</Version>
 		<Authors>Arx One</Authors>
 		<RootNamespace>ArxOne.MrAdvice</RootNamespace>
 		<SignAssembly>true</SignAssembly>
@@ -35,12 +35,12 @@ It implements NotifyPropertyChanged, DependencyProperty (dependency and attached
 	  </None>
 	</ItemGroup>
 	<ItemGroup>
-	  <PackageReference Include="CommonServiceLocator" Version="1.4.0" />
+	  <PackageReference Include="CommonServiceLocator" Version="2.0.6" />
 	  <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2">
 	    <PrivateAssets>all</PrivateAssets>
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	  </PackageReference>
-	  <PackageReference Include="MrAdvice" Version="2.9.6-testing3" />
+	  <PackageReference Include="MrAdvice" Version="2.9.6" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Reference Include="System.ComponentModel.DataAnnotations">
