@@ -5,6 +5,8 @@
 // Released under MIT license http://opensource.org/licenses/mit-license.php
 #endregion
 
+#pragma warning disable CS1998
+
 namespace ArxOne.MrAdvice.MVVM.Navigation
 {
     using System;
@@ -56,7 +58,7 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
         {
             var viewModel = await CreateViewModel(viewModelType, viewModelInitializer);
             var viewType = GetViewType(viewModelType);
-            var view = (FrameworkElement)await GetOrCreateInstance(viewType, InstanceType.View);
+            var view = (FrameworkElement)CreateInstance(viewType, InstanceType.View);
             view.DataContext = viewModel;
             if (_views.Count == 0)
                 return ShowMain(view, viewModel);
@@ -65,7 +67,7 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
 
         public async Task<object> CreateViewModel(Type viewModelType, Func<object, Task> viewModelInitializer)
         {
-            var viewModel = await GetOrCreateInstance(viewModelType, InstanceType.ViewModel);
+            var viewModel = CreateInstance(viewModelType, InstanceType.ViewModel);
             // initializer comes first
             if (viewModelInitializer != null)
                 await viewModelInitializer(viewModel);
@@ -83,21 +85,9 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
         public async Task<FrameworkElement> CreateView(ViewModel viewModel)
         {
             var viewType = GetViewType(viewModel.GetType());
-            var view = (FrameworkElement)await GetOrCreateInstance(viewType, InstanceType.View);
+            var view = (FrameworkElement)CreateInstance(viewType, InstanceType.View);
             view.DataContext = viewModel;
             return view;
-        }
-
-        /// <summary>
-        /// Gets or create an instance of given type.
-        /// This may use the CommonServiceLocator, assuming it's been correctly configured
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <param name="instanceType">Type of the instance.</param>
-        /// <returns></returns>
-        private async Task<object> GetOrCreateInstance(Type type, InstanceType instanceType)
-        {
-            return await GetServiceLocatorInstance(type) ?? CreateInstance(type, instanceType);
         }
 
         /// <summary>
@@ -109,27 +99,17 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
         private object CreateInstance(Type type, InstanceType instanceType)
         {
             var onCreatingInstance = CreatingInstance;
-            if (onCreatingInstance != null)
+            if (onCreatingInstance is not null)
             {
                 var e = new CreatingInstanceEventArgs(instanceType);
                 onCreatingInstance.Invoke(this, e);
-                if (e.Instance != null)
+                if (e.Instance is not null)
                     return e.Instance;
             }
             var instance = Activator.CreateInstance(type);
             var onCreatedInstance = CreatedInstance;
             onCreatedInstance?.Invoke(this, new CreatedInstanceEventArgs(instance, instanceType));
             return instance;
-        }
-
-        private static async Task<object> GetServiceLocatorInstance(Type type)
-        {
-            // polymorphic approach: if the result is a task, we await for it
-            // otherwise, this is straightforward
-            var result = ServiceLocatorAccessor.Activate(type);
-            if (result is Task<object> awaitableResult)
-                return await awaitableResult;
-            return result;
         }
 
         /// <summary>
