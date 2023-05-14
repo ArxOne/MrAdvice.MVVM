@@ -3,30 +3,22 @@
 branches:
   only:
     - master
-    - project-cleanup
 
 version: '{branch}-{build}'
 
 os: Visual Studio 2022
-#install:
-#  - set PATH=C:\Program Files (x86)\MSBuild\14.0\Bin;%PATH%
 
 before_build:
   nuget restore "MrAdvice.MVVM.sln"
 
-#nuget:
-#  account_feed: true
-#  project_feed: true
-#  disable_publish_on_pr: true
-
 configuration: Release
-platform: Any CPU
 
 build:
   parallel: true
   project: 'MrAdvice.MVVM.sln'
-#  publish_nuget: true
-#  publish_nuget_symbols: true
+  publish_nuget: false
+  publish_nuget_symbols: false
+  verbosity: minimal
 
 artifacts:
   - path: 'MrAdvice.MVVM.WPF\bin\$(Configuration)\*.nupkg'
