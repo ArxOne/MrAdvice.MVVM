@@ -5,12 +5,11 @@
 // Released under MIT license http://opensource.org/licenses/mit-license.php
 #endregion
 
-namespace MrAdvice.MVVM.MVVM.ViewModel
-{
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.ComponentModel;
+using System.Collections;
+using System.ComponentModel;
 
+namespace ArxOne.MrAdvice.MVVM.ViewModel
+{
     /// <summary>
     /// View-model implementing data error notifications
     /// </summary>

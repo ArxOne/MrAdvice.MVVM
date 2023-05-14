@@ -14,7 +14,6 @@ namespace ArxOne.MrAdvice.MVVM.Properties
     using System.Reflection;
     using Advice;
     using Annotation;
-    using global::MrAdvice.MVVM.MVVM.ViewModel;
     using Utility;
     using ViewModel;
 
