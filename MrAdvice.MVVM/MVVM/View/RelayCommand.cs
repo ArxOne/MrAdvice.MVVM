@@ -4,6 +4,9 @@
 // https://github.com/ArxOne/MrAdvice.MVVM
 // Released under MIT license http://opensource.org/licenses/mit-license.php
 #endregion
+
+using ArxOne.MrAdvice.MVVM.ViewModel;
+
 namespace ArxOne.MrAdvice.MVVM.View
 {
     using System;
@@ -136,10 +139,13 @@ namespace ArxOne.MrAdvice.MVVM.View
             var parameters = new List<object>();
             if (_commandMethod.GetParameters().Length > 0)
                 parameters.Add(GetParameter(parameter));
-            var result = _commandMethod.Invoke(_viewModel, parameters.ToArray());
+            var parametersArray = parameters.ToArray();
+            var result = _viewModel is ICommandViewModel commandViewModel
+                ? commandViewModel.InvokeCommand(_commandMethod, parametersArray)
+                : _commandMethod.Invoke(_viewModel, parametersArray);
             // once the command returns, if it is a task and still not complete,
             // we disable the command until the end of task
-            if (result is Task {IsCompleted: false} taskResult)
+            if (result is Task { IsCompleted: false } taskResult)
             {
                 OverrideCanExecute(false);
                 taskResult.ContinueWith(t => OverrideCanExecute(null));

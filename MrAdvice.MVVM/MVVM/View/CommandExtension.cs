@@ -224,7 +224,7 @@ namespace ArxOne.MrAdvice.MVVM.View
             if (name is Binding bindingParameter)
                 name = viewModel.GetType().GetMember(bindingParameter.Path.Path).FirstOrDefault();
 
-            var command = new RelayCommand(viewModel, name, _parameterSet ? () => Parameter : (Func<object>)null);
+            var command = new RelayCommand(viewModel, name, _parameterSet ? () => Parameter : null);
             command.Command += (sender, e) => Command?.Invoke(sender, e);
             return command;
         }
