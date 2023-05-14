@@ -39,7 +39,7 @@ It implements NotifyPropertyChanged, DependencyProperty (dependency and attached
 	    <PrivateAssets>all</PrivateAssets>
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	  </PackageReference>
-	  <PackageReference Include="MrAdvice" Version="2.10.1" />
+	  <PackageReference Include="MrAdvice" Version="2.12.2" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Reference Include="System.ComponentModel.DataAnnotations">

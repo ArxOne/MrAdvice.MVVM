@@ -40,7 +40,7 @@ namespace ArxOne.MrAdvice.Utility
             static readonly DependencyProperty ValueProperty =
                 DependencyProperty.Register("Value", typeof(object), typeof(BindingEvaluator), null);
 
-            Binding _binding;
+            readonly Binding _binding;
             /// <summary>
             /// Initializes a new instance of the <see cref="BindingEvaluator"/> class.
             /// </summary>
@@ -56,7 +56,6 @@ namespace ArxOne.MrAdvice.Utility
         /// <param name="binding">The binding.</param>
         /// <param name="byReflectionPath">if set to <c>true</c> [by reflection path].</param>
         /// <returns></returns>
-        //public static object GetValue(this Binding binding, bool byReflectionPath = false) => BindingReader.GetValue(binding, byReflectionPath);
         public static object GetValue(this Binding binding, bool byReflectionPath = false)
         {
             var bindingEvaluator = new BindingEvaluator(binding);
@@ -95,11 +94,11 @@ namespace ArxOne.MrAdvice.Utility
                 UpdateSourceExceptionFilter = binding.UpdateSourceExceptionFilter,
                 XPath = binding.XPath,
             };
-            if (binding.Source != null)
+            if (binding.Source is not null)
                 newBinding.Source = binding.Source;
-            else if (binding.RelativeSource != null)
+            else if (binding.RelativeSource is not null)
                 newBinding.RelativeSource = binding.RelativeSource;
-            else if (binding.ElementName != null)
+            else if (binding.ElementName is not null)
                 newBinding.ElementName = binding.ElementName;
             foreach (var r in binding.ValidationRules)
                 newBinding.ValidationRules.Add(r);
@@ -116,18 +115,13 @@ namespace ArxOne.MrAdvice.Utility
             var p = binding.Path;
             var m = binding.Mode;
             binding.Path = null;
-            binding.Mode=BindingMode.OneWay;
+            binding.Mode = BindingMode.OneWay;
             var s = binding.GetValue();
 
             binding.Path = p;
             binding.Mode = m;
 
             return s;
-
-            //var newBinding = binding.Clone();
-            //newBinding.Path = new PropertyPath(""); // we need the source itself
-            //newBinding.Mode=BindingMode.OneWay;
-            //return newBinding.GetValue();
         }
     }
 }

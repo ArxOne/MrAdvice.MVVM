@@ -40,9 +40,7 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
         {
             if (_features.HasFlag(FrameworkFeatures.UsesContentFrame))
             {
-                if (_modernUIContentControl == null)
-                    _modernUIContentControl = Application.Current.MainWindow.GetVisualSelfAndDescendants().OfType<ContentControl>().Single(c => c.Name == "ContentFrame");
-
+                _modernUIContentControl ??= Application.Current.MainWindow.GetVisualSelfAndDescendants().OfType<ContentControl>().Single(c => c.Name == "ContentFrame");
                 _modernUIContentControl.Content = view;
                 return viewModel;
             }
@@ -69,7 +67,7 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
             // This is a very dirty hack. I'm not proud of it.
             if (!View.Navigator.GetKeepHidden(view))
             {
-                if (window != null)
+                if (window is not null)
                 {
                     _features = GetWindowFrameworkFeatures(window);
                     HandleModernUIWindowNavigation(window);
@@ -112,7 +110,7 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
             // down to first window?
             if (_views.Count == 1)
             {
-                // for windows, we invoke their close method, wich then invokes the Shutdown()
+                // for windows, we invoke their close method, which then invokes the Shutdown()
                 if (view is Window window)
                     window.Close();
                 else // other it is a direct shutdown
@@ -128,7 +126,7 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
         private void Shutdown()
         {
             var onExiting = Exiting;
-            if (onExiting != null)
+            if (onExiting is not null)
                 onExiting(this, EventArgs.Empty);
             // this is not something I'm very proud of
             // TODO: have a nice exit
@@ -198,7 +196,7 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
         private void OnContentChanged(DependencyObject d)
         {
             var contentControl = (ContentControl)d;
-            if (!(contentControl.Content is FrameworkElement content))
+            if (contentControl.Content is not FrameworkElement content)
                 return;
             HandleModernUIContentNavigation(content);
             var viewType = content.GetType();
@@ -207,7 +205,7 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
             if (viewModelType == null)
                 return;
             // then check for data context
-            if (contentControl.DataContext == null || contentControl.DataContext.GetType() != viewModelType)
+            if (contentControl.DataContext is null || contentControl.DataContext.GetType() != viewModelType)
                 contentControl.DataContext = CreateInstance(viewModelType, InstanceType.ViewModel);
         }
     }

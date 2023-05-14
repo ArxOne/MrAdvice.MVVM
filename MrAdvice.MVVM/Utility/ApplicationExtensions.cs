@@ -24,7 +24,7 @@ namespace ArxOne.MrAdvice.Utility
         public static INavigator GetNavigator(this Application application)
         {
             var key = typeof(Navigator).FullName;
-            if (!(application.Properties[key] is INavigator navigator))
+            if (application.Properties[key] is not INavigator navigator)
                 application.Properties[key] = navigator = new Navigator();
             return navigator;
         }

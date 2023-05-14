@@ -7,8 +7,6 @@
 namespace ArxOne.MrAdvice.Utility
 {
     using System;
-    using System.Collections.Generic;
-    using System.Reflection;
 
     /// <summary>
     /// Extensions to types

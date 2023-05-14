@@ -20,8 +20,8 @@ namespace ArxOne.MrAdvice.Utility
         /// <returns></returns>
         public static bool SafeEquals(this object a, object b)
         {
-            if (a == null || b == null)
-                return (a == null) == (b == null);
+            if (a is null || b is null)
+                return a is null == b is null;
             return a.Equals(b);
         }
     }

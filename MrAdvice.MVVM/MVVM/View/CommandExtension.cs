@@ -109,7 +109,7 @@ namespace ArxOne.MrAdvice.MVVM.View
 
             // I had a good reason to write this, unfortunately, when writing this comment,
             // I don't remember it
-            if (!(targetObject is FrameworkElement element))
+            if (targetObject is not FrameworkElement element)
                 return this;
 
             // no need to go further in design mode
@@ -133,7 +133,7 @@ namespace ArxOne.MrAdvice.MVVM.View
             element.DataContextChanged += delegate
             {
                 var elementViewModel = element.DataContext;
-                if (elementViewModel == null)
+                if (elementViewModel is null)
                     return;
 
                 var command1 = SetCommand(element, elementViewModel, targetProperty);
@@ -143,7 +143,7 @@ namespace ArxOne.MrAdvice.MVVM.View
                 {
                     var keyBinding = new KeyBinding(command1, Key, Modifiers);
                     var collectingItem = element.FindCollectingItem(ItemCollectionType.KeyBindings);
-                    if (collectingItem != null)
+                    if (collectingItem is not null)
                     {
                         collectingItem.InputBindings.Add(keyBinding);
                         element.Unloaded += delegate { collectingItem.InputBindings.Remove(keyBinding); };
@@ -169,7 +169,7 @@ namespace ArxOne.MrAdvice.MVVM.View
                 if (owner == null)
                     return;
                 var ownerViewModel = owner.DataContext;
-                if (ownerViewModel != null)
+                if (ownerViewModel is not null)
                 {
                     // and set command
                     var command = CreateCommand(ownerViewModel);

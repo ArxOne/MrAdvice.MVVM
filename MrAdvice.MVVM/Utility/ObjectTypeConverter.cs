@@ -23,7 +23,7 @@ namespace ArxOne.MrAdvice.Utility
         /// <exception cref="System.InvalidCastException">Can not create URI</exception>
         public static object Convert(object o, Type targetType)
         {
-            if (o == null)
+            if (o is null)
                 return targetType.Default();
 
             if (targetType == typeof(Uri))

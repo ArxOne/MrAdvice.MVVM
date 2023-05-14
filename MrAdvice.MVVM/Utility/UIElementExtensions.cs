@@ -93,7 +93,7 @@ namespace ArxOne.MrAdvice.Utility
         {
             yield return dependencyObject;
 
-            if (digDown != null && !digDown(dependencyObject))
+            if (digDown is not null && !digDown(dependencyObject))
                 yield break;
 
             var contentPresenter = dependencyObject as ContentPresenter;
@@ -150,25 +150,24 @@ namespace ArxOne.MrAdvice.Utility
             string propertyName = null;
             if (targetProperty is DependencyProperty dependencyProperty)
                 propertyName = dependencyProperty.Name;
-            var propertyInfo = targetProperty as PropertyInfo;
-            if (propertyInfo != null)
+            if (targetProperty is PropertyInfo propertyInfo)
                 propertyName = propertyInfo.Name;
 
-            if (propertyName == null)
+            if (propertyName is null)
                 return false;
 
-            if (commandSetter != null)
+            if (commandSetter is not null)
             {
                 var commandProperty = uiElement.GetType().GetProperty(propertyName);
-                if (commandProperty == null)
+                if (commandProperty is null)
                     return false;
                 commandProperty.SetValue(uiElement, commandSetter(), new object[0]);
             }
 
-            if (commandParameterSetter != null)
+            if (commandParameterSetter is not null)
             {
                 var commandParameterProperty = uiElement.GetType().GetProperty(propertyName + "Parameter");
-                if (commandParameterProperty == null)
+                if (commandParameterProperty is null)
                     return false;
                 commandParameterProperty.SetValue(uiElement, commandParameterSetter(), new object[0]);
             }
@@ -185,12 +184,12 @@ namespace ArxOne.MrAdvice.Utility
         public static object ReadFromBinding(this FrameworkElement element, Binding binding)
         {
             object source = element.DataContext;
-            if (binding.ElementName != null)
+            if (binding.ElementName is not null)
                 source = element.FindRelated(binding.ElementName);
-            if (source == null)
+            if (source is null)
                 return null;
             var property = source.GetType().GetProperty(binding.Path.Path);
-            if (property == null)
+            if (property is null)
                 return null;
             return property.GetValue(source, new object[0]);
         }

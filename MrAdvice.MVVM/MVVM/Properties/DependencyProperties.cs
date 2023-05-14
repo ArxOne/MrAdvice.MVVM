@@ -13,7 +13,6 @@ namespace ArxOne.MrAdvice.MVVM.Properties
     using System.Collections.Generic;
     using System.Reflection;
     using System.Windows.Data;
-    using System.Windows.Documents;
     using Utility;
     using System.Windows;
     using SystemDependencyProperty = System.Windows.DependencyProperty;
@@ -34,8 +33,7 @@ namespace ArxOne.MrAdvice.MVVM.Properties
         public static SystemDependencyProperty GetDependencyProperty(this PropertyInfo propertyInfo)
         {
             var dependencyProperties = GetDependencyProperties(propertyInfo);
-            SystemDependencyProperty property;
-            dependencyProperties.TryGetValue(propertyInfo.Name, out property);
+            dependencyProperties.TryGetValue(propertyInfo.Name, out var property);
             return property;
         }
 
@@ -76,8 +74,10 @@ namespace ArxOne.MrAdvice.MVVM.Properties
         {
             if (bindsTwoWayByDefault || updateSourceTrigger != UpdateSourceTrigger.Default)
             {
-                var propertyMetadata = new FrameworkPropertyMetadata(defaultValue, onPropertyChangedCallback);
-                propertyMetadata.BindsTwoWayByDefault = bindsTwoWayByDefault;
+                var propertyMetadata = new FrameworkPropertyMetadata(defaultValue, onPropertyChangedCallback)
+                {
+                    BindsTwoWayByDefault = bindsTwoWayByDefault
+                };
                 if (updateSourceTrigger != UpdateSourceTrigger.Default)
                     propertyMetadata.DefaultUpdateSourceTrigger = updateSourceTrigger;
                 return propertyMetadata;
@@ -97,17 +97,14 @@ namespace ArxOne.MrAdvice.MVVM.Properties
         /// <exception cref="System.ArgumentOutOfRangeException">notification</exception>
         private static PropertyChangedCallback GetPropertyChangedCallback(string propertyName, Type ownerType, DependencyPropertyNotification notification, string callbackName)
         {
-            if (callbackName != null && notification == DependencyPropertyNotification.None)
+            if (callbackName is not null && notification == DependencyPropertyNotification.None)
                 notification = DependencyPropertyNotification.OnPropertyNameChanged;
-            switch (notification)
+            return notification switch
             {
-                case DependencyPropertyNotification.None:
-                    return null;
-                case DependencyPropertyNotification.OnPropertyNameChanged:
-                    return GetOnPropertyNameChangedCallback(propertyName, ownerType, callbackName);
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(notification));
-            }
+                DependencyPropertyNotification.None => null,
+                DependencyPropertyNotification.OnPropertyNameChanged => GetOnPropertyNameChangedCallback(propertyName, ownerType, callbackName),
+                _ => throw new ArgumentOutOfRangeException(nameof(notification))
+            };
         }
 
         private static PropertyChangedCallback GetOnPropertyNameChangedCallback(string propertyName, Type ownerType, string callbackName)
@@ -115,7 +112,7 @@ namespace ArxOne.MrAdvice.MVVM.Properties
             PropertyChangedCallback onPropertyChanged;
             var methodName = callbackName ?? $"On{propertyName}Changed";
             var method = ownerType.GetMethod(methodName);
-            if (method == null)
+            if (method is null)
                 throw new InvalidOperationException("Callback method not found (WTF?)");
             var parameters = method.GetParameters();
             if (method.IsStatic)
@@ -180,9 +177,8 @@ namespace ArxOne.MrAdvice.MVVM.Properties
         /// <returns></returns>
         private static IDictionary<string, SystemDependencyProperty> GetDependencyProperties(PropertyInfo propertyInfo)
         {
-            IDictionary<string, SystemDependencyProperty> dependencyProperties;
             var ownerType = propertyInfo.DeclaringType;
-            if (!RegisteredTypes.TryGetValue(ownerType, out dependencyProperties))
+            if (!RegisteredTypes.TryGetValue(ownerType, out var dependencyProperties))
                 RegisteredTypes[ownerType] = dependencyProperties = new Dictionary<string, SystemDependencyProperty>();
             return dependencyProperties;
         }

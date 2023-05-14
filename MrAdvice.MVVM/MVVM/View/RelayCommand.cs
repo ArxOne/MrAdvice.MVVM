@@ -63,12 +63,12 @@ namespace ArxOne.MrAdvice.MVVM.View
 
         private void SetCommand(object parameter)
         {
-            if (parameter == null)
+            if (parameter is null)
                 return;
 
             // a method is bound directly
             _commandMethod = parameter as MethodInfo;
-            if (_commandMethod != null)
+            if (_commandMethod is not null)
             {
                 SetCanExecute(_commandMethod.Name);
                 return;
@@ -77,7 +77,7 @@ namespace ArxOne.MrAdvice.MVVM.View
             // otherwise, search by its name
             var commandString = (string)parameter;
             _commandMethod = _viewModel.GetType().GetMethod(commandString);
-            if (_commandMethod == null)
+            if (_commandMethod is null)
                 throw new InvalidOperationException($"Command '{commandString}' not found");
             SetCanExecute(commandString);
         }
@@ -91,7 +91,7 @@ namespace ArxOne.MrAdvice.MVVM.View
 
         private void SetCanExecute()
         {
-            if (_canExecuteProperty == null)
+            if (_canExecuteProperty is null)
             {
                 _canExecuteCommand = true;
                 return;
@@ -100,7 +100,7 @@ namespace ArxOne.MrAdvice.MVVM.View
             // check the property initial value
             ReadCanExecute();
 
-            if (!(_viewModel is INotifyPropertyChanged notifyPropertyChanged))
+            if (_viewModel is not INotifyPropertyChanged notifyPropertyChanged)
                 return;
 
             // and stay tuned
@@ -123,7 +123,7 @@ namespace ArxOne.MrAdvice.MVVM.View
             {
                 ReadCanExecute();
                 var canExecuteChanged = CanExecuteChanged;
-                if (canExecuteChanged != null)
+                if (canExecuteChanged is not null)
                     canExecuteChanged(this, EventArgs.Empty);
             }
         }
@@ -139,7 +139,7 @@ namespace ArxOne.MrAdvice.MVVM.View
             var result = _commandMethod.Invoke(_viewModel, parameters.ToArray());
             // once the command returns, if it is a task and still not complete,
             // we disable the command until the end of task
-            if (result is Task taskResult && !taskResult.IsCompleted)
+            if (result is Task {IsCompleted: false} taskResult)
             {
                 OverrideCanExecute(false);
                 taskResult.ContinueWith(t => OverrideCanExecute(null));
@@ -160,7 +160,7 @@ namespace ArxOne.MrAdvice.MVVM.View
         /// <returns></returns>
         private object GetParameter(object parameter)
         {
-            if (_commandParameterGetter != null)
+            if (_commandParameterGetter is not null)
                 return _commandParameterGetter();
             return parameter;
         }

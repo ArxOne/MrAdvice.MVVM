@@ -11,7 +11,6 @@ namespace ArxOne.MrAdvice.MVVM.View
 {
     using System;
     using System.ComponentModel;
-    using System.Linq;
     using System.Reflection;
     using System.Windows;
     using System.Windows.Data;
@@ -52,7 +51,7 @@ namespace ArxOne.MrAdvice.MVVM.View
             var element = targetObject as FrameworkElement;
 
             // no need to go further in design mode
-            if (element != null && DesignerProperties.GetIsInDesignMode(element))
+            if (element is not null && DesignerProperties.GetIsInDesignMode(element))
                 return null;
 
             var targetProperty = (PropertyInfo)provideValueTarget.TargetProperty;
@@ -65,7 +64,7 @@ namespace ArxOne.MrAdvice.MVVM.View
                 targetProperty.SetValue(targetObject, property, new object[0]);
             }
 
-            if (element != null)
+            if (element is not null)
                 element.DataContextChanged += delegate { SetTarget(); };
             else
             {
