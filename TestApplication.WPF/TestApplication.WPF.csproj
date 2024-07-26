@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
-		<TargetFrameworks>net461;net5.0-windows7.0;net6.0-windows7.0</TargetFrameworks>
+		<TargetFrameworks>net461;net5.0-windows7.0;net6.0-windows7.0;net8.0-windows7.0</TargetFrameworks>
 		<Nullable>disable</Nullable>
 		<UseWPF>true</UseWPF>
 		<LangVersion>10</LangVersion>
@@ -14,7 +14,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="MrAdvice" Version="2.12.2" />
+	  <PackageReference Include="MrAdvice" Version="2.15.0" />
 	</ItemGroup>
 
 	<ItemGroup>

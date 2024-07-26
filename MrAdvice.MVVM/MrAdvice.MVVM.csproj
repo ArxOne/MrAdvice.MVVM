@@ -1,14 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 	<PropertyGroup>
 		<OutputType>Library</OutputType>
-		<TargetFrameworks>net461;net5.0-windows7.0;net6.0-windows7.0</TargetFrameworks>
+		<TargetFrameworks>net461;net5.0-windows7.0;net6.0-windows7.0;net6.0-windows8.0</TargetFrameworks>
 		<UseWpf>true</UseWpf>
-		<LangVersion>10.0</LangVersion>
 		<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
 		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
 		<AssemblyTitle>Mr. Advice MVVM</AssemblyTitle>
 		<Copyright>Copyright [2015,…[ Arx One</Copyright>
-		<Version>3.0.1</Version>
+		<Version>3.0.2</Version>
 		<Authors>Arx One</Authors>
 		<RootNamespace>ArxOne.MrAdvice</RootNamespace>
 		<SignAssembly>true</SignAssembly>
@@ -39,7 +38,7 @@ It implements NotifyPropertyChanged, DependencyProperty (dependency and attached
 	    <PrivateAssets>all</PrivateAssets>
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	  </PackageReference>
-	  <PackageReference Include="MrAdvice" Version="2.12.2" />
+	  <PackageReference Include="MrAdvice" Version="2.15.0" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Reference Include="System.ComponentModel.DataAnnotations">
