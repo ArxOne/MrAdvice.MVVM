@@ -3,6 +3,7 @@
 		<OutputType>Library</OutputType>
 		<TargetFrameworks>net461;net5.0-windows7.0;net6.0-windows7.0;net6.0-windows8.0</TargetFrameworks>
 		<UseWpf>true</UseWpf>
+		<LangVersion>12</LangVersion>
 		<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
 		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
 		<AssemblyTitle>Mr. Advice MVVM</AssemblyTitle>
