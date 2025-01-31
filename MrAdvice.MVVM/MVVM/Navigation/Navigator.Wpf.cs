@@ -206,7 +206,7 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
                 return;
             // then check for data context
             if (contentControl.DataContext is null || contentControl.DataContext.GetType() != viewModelType)
-                contentControl.DataContext = CreateInstance(viewModelType, InstanceType.ViewModel);
+                contentControl.DataContext = CreateInstance(viewModelType, InstanceKind.ViewModel);
         }
     }
 }

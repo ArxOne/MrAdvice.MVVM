@@ -58,7 +58,7 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
         {
             var viewModel = await CreateViewModel(viewModelType, viewModelInitializer);
             var viewType = GetViewType(viewModelType);
-            var view = (FrameworkElement)CreateInstance(viewType, InstanceType.View);
+            var view = (FrameworkElement)CreateInstance(viewType, InstanceKind.View);
             view.DataContext = viewModel;
             if (_views.Count == 0)
                 return ShowMain(view, viewModel);
@@ -67,7 +67,7 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
 
         public async Task<object> CreateViewModel(Type viewModelType, Func<object, Task> viewModelInitializer)
         {
-            var viewModel = CreateInstance(viewModelType, InstanceType.ViewModel);
+            var viewModel = CreateInstance(viewModelType, InstanceKind.ViewModel);
             // initializer comes first
             if (viewModelInitializer != null)
                 await viewModelInitializer(viewModel);
@@ -85,7 +85,7 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
         public async Task<FrameworkElement> CreateView(ViewModel viewModel)
         {
             var viewType = GetViewType(viewModel.GetType());
-            var view = (FrameworkElement)CreateInstance(viewType, InstanceType.View);
+            var view = (FrameworkElement)CreateInstance(viewType, InstanceKind.View);
             view.DataContext = viewModel;
             return view;
         }
@@ -94,21 +94,20 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
         /// Creates the instance.
         /// </summary>
         /// <param name="type">The type.</param>
-        /// <param name="instanceType">Type of the instance.</param>
+        /// <param name="instanceKind">Type of the instance.</param>
         /// <returns></returns>
-        private object CreateInstance(Type type, InstanceType instanceType)
+        private object CreateInstance(Type type, InstanceKind instanceKind)
         {
             var onCreatingInstance = CreatingInstance;
             if (onCreatingInstance is not null)
             {
-                var e = new CreatingInstanceEventArgs(instanceType);
+                var e = new CreatingInstanceEventArgs(instanceKind, type);
                 onCreatingInstance.Invoke(this, e);
                 if (e.Instance is not null)
                     return e.Instance;
             }
             var instance = Activator.CreateInstance(type);
-            var onCreatedInstance = CreatedInstance;
-            onCreatedInstance?.Invoke(this, new CreatedInstanceEventArgs(instance, instanceType));
+            CreatedInstance?.Invoke(this, new CreatedInstanceEventArgs(instance, instanceKind));
             return instance;
         }
 

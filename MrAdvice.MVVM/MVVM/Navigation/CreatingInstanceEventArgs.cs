@@ -23,14 +23,18 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
         /// <value>
         /// The type.
         /// </value>
-        public InstanceType Type { get; }
+        public InstanceKind InstanceKind { get; }
+
+        public Type Type { get; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CreatedInstanceEventArgs"/> class.
+        /// Initializes a new instance of the <see cref="CreatedInstanceEventArgs" /> class.
         /// </summary>
+        /// <param name="instanceKind">Kind of the instance.</param>
         /// <param name="type">The type.</param>
-        public CreatingInstanceEventArgs(InstanceType type)
+        public CreatingInstanceEventArgs(InstanceKind instanceKind, Type type)
         {
+            InstanceKind = instanceKind;
             Type = type;
         }
     }

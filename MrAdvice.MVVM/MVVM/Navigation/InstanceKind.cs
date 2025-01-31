@@ -10,7 +10,7 @@ namespace ArxOne.MrAdvice.MVVM.Navigation
     /// <summary>
     /// The type of the created instance
     /// </summary>
-    public enum InstanceType
+    public enum InstanceKind
     {
         /// <summary>
         /// View-model
